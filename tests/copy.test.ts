@@ -7,7 +7,7 @@ import { faqs } from "@/content/en/faqs";
 import { dealers } from "@/content/en/dealers";
 import { downloads } from "@/content/en/downloads";
 import { designOptions } from "@/content/en/design-options";
-import { pages } from "@/content/en/pages";
+import { legalPages, pagesContent } from "@/content/en/pages";
 import { images, videos } from "@/content/media";
 
 /** Brief §16: generic marketing fillers that must not appear anywhere. */
@@ -34,7 +34,7 @@ function strings(value: unknown, out: string[] = []): string[] {
   return out;
 }
 
-const corpus = strings([site, home, projects, testimonials, faqs, dealers, downloads, designOptions, pages]);
+const corpus = strings([site, home, projects, testimonials, faqs, dealers, downloads, designOptions, pagesContent, legalPages]);
 const alts = [...Object.values(images).map((a) => a.alt), ...Object.values(videos).map((v) => v.poster.alt)];
 
 describe("copy rules from the brief", () => {

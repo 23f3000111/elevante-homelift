@@ -1,5 +1,5 @@
 import generated from "./media.generated.json";
-import type { MediaAsset, Provenance, VideoAsset } from "./types";
+import type { MediaAsset, Provenance, SequenceAsset, VideoAsset } from "./types";
 
 /**
  * The media manifest. `media.generated.json` is produced by `npm run media`
@@ -13,6 +13,7 @@ import type { MediaAsset, Provenance, VideoAsset } from "./types";
 
 export type ImageId = keyof typeof generated.images;
 export type VideoId = keyof typeof generated.videos;
+export type SequenceId = keyof typeof generated.sequences;
 
 interface Meta {
   alt: string;
@@ -181,8 +182,30 @@ export const videos = Object.fromEntries(
   }),
 ) as Record<VideoId, VideoAsset>;
 
+/** Frame sequences share their film's id, description and provenance. */
+export const sequences = Object.fromEntries(
+  (Object.keys(generated.sequences) as SequenceId[]).map((id) => {
+    const g = generated.sequences[id];
+    const m = videoMeta[id as VideoId];
+    const seq: SequenceAsset = {
+      id,
+      frames: g.frames,
+      pad: g.pad,
+      ext: g.ext,
+      desktop: g.desktop,
+      mobile: g.mobile,
+      poster: buildImage(`${id}-frame0`, g.poster, { alt: m.alt, provenance: m.provenance }),
+      alt: m.alt,
+      provenance: m.provenance,
+      note: m.note,
+    };
+    return [id, seq];
+  }),
+) as Record<SequenceId, SequenceAsset>;
+
 export const image = (id: ImageId): MediaAsset => images[id];
 export const video = (id: VideoId): VideoAsset => videos[id];
+export const sequence = (id: SequenceId): SequenceAsset => sequences[id];
 
 /** Sources deliberately left out of the build, with the reason. */
 export const excluded: Record<string, string> = generated.excluded;

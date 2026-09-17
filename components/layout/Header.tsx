@@ -38,7 +38,12 @@ export function Header({ nav, dealerCta, regionNote }: HeaderProps) {
         scrolled ? "shadow-[0_1px_0_0_var(--color-stone)]" : "shadow-[0_1px_0_0_transparent]",
       )}
     >
-      <div className="container-content flex h-18 items-center justify-between gap-6 lg:h-20">
+      <div
+        className={cn(
+          "container-content flex items-center justify-between gap-6 transition-[height] duration-500 ease-[var(--ease-out-quart)]",
+          scrolled ? "h-16" : "h-18 lg:h-20",
+        )}
+      >
         <Link href="/" className="-ml-1 flex min-h-12 items-center px-1" aria-label="Elevante Homelift, home">
           <Wordmark compact />
         </Link>

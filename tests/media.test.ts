@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync } from "node:fs";
 import path from "node:path";
-import { excluded, images, videos } from "@/content/media";
+import { excluded, images, sequences, videos } from "@/content/media";
 
 const PUBLIC = path.resolve(__dirname, "..", "public");
 const PROVENANCE = ["product", "ai", "stock", "placeholder"];
@@ -25,6 +25,21 @@ describe("media manifest", () => {
       expect(v.poster.width).toBeGreaterThan(0);
       expect(v.poster.alt.trim().length).toBeGreaterThan(10);
       expect(PROVENANCE).toContain(v.provenance);
+    }
+  });
+
+  it("has every frame of every sequence at both sizes, plus a poster", () => {
+    for (const seq of Object.values(sequences)) {
+      expect(seq.frames, `${seq.id} frames`).toBeGreaterThan(24);
+      for (const variant of [seq.desktop, seq.mobile]) {
+        expect(variant.width).toBeGreaterThan(0);
+        for (let i = 0; i < seq.frames; i++) {
+          const file = path.join(PUBLIC, variant.dir, `${String(i).padStart(seq.pad, "0")}.${seq.ext}`);
+          expect(existsSync(file), file).toBe(true);
+        }
+      }
+      expect(seq.poster.width).toBe(seq.desktop.width);
+      expect(seq.alt.trim().length).toBeGreaterThan(10);
     }
   });
 

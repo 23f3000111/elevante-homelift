@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T08:05:49.219Z",
+  "generatedAt": "2026-09-17T08:51:26.703Z",
   "images": {
     "stair-gold-hall": {
       "src": "/media/img/stair-gold-hall.webp",
@@ -111,21 +111,21 @@
     },
     "material-metal": {
       "src": "/media/img/material-metal.webp",
-      "width": 240,
-      "height": 320,
-      "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBQCdASoUABsAPu1irE4ppaSiKA1RMB2JQBWGZDA1aZdw9cGTa/Jpocrn1kCJEcoAAOJ78HZC9YvWH6NqvyYAHAp7Dw2IRMfsPvMwNZ87CmzMAZWilOld0Cqm0GtJ5aAybK6UQ8EULUIUB/JwLvTKSEDFAAAA"
+      "width": 300,
+      "height": 600,
+      "blurDataURL": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAABwBgCdASoUACgAPu1ysFOppqQipWgBMB2JQBfJATrdzCzzjP94r0VggfOEcthOqq2lwxUTb2JDsJ/kjJoA/k1UWRM6jqYZb+R/7qQE6sJSFBjohHnH89vvKfRK1pVFJPvZ7Tu5Pr780L4Y8VPVZOfI9u0hRzLBJq8kS+I4RGWG1cNa3E1wBOkLCGde/o+7bRiHM8yC1+WsLWQVBG9kLKDD3rhLRBp4gxioXPkQLTg1KN/bOXij610yCFwY5bgAAAA="
     },
     "material-oak": {
       "src": "/media/img/material-oak.webp",
-      "width": 280,
-      "height": 220,
-      "blurDataURL": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABwAwCdASoUABAAPu1iqU2ppaOiMAgBMB2JZQCw7A6LYRRC+oAA/LKD06t0VpFlfzKunK92HejI7rVoUzre2RRRTFsY/u2ZK/DWz140/a0pVQ8XdgNOL2bkmHuB28+RQaY7E62f7CUzWt7MMi/vXsjMX3Izl19q2JeSx1xfPHoND7k1n8uPrdHAAAA="
+      "width": 400,
+      "height": 320,
+      "blurDataURL": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAADwAwCdASoUABAAPu1iqU2ppaOiMAgBMB2JZQCo9BtXLk1Aa2M7hmoQAPziXI5Fjb8S8BMMNXt3t+ZK22ANmiJjXla1UO7DtD1+JQsE9hbNaom5HngjUvqAJoV1rUm/5/BdXPje8A/HRQFgDf8sZ+Sa92D0+i36IUO4XwrQLt/nIAoKBN5jgAAA"
     },
     "material-stone": {
       "src": "/media/img/material-stone.webp",
-      "width": 300,
-      "height": 340,
-      "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAABQBACdASoUABcAPu1srlEppaQiqAqpMB2JZwDKABI/8bZ7xDTnMLj6NJAAAPYH5JCEoPDrylACR1xLqBsrx5YuDGUDk2AA"
+      "width": 330,
+      "height": 620,
+      "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwBQCdASoUACYAPu1kqk4ppaQiKrgN+TAdiWUAw3AiPz5Wx+HIvXXUr3JpV/9sL6TuAAD7j1HpCRGeSRY3q/uHTfW8PfOssMITaYPFv6KgCHBUKjL1bBnd+qzdk8CipaDpNR3mxHQq7dbMgcBwAA=="
     }
   },
   "videos": {
@@ -157,6 +157,71 @@
         "width": 1180,
         "height": 664,
         "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JQBOmUABJnFxWYP2ZmQAA/uhfvFODh8pkJCTRS33xYHkW4sjZPhcDi4Wp0Wz6DLeLx7esflp0EizmLpaeC1kn+JhU2EAA"
+      }
+    }
+  },
+  "sequences": {
+    "video-cabin-moving": {
+      "pad": 3,
+      "ext": "webp",
+      "desktop": {
+        "dir": "/media/seq/video-cabin-moving/d",
+        "width": 1180,
+        "height": 664
+      },
+      "frames": 72,
+      "mobile": {
+        "dir": "/media/seq/video-cabin-moving/m",
+        "width": 640,
+        "height": 360
+      },
+      "poster": {
+        "src": "/media/img/video-cabin-moving-frame0.webp",
+        "width": 1180,
+        "height": 664,
+        "blurDataURL": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAABwBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JYgCdMoR8edEA4dVG1TtNP9Z4QAD+eOLx9u7/2a0lpPEyEyApT+JiuNXWVO6PyMRQxzj1q8qsJ9RiptYXD5uJTHMCcB94bPGsFe1vvwH+kbUCAZ7wYywUKM/zv7cJhtVj8/b/izrDhZTJoDgQAA=="
+      }
+    },
+    "video-home-integration": {
+      "pad": 3,
+      "ext": "webp",
+      "desktop": {
+        "dir": "/media/seq/video-home-integration/d",
+        "width": 1180,
+        "height": 664
+      },
+      "frames": 72,
+      "mobile": {
+        "dir": "/media/seq/video-home-integration/m",
+        "width": 640,
+        "height": 360
+      },
+      "poster": {
+        "src": "/media/img/video-home-integration-frame0.webp",
+        "width": 1180,
+        "height": 664,
+        "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAACwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQCdABWjEgn2HvPxgAD+ABHxMtI4v8Dn0GSWbERaaneh7eB2SPGosmuPm5vqLqm1mmm/u60I0xAyVInjz5C8wO0R3WQlXPs+aFh/sd270LH8vvHsov6YwXkdgkoLgAA="
+      }
+    },
+    "video-design-cabin": {
+      "pad": 3,
+      "ext": "webp",
+      "desktop": {
+        "dir": "/media/seq/video-design-cabin/d",
+        "width": 1180,
+        "height": 664
+      },
+      "frames": 72,
+      "mobile": {
+        "dir": "/media/seq/video-design-cabin/m",
+        "width": 640,
+        "height": 360
+      },
+      "poster": {
+        "src": "/media/img/video-design-cabin-frame0.webp",
+        "width": 1180,
+        "height": 664,
+        "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JQBOgA/Kfr1nW+Rp3YiPAAP7W+OX9gM/ZZXPwM/t7+hyGseMtSCmk3Mmv0g8F+SxllG1a243hZTt8zlNbmfPLNWBqf5Ga7IAAAA=="
       }
     }
   },

@@ -4,6 +4,12 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "./gsap";
 
+declare global {
+  interface Window {
+    __lenis?: Lenis;
+  }
+}
+
 /**
  * Smooth scrolling for visitors who allow motion. Lenis drives the scroll
  * position; GSAP's ticker drives Lenis; ScrollTrigger listens to Lenis.
@@ -18,6 +24,7 @@ export function LenisProvider() {
       wheelMultiplier: 1,
       anchors: { offset: -88 },
     });
+    window.__lenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
@@ -29,6 +36,7 @@ export function LenisProvider() {
     return () => {
       gsap.ticker.remove(tick);
       lenis.destroy();
+      delete window.__lenis;
     };
   }, []);
 

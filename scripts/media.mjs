@@ -18,6 +18,14 @@ const IMG_SRC = path.join(ROOT, "UI images");
 const VID_SRC = path.join(ROOT, "UI video");
 const IMG_OUT = path.join(ROOT, "public", "media", "img");
 const VID_OUT = path.join(ROOT, "public", "media", "video");
+const SEQ_OUT = path.join(ROOT, "public", "media", "seq");
+
+/** Scroll-driven frame sequences: 9 fps over the 8 s clips gives 72 frames. */
+const SEQ_FPS = 9;
+const SEQ_VARIANTS = {
+  d: { scale: null, quality: 62 }, // desktop: the cropped 1180x664 frame
+  m: { scale: "640:-2", quality: 60 }, // phones: 640 wide
+};
 const MANIFEST = path.join(ROOT, "content", "media.generated.json");
 
 /** id -> { file, crop? } ; crop is in source pixels. */
@@ -52,7 +60,7 @@ const IMAGES = {
   "loft-wide": { file: "staircase architecture residential interior wide angle.jpg" },
   "material-metal": {
     file: "luxury home elevator interior design.jpg",
-    crop: { left: 40, top: 220, width: 240, height: 320 },
+    crop: { left: 30, top: 150, width: 300, height: 600 },
   },
 };
 
@@ -73,8 +81,8 @@ const VIDEO_CROP = "1180:664"; // centred; removes the generator mark at bottom-
 
 /** Crops taken from video posters after they exist. */
 const DERIVED = {
-  "material-oak": { poster: "video-home-integration", crop: { left: 130, top: 300, width: 280, height: 220 } },
-  "material-stone": { poster: "video-design-cabin", crop: { left: 860, top: 40, width: 300, height: 340 } },
+  "material-oak": { poster: "video-home-integration", crop: { left: 40, top: 250, width: 400, height: 320 } },
+  "material-stone": { poster: "video-design-cabin", crop: { left: 850, top: 20, width: 330, height: 620 } },
 };
 
 const kb = (p) => Math.round(statSync(p).size / 1024);
@@ -117,12 +125,32 @@ async function writeVideo(id, prefix) {
   return { mp4: `/media/video/${id}.mp4`, webm: `/media/video/${id}.webm`, poster, posterPng: png };
 }
 
+async function writeSequence(id, prefix) {
+  const input = findVideo(prefix);
+  const out = { pad: 3, ext: "webp" };
+  for (const [variant, spec] of Object.entries(SEQ_VARIANTS)) {
+    const dir = path.join(SEQ_OUT, id, variant);
+    mkdirSync(dir, { recursive: true });
+    const vf = [`crop=${VIDEO_CROP}`, `fps=${SEQ_FPS}`, spec.scale ? `scale=${spec.scale}` : null].filter(Boolean).join(",");
+    ffmpeg(["-y", "-i", input, "-vf", vf, "-c:v", "libwebp", "-q:v", String(spec.quality), "-compression_level", "4", "-start_number", "0", "-f", "image2", path.join(dir, "%03d.webp")]);
+    const files = readdirSync(dir).filter((f) => f.endsWith(".webp")).sort();
+    const meta = await sharp(path.join(dir, files[0])).metadata();
+    const bytes = files.reduce((a, f) => a + statSync(path.join(dir, f)).size, 0);
+    out[variant === "d" ? "desktop" : "mobile"] = { dir: `/media/seq/${id}/${variant}`, width: meta.width, height: meta.height };
+    out.frames = files.length;
+    console.log(`seq  ${id.padEnd(28)} ${variant} ${files.length} frames ${meta.width}x${meta.height} ${Math.round(bytes / 1024)} KB`);
+  }
+  // The poster is frame 0 at desktop size, so the canvas takes over without a jump.
+  out.poster = await writeImage(`${id}-frame0`, path.join(SEQ_OUT, id, "d", "000.webp"));
+  return out;
+}
+
 async function main() {
-  for (const dir of [IMG_OUT, VID_OUT]) {
+  for (const dir of [IMG_OUT, VID_OUT, SEQ_OUT]) {
     rmSync(dir, { recursive: true, force: true });
     mkdirSync(dir, { recursive: true });
   }
-  const manifest = { generatedAt: new Date().toISOString(), images: {}, videos: {}, excluded: EXCLUDED };
+  const manifest = { generatedAt: new Date().toISOString(), images: {}, videos: {}, sequences: {}, excluded: EXCLUDED };
 
   for (const [id, spec] of Object.entries(IMAGES)) {
     const input = path.join(IMG_SRC, spec.file);
@@ -136,6 +164,10 @@ async function main() {
     const v = await writeVideo(id, prefix);
     posters[id] = v.posterPng;
     manifest.videos[id] = { mp4: v.mp4, webm: v.webm, poster: v.poster };
+  }
+
+  for (const [id, prefix] of Object.entries(VIDEOS)) {
+    manifest.sequences[id] = await writeSequence(id, prefix);
   }
 
   for (const [id, spec] of Object.entries(DERIVED)) {

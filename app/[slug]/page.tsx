@@ -2,17 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageIntro } from "@/components/layout/PageIntro";
 import { getPageIntro, getSite } from "@/lib/content";
-import { SECONDARY_SLUGS } from "@/lib/routes";
+import { LEGAL_SLUGS } from "@/lib/routes";
 import { pageMetadata } from "@/lib/seo/metadata";
 
-/**
- * Every route the navigation and footer point to. Each renders an intro
- * from content so no link is dead while the full pages are built.
- */
+/** Privacy, cookies and terms: one intro template until the legal text arrives. */
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return SECONDARY_SLUGS.map((slug) => ({ slug }));
+  return LEGAL_SLUGS.map((slug) => ({ slug }));
 }
 
 type Params = { params: Promise<{ slug: string }> };
@@ -24,7 +21,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return pageMetadata(intro, `/${slug}`);
 }
 
-export default async function SecondaryPage({ params }: Params) {
+export default async function LegalPage({ params }: Params) {
   const { slug } = await params;
   const [intro, site] = await Promise.all([getPageIntro(slug), getSite()]);
   if (!intro) notFound();

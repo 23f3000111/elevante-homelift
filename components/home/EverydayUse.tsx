@@ -1,10 +1,16 @@
+"use client";
+
+import { useRef, useState } from "react";
 import { CabinPlan } from "@/components/diagram/CabinPlan";
 import { StairSection } from "@/components/diagram/StairSection";
 import { Caption } from "@/components/ui/Caption";
 import { Picture } from "@/components/ui/Picture";
-import { Reveal } from "@/components/ui/Reveal";
-import { Section } from "@/components/ui/Section";
-import type { Figure, HomeContent } from "@/content/types";
+import { Container } from "@/components/ui/Section";
+import { SectionIndex } from "@/components/ui/SectionIndex";
+import type { Figure, HomeContent, Situation } from "@/content/types";
+import { cn } from "@/lib/cn";
+import { scrollToElement } from "@/lib/motion/scroll";
+import { revealWithin, useMotion } from "@/lib/motion/useMotion";
 
 /** Every situation the brief lists gets a photograph where one exists and a drawing where none does. */
 function SituationFigure({ figure }: { figure: Figure }) {
@@ -26,47 +32,112 @@ function SituationFigure({ figure }: { figure: Figure }) {
   }
 }
 
+function Visual({ s }: { s: Situation }) {
+  if (s.media) {
+    return <Picture asset={s.media} fill sizes="(min-width: 1024px) 50vw, 100vw" className="h-full w-full" />;
+  }
+  if (s.figure) {
+    return (
+      <div className="flex h-full w-full items-center justify-center p-8 lg:p-12">
+        <SituationFigure figure={s.figure} />
+      </div>
+    );
+  }
+  return null;
+}
+
+/**
+ * An editorial sequence rather than a grid: the situations run down the
+ * left as large type, and the picture on the right changes with them,
+ * whether you scroll past them or choose one. Every situation's text is
+ * always on the page.
+ */
 export function EverydayUse({ content }: { content: HomeContent["everydayUse"] }) {
+  const ref = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+  const items = useRef<Array<HTMLLIElement | null>>([]);
+
+  useMotion(ref, ({ ScrollTrigger, scope }) => {
+    revealWithin(scope);
+    const lis = Array.from(scope.querySelectorAll<HTMLElement>("[data-situation]"));
+    lis.forEach((li, i) => {
+      ScrollTrigger.create({
+        trigger: li,
+        start: "top 55%",
+        end: "bottom 55%",
+        onToggle: (self) => {
+          if (self.isActive) setActive(i);
+        },
+      });
+    });
+  });
+
+  const current = content.situations[active];
+
   return (
-    <Section id="everyday-use" tone="white" labelledBy="eu-title">
-      <Reveal className="container-content">
-        <div className="lg:grid lg:grid-cols-12">
+    <section ref={ref} id="everyday-use" aria-labelledby="eu-title" className="bg-white py-section">
+      <Container>
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-6">
-            <h2 id="eu-title" data-reveal className="text-display-2">
+            <SectionIndex index={content.index} label={content.indexLabel} />
+            <h2 id="eu-title" data-reveal className="mt-8 text-display-2">
               {content.title}
             </h2>
-            <p data-reveal className="mt-6 max-w-[40ch] text-body-l text-charcoal-soft">
-              {content.intro}
-            </p>
           </div>
+          <p data-reveal className="max-w-[40ch] text-body-l text-charcoal-soft lg:col-span-4 lg:col-start-9">
+            {content.intro}
+          </p>
         </div>
 
-        <ul className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-4">
-          {content.situations.map((s) => (
-            <li key={s.id} data-reveal className="border-t border-stone pt-5">
-              <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-warm-white p-5">
-                {s.media ? (
-                  <Picture
-                    asset={s.media}
-                    fill
-                    sizes="(min-width: 1280px) 22vw, (min-width: 640px) 46vw, 100vw"
-                    className="-m-5 h-[calc(100%+2.5rem)] w-[calc(100%+2.5rem)]"
-                  />
-                ) : s.figure ? (
-                  <SituationFigure figure={s.figure} />
-                ) : null}
-              </div>
-              {s.media ? <Caption className="mt-2">{content.visualisationLabel}</Caption> : <Caption className="mt-2">&nbsp;</Caption>}
-              <h3 className="mt-3 text-h3">{s.title}</h3>
-              <p className="mt-2 text-body text-charcoal-soft">{s.body}</p>
-            </li>
-          ))}
-          <li data-reveal className="flex flex-col justify-end bg-charcoal p-6 text-warm-white sm:col-span-2 xl:col-span-1">
-            <h3 className="text-h3 text-warm-white">{content.safetyTitle}</h3>
-            <p className="mt-3 text-body text-stone">{content.safety}</p>
-          </li>
-        </ul>
-      </Reveal>
-    </Section>
+        <div className="mt-12 grid lg:grid-cols-12 lg:gap-10">
+          <div className="sticky top-[4.5rem] z-10 bg-white py-3 lg:col-span-6 lg:col-start-7 lg:row-start-1 lg:top-28 lg:self-start lg:py-0">
+            <div className="relative aspect-[4/3] overflow-hidden bg-warm-white">
+              {content.situations.map((s, i) => (
+                <div key={s.id} data-visual-item data-active={i === active ? "true" : "false"} className="absolute inset-0" aria-hidden={i !== active}>
+                  <Visual s={s} />
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 flex items-baseline justify-between">
+              <span className="text-body font-medium text-charcoal">{current.title}</span>
+              <Caption>{current.media ? content.visualisationLabel : content.schematicLabel}</Caption>
+            </div>
+          </div>
+
+          <ol className="mt-8 lg:col-span-5 lg:row-start-1 lg:mt-0">
+            {content.situations.map((s, i) => (
+              <li
+                key={s.id}
+                data-situation
+                ref={(el) => {
+                  items.current[i] = el;
+                }}
+                className={cn("border-t border-stone", i === active ? "text-charcoal" : "text-charcoal-soft")}
+              >
+                <button
+                  type="button"
+                  aria-pressed={i === active}
+                  onClick={() => {
+                    setActive(i);
+                    const el = items.current[i];
+                    if (el) scrollToElement(el, -120);
+                  }}
+                  className="flex min-h-14 w-full items-baseline gap-5 py-5 text-left lg:py-6"
+                >
+                  <span className={cn("font-mono text-small", i === active ? "text-oxide" : "text-caption")}>{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-[clamp(1.75rem,3vw,2.75rem)] leading-none font-medium tracking-[-0.02em]">{s.title}</span>
+                </button>
+                <p className="max-w-[40ch] pb-6 pl-[3.25rem] text-body text-charcoal-soft">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="mt-16 grid gap-6 border-t-2 border-oxide pt-8 lg:mt-24 lg:grid-cols-12">
+          <h3 className="text-h3 lg:col-span-4">{content.safetyTitle}</h3>
+          <p className="max-w-[56ch] text-body-l text-charcoal-soft lg:col-span-7 lg:col-start-6">{content.safety}</p>
+        </div>
+      </Container>
+    </section>
   );
 }

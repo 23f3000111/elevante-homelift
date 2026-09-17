@@ -1,4 +1,4 @@
-import { image, video } from "../media";
+import { image, sequence, video } from "../media";
 import type { HomeContent } from "../types";
 
 /**
@@ -13,26 +13,35 @@ export const home: HomeContent = {
     primary: { label: "See how it works", href: "#product" },
     secondary: { label: "View examples", href: "#in-your-home" },
     media: image("stair-gold-hall"),
+    scrollCue: "Scroll",
   },
 
   productReveal: {
+    index: "01",
+    indexLabel: "The product",
     title: "A lift inside the staircase.",
     lines: [
       "The Elevante Homelift is an integrated system in which the staircase and lift come together.",
       "The cabin travels in the space underneath the staircase. The staircase itself stays in place, and in use.",
     ],
-    video: video("video-cabin-moving"),
+    sequence: sequence("video-cabin-moving"),
     caption: "Visualisation. Product film to follow.",
-    diagramNote: "Schematic section. Not to scale.",
+    diagramNote: "Schematic. Not to scale.",
+    states: ["Cabin at the lower level", "Cabin travelling", "Cabin at the upper floor"],
+    frameLabel: "Frame",
   },
 
   idea: {
+    index: "02",
+    indexLabel: "The idea",
     title: "The staircase stays. The way you move through it changes.",
     body: "A stairlift adds a visible aid to the staircase. A conventional homelift needs its own position in the house. Elevante uses the space the staircase already occupies, so the house keeps its plan and the staircase keeps its purpose.",
     media: image("stair-spiral-above"),
   },
 
   howItWorks: {
+    index: "03",
+    indexLabel: "How it works",
     title: "How it works",
     intro: "Three stages, each of them visible in the house.",
     diagramNote: "Schematic section. Not to scale.",
@@ -56,91 +65,104 @@ export const home: HomeContent = {
   },
 
   underTheStaircase: {
+    index: "04",
+    indexLabel: "The space",
     title: "Designed around the space you already have.",
     body: [
-      "In many existing homes there is no spare position for a conventional homelift. Elevante does not need one: the cabin travels within the space underneath the staircase.",
+      "In many existing homes there is no spare position for a conventional homelift. Elevante does not need one: the cabin uses the space underneath the staircase.",
       "That is what makes a homelift possible in houses where the available space would otherwise rule one out.",
     ],
-    video: video("video-home-integration"),
+    sequence: sequence("video-home-integration"),
     caption: "Visualisation. Product film to follow.",
+    overlay: { staircase: "Staircase", cabin: "Cabin", space: "Space beneath the staircase" },
     comparison: {
       title: "The same house, in plan",
       conventional: {
         title: "Conventional homelift",
-        body: "Needs a separate position in the house, and the floor area that goes with it.",
+        body: "Needs a separate position in the house.",
       },
       elevante: {
         title: "Elevante Homelift",
-        body: "Uses the space beneath the staircase. No separate lift position.",
+        body: "The cabin uses the space underneath the staircase.",
       },
     },
   },
 
   inYourHome: {
+    index: "05",
+    indexLabel: "In your home",
     title: "A lift that belongs in your home.",
     body: "Elevante is designed as part of the interior, in the way a staircase already is. Cabin, materials and finishes are chosen to suit the house.",
     cta: { label: "See how it fits", href: "/in-your-home" },
     gallery: [
       { media: image("stair-gold-hall"), label: "Entrance hall, stone and brass" },
       { media: image("stair-oak-screen"), label: "Curved stair behind an oak screen" },
+      { media: video("video-home-integration").poster, label: "Cabin beside floating oak stairs", caption: "Visualisation" },
       { media: image("stair-dark-wood"), label: "Curved stair, dark timber" },
+      { media: video("video-design-cabin").poster, label: "Steel-framed doors in a stone wall", caption: "Visualisation" },
+      { media: image("stair-spiral-above"), label: "Spiral, seen from above" },
     ],
   },
 
   everydayUse: {
+    index: "06",
+    indexLabel: "Everyday use",
     title: "Everyday use",
-    intro: "What happens, day to day.",
+    intro: "What happens, day to day. Choose a situation, or scroll.",
+    visualisationLabel: "Visualisation",
+    schematicLabel: "Schematic",
     situations: [
       {
         id: "enter",
-        title: "Entering and leaving",
+        title: "Enter",
         body: "The cabin door opens automatically. You walk in, or wheel in, from the hall.",
         media: image("lift-couple"),
       },
       {
         id: "move",
-        title: "Moving between floors",
+        title: "Move",
         body: "The cabin travels beneath the staircase from one floor to the next.",
         figure: "move",
       },
       {
         id: "doors",
-        title: "Automatic doors",
+        title: "Doors",
         body: "Doors open when the cabin arrives and close when it leaves.",
         figure: "doors",
       },
       {
         id: "opening",
-        title: "The stair opening",
+        title: "Stair opening",
         body: "At the upper floor, an automatic door closes the stair opening whenever the cabin is elsewhere.",
         figure: "stair-opening",
       },
       {
         id: "rollator",
-        title: "With a rollator",
+        title: "Rollator",
         body: "The cabin is designed to take a rollator, with the person using it.",
         figure: "rollator",
       },
       {
         id: "wheelchair",
-        title: "With a wheelchair",
+        title: "Wheelchair",
         body: "The cabin is designed to take a wheelchair.",
         media: image("lift-wheelchair"),
       },
       {
         id: "assist",
-        title: "With another person",
+        title: "Assistance",
         body: "There is room for a second person when assistance is needed.",
         figure: "two-people",
       },
     ],
-    visualisationLabel: "Visualisation",
     safetyTitle: "Movement detection",
     safety:
       "The system detects movement on or around the staircase. The lift will not start when movement is detected, and stops immediately if movement is detected during travel.",
   },
 
   design: {
+    index: "07",
+    indexLabel: "Design",
     title: "Designed to belong.",
     body: "Cabin, walls, floor and controls are available in a choice of materials and finishes, so the lift reads as part of the interior rather than an addition to it.",
     video: video("video-design-cabin"),
@@ -149,20 +171,25 @@ export const home: HomeContent = {
     materials: [
       { name: "Oak", media: image("material-oak") },
       { name: "Stone", media: image("material-stone") },
-      { name: "Brushed metal", media: image("material-metal") },
+      { name: "Metal", media: image("material-metal") },
     ],
     cta: { label: "See design options", href: "/design" },
   },
 
   projects: {
+    index: "08",
+    indexLabel: "Projects",
     title: "Made for real homes.",
     body: "Installations will appear here as the first homes are completed. Until then, these interiors show the kind of houses Elevante is designed for.",
-    visualisationLabel: "Visualisation",
     cta: { label: "More inspiration", href: "/inspiration" },
     placeholderLabel: "Reference interior, not an Elevante installation",
+    locationPlaceholder: "Location to follow",
+    visualisationLabel: "Visualisation",
   },
 
   installation: {
+    index: "09",
+    indexLabel: "Installation",
     title: "From first conversation to handover.",
     body: "Elevante is installed in existing homes by authorised dealers. The process is planned around your house.",
     steps: [
@@ -179,12 +206,15 @@ export const home: HomeContent = {
   },
 
   trust: {
+    index: "10",
+    indexLabel: "Facts",
     title: "Facts you can check.",
     body: "Elevante Homelift is a new product. Confidence should come from what can be shown, so this section grows as installations, certification and customer experiences become available.",
     items: [
       {
         title: "Movement detection",
         body: "The lift will not start when movement is detected on or around the staircase, and stops immediately if movement is detected during travel.",
+        highlight: true,
       },
       {
         title: "The staircase remains in use",
@@ -204,8 +234,8 @@ export const home: HomeContent = {
         placeholder: true,
       },
       {
-        title: "Customer experiences",
-        body: "Experiences from the first installations will be added as they are completed.",
+        title: "See it in a showroom",
+        body: "Authorised dealers will offer demonstrations. Locations will be listed as dealers are appointed.",
         placeholder: true,
       },
     ],
@@ -216,5 +246,6 @@ export const home: HomeContent = {
     body: "Authorised dealers handle the assessment, quotation, installation and service. The best way to judge Elevante is to see it and try it.",
     primary: { label: "Find a dealer", href: "/find-a-dealer" },
     secondary: { label: "Request information", href: "/find-a-dealer#request" },
+    media: image("stair-gold-hall"),
   },
 };

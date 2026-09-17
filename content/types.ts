@@ -34,6 +34,31 @@ export interface VideoAsset {
   note?: string;
 }
 
+export interface SequenceVariant {
+  /** Public directory holding the frames, e.g. `/media/seq/video-cabin-moving/d`. */
+  dir: string;
+  width: number;
+  height: number;
+}
+
+/**
+ * A film cut into frames so the scroll position can drive it. Two sizes:
+ * the full crop for desktops and a lighter set for phones.
+ */
+export interface SequenceAsset {
+  id: string;
+  frames: number;
+  pad: number;
+  ext: string;
+  desktop: SequenceVariant;
+  mobile: SequenceVariant;
+  /** Frame 0 at desktop size, with a blur placeholder. */
+  poster: MediaAsset;
+  alt: string;
+  provenance: Provenance;
+  note?: string;
+}
+
 export interface Cta {
   label: string;
   href: string;
@@ -63,6 +88,12 @@ export interface SiteContent {
   };
 }
 
+/** The running number every story section carries, e.g. "03" and "How it works". */
+export interface SectionIndexContent {
+  index: string;
+  indexLabel: string;
+}
+
 export interface Step {
   number: string;
   title: string;
@@ -84,11 +115,15 @@ export interface TrustItem {
   title: string;
   body: string;
   placeholder?: boolean;
+  /** The single fact to set in the accent colour. */
+  highlight?: boolean;
 }
 
 export interface GalleryItem {
   media: MediaAsset;
   label: string;
+  /** Shown under the image when the asset is not a photograph of the product. */
+  caption?: string;
 }
 
 export interface Material {
@@ -103,51 +138,57 @@ export interface HomeContent {
     primary: Cta;
     secondary: Cta;
     media: MediaAsset;
+    scrollCue: string;
   };
-  productReveal: {
+  productReveal: SectionIndexContent & {
     title: string;
     lines: string[];
-    video: VideoAsset;
+    sequence: SequenceAsset;
     caption: string;
     diagramNote: string;
+    /** Labels for the three phases of the film, by scroll progress. */
+    states: [string, string, string];
+    frameLabel: string;
   };
-  idea: {
+  idea: SectionIndexContent & {
     title: string;
     body: string;
     media: MediaAsset;
   };
-  howItWorks: {
+  howItWorks: SectionIndexContent & {
     title: string;
     intro: string;
     steps: Step[];
     diagramNote: string;
   };
-  underTheStaircase: {
+  underTheStaircase: SectionIndexContent & {
     title: string;
     body: string[];
-    video: VideoAsset;
+    sequence: SequenceAsset;
     caption: string;
+    overlay: { staircase: string; cabin: string; space: string };
     comparison: {
       title: string;
       conventional: { title: string; body: string };
       elevante: { title: string; body: string };
     };
   };
-  inYourHome: {
+  inYourHome: SectionIndexContent & {
     title: string;
     body: string;
     cta: Cta;
     gallery: GalleryItem[];
   };
-  everydayUse: {
+  everydayUse: SectionIndexContent & {
     title: string;
     intro: string;
     situations: Situation[];
     visualisationLabel: string;
+    schematicLabel: string;
     safetyTitle: string;
     safety: string;
   };
-  design: {
+  design: SectionIndexContent & {
     title: string;
     body: string;
     video: VideoAsset;
@@ -156,21 +197,22 @@ export interface HomeContent {
     materials: Material[];
     cta: Cta;
   };
-  projects: {
+  projects: SectionIndexContent & {
     title: string;
     body: string;
     cta: Cta;
     placeholderLabel: string;
+    locationPlaceholder: string;
     visualisationLabel: string;
   };
-  installation: {
+  installation: SectionIndexContent & {
     title: string;
     body: string;
     steps: Step[];
     media: MediaAsset[];
     cta: Cta;
   };
-  trust: {
+  trust: SectionIndexContent & {
     title: string;
     body: string;
     items: TrustItem[];
@@ -180,6 +222,7 @@ export interface HomeContent {
     body: string;
     primary: Cta;
     secondary: Cta;
+    media: MediaAsset;
   };
 }
 
@@ -223,6 +266,11 @@ export interface Dealer {
   placeholder: boolean;
 }
 
+export interface Market {
+  code: string;
+  name: string;
+}
+
 export interface Article {
   id: string;
   slug: string;
@@ -253,4 +301,90 @@ export interface PageIntroContent {
   title: string;
   body: string;
   note: string;
+}
+
+/** A page opening: a statement, a lead, and optionally a large image. */
+export interface PageHeroContent {
+  index?: string;
+  eyebrow?: string;
+  title: string;
+  lead: string;
+  media?: MediaAsset;
+  caption?: string;
+}
+
+/** A titled block of short paragraphs used on secondary pages. */
+export interface TextBlock {
+  title: string;
+  paragraphs: string[];
+}
+
+/** A ledger row on the Information page: a topic and its current status. */
+export interface SpecRow {
+  topic: string;
+  status: string;
+  placeholder: boolean;
+}
+
+export interface PagesContent {
+  theHomelift: {
+    hero: PageHeroContent;
+    sequenceTitle: string;
+    sequenceLines: string[];
+    blocks: TextBlock[];
+    faqTitle: string;
+  };
+  design: {
+    hero: PageHeroContent;
+    blocks: TextBlock[];
+    optionsTitle: string;
+    optionsNote: string;
+  };
+  inYourHome: {
+    hero: PageHeroContent;
+    blocks: TextBlock[];
+  };
+  installation: {
+    hero: PageHeroContent;
+    blocks: TextBlock[];
+  };
+  inspiration: {
+    hero: PageHeroContent;
+    testimonialsTitle: string;
+    testimonialsNote: string;
+  };
+  information: {
+    hero: PageHeroContent;
+    specsTitle: string;
+    specsNote: string;
+    specs: SpecRow[];
+    downloadsTitle: string;
+    downloadsNote: string;
+    faqTitle: string;
+  };
+  findADealer: {
+    hero: PageHeroContent;
+    locatorTitle: string;
+    locatorBody: string;
+    countryLabel: string;
+    searchLabel: string;
+    searchPlaceholder: string;
+    searchButton: string;
+    noDealers: string;
+    showroomTitle: string;
+    showroomBody: string;
+    requestTitle: string;
+    requestBody: string;
+    form: {
+      name: string;
+      email: string;
+      country: string;
+      postcode: string;
+      message: string;
+      submit: string;
+      success: string;
+      error: string;
+      privacy: string;
+    };
+  };
 }
