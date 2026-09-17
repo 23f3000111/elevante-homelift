@@ -1,0 +1,672 @@
+Website Development Brief
+Elevante Homelift – Consumer Website
+1. Background
+The Elevante Homelift is a new type of homelift developed specifically by Elevante Beheer BV (EB) for existing private homes. The product addresses a simple but increasingly important problem: homeowners want to remain living comfortably and safely in their own home when using the stairs becomes difficult.
+Conventional solutions generally force a compromise. A stairlift leaves the staircase in place but adds a highly visible mobility aid to it. A conventional homelift requires a separate position in the house and therefore takes up additional floor space. In many existing homes, finding such a position is difficult or impossible.
+
+EB approaches the problem differently.
+The Elevante Homelift is an integrated system in which the staircase and lift are designed to work together. The lift cabin travels in the space underneath the staircase. This makes it possible to install a homelift in existing houses where the available space would otherwise make a conventional lift difficult to accommodate.
+
+The product should therefore not be presented simply as another lift. Its significance lies in the combination of comfortable and safe access between floors + integration into the existing home + efficient use of space + architectural/design quality.
+
+EB owns and controls the Elevante Homelift brand and intellectual property. The product is being developed and industrialised with Doppler in Greece. EB is responsible for the consumer brand and B2C marketing. Sales, installation and local customer contact will ultimately take place through selected resellers/dealers.
+
+The website will therefore be the central consumer-facing platform for the Elevante brand.
+
+2. Product
+The Elevante Homelift combines a staircase and lift into one integrated residential system.
+The lift cabin moves vertically through the space underneath the staircase. When the lift is not at a particular level, the openings are protected by automatic doors. At the upper floor, an automatic door closes the stair opening when the cabin is elsewhere. At the lower level, the opening is similarly closed when the cabin moves upwards.
+
+The system is intended to provide comfortable and safe movement between floors while retaining the staircase as a normal part of the house. The cabin is designed to accommodate normal everyday requirements, including use with:
+
+?a rollator;
+?a wheelchair;
+?another person providing assistance.
+
+Safety is an inherent part of the system and should be communicated clearly without turning the website into a medical or technical-safety website. For example, the system detects movement on or around the staircase: the lift will not start when movement is detected and will stop immediately if movement is detected during travel.
+
+The product also offers choices in finishes, materials and cabin design. These design possibilities are important because Elevante is intended to become part of the interior of the home rather than appear as an added mobility device.
+Detailed dimensions, configurations, finishes, technical specifications and certification information will be provided separately and should be incorporated into the appropriate product and technical pages.
+
+3. Product-Market Combination
+The primary product-market combination is: A premium homelift solution for owners of existing multi-storey private homes who want to continue living comfortably and safely in their own home.
+
+The core market is not institutional care, hospitals, nursing homes or public buildings. This is fundamentally a private residential product.
+
+The initial geographical focus is NW-Europe, first the Netherlands, followed by markets including the UK and Germany. The website architecture should therefore be designed from the outset so that additional countries, languages, dealers and regional content can be added without rebuilding the site.
+
+The commercial model is dealer-based. Elevante creates consumer awareness and generates demand. Consumers are then directed to authorised local dealers/installers who handle the commercial process, site assessment, quotation, installation and subsequent service. This distinction should be reflected in the website architecture. The Elevante website must remain the authoritative source for the brand, product, design and consumer proposition, while local dealer information and lead routing support the sales process.
+
+4. Target Audience
+The principal end user is typically an older homeowner, with the main user group expected to be approximately 65 years and older.
+These homeowners may find climbing the stairs increasingly difficult or unsafe but want to remain living in their existing home.
+
+The website should address people who:
+?own a multi-storey home;
+?want to continue using all floors of that home;
+?have sufficient financial means to invest in a premium permanent solution;
+?value their home and its interior;
+?do not want their house to acquire the appearance of a care environment;
+?are considering future accessibility as well as an immediate mobility requirement;
+?may use a rollator or wheelchair, now or in the future;
+?may occasionally require assistance from a partner, family member or caregiver.
+
+The purchasing decision may also involve adult children, partners, architects or advisers. The site must therefore work equally well for someone experiencing the mobility problem personally and for someone researching solutions on their behalf. The customer should be treated as an adult homeowner making an important investment decision, not as an elderly, or a patient.
+
+5. Positioning
+Elevante should occupy a different position from traditional mobility equipment.
+The primary message is:
+Comfortably and safely remain living in your own home.
+The technology is the means by which that promise is delivered. The innovation behind Elevante is the integration of the staircase and lift, but this should not displace the customer benefit as the principal message. The communication hierarchy is therefore:
+1. Benefit
+Continue living comfortably and safely in your own home.
+2. Recognition
+Using the stairs has become difficult or unsafe, while the customer wants to continue using the entire house.
+3. Possibility
+A homelift can provide access to the different floors.
+4. Elevante solution
+The staircase and lift form an integrated system.
+5. Proof
+The cabin uses the space underneath the staircase, retains the staircase, provides appropriate access and safety, and can accommodate a rollator, wheelchair or assistance.
+
+This hierarchy should guide both the website design and the copy.
+
+6. What the Website Must Achieve
+The website has several functions.
+1.First, it must make the product immediately understandable. Elevante is unfamiliar and cannot rely on the visitor already understanding the concept.
+2.Second, it must create confidence in a new product and brand. Consumers considering a homelift are making a substantial and long-term investment in their home.
+3.Third, it must demonstrate that Elevante is a considered residential and design solution, rather than mobility equipment added to the house.
+4.Fourth, it must allow interested visitors to progressively obtain more information without confronting them with all technical details on the homepage.
+5.Finally, it must convert serious interest into contact with an authorised installer/dealer, preferably including the opportunity to see and try an Elevante installation.
+
+The desired customer journey is approximately:
+Recognise my situation ? understand the solution ? see how it fits into a home ? understand everyday use ? see real examples ? understand installation ? establish confidence ? find/contact a dealer ? see and try the product.
+
+7. Overall Website Approach
+The website should be visual first and information-rich at deeper levels.
+The homepage should not attempt to explain everything.
+It should establish the proposition quickly and then allow visitors to choose how deeply they want to investigate the product.
+
+We want a layered structure:
+Homepage ? product/design/application information ? detailed practical/technical information ? dealer/contact.
+The site should feel closer to a premium architectural or interior product website than to a traditional lift or mobility-aid website. The site must nevertheless remain extremely easy to use. The principal audience is older, so visual sophistication must never come at the expense of navigation, readability or clarity.
+
+8. Proposed Main Navigation
+The precise labels can be refined during development, but the information architecture should provide direct access to approximately the following areas:
+Elevante / The Homelift
+Explanation of the product and how it works.
+Design
+Cabin, staircase, materials, finishes and integration into different interiors.
+In your home
+How Elevante can be incorporated into existing houses and examples of installations/configurations.
+Installation
+Survey, preparation, installation process and what the homeowner can expect.
+Inspiration / Projects
+Photography, examples, customer cases and eventually testimonials.
+Information
+Technical specifications, downloads, FAQs and other detailed information.
+Find a dealer
+Dealer locator and contact/lead generation.
+
+The navigation must remain compact. Detailed subtopics should sit below these principal categories rather than producing a large top-level menu.
+
+9. Homepage Structure
+The current preferred homepage journey is:
+Hero
+The hero establishes the customer benefit rather than starting with the technology.
+
+The wording developed so far is:
+?Comfortably and safely remain living in your own home
+?When using the stairs becomes difficult, this does not have to mean that parts of your home can no longer be used. With the Elevante Homelift, all floors remain accessible, allowing you to continue living comfortably and safely in your own home.
+?The Elevante Homelift is an integrated system in which the staircase and lift come together. This means the everyday use of the home can be retained even when moving between floors becomes more difficult.
+
+Primary actions should lead to:
+?seeing how the system works;
+?viewing examples in homes.
+
+The exact final English copy will be developed separately. The above describes the intended content and hierarchy.
+
+Product / System Introduction
+A concise visual explanation of what Elevante is.
+Preferably supported by video (this is an older video, that will be replaced), animation or imagery that makes the movement of the cabin relative to the staircase immediately understandable. 
+Integration into the Home
+This section should not repeat the definition of the integrated system. Its purpose is to explain the spatial consequence: the cabin travels in the space underneath the staircase.
+This is particularly relevant in existing homes where accommodating a conventional homelift elsewhere may be difficult. Strong visual material is essential here. A section drawing, animation or before/after view may communicate this more effectively than text.
+Everyday Use
+Show concretely how the system is used.
+This should include relevant situations such as:
+?entering and leaving the cabin;
+?movement between floors;
+?automatic doors;
+?safe closure of the stair opening;
+?use with a rollator;
+?use with a wheelchair;
+?space for another person when assistance is required.
+Avoid vague lifestyle claims. Show what happens.
+Testimonials / Customer Experiences
+Real customer experiences should be incorporated once installations and suitable testimonials are available.
+These should feel authentic and specific rather than like generic marketing endorsements.
+Design Teaser
+The homepage should contain a design teaser, not a full configurator.
+It should show that the system can be adapted to different interiors through finishes, materials and design choices and then link to the dedicated Design page.
+Installation
+A concise explanation that Elevante can be installed in an existing home and what the broad process involves.
+The detailed process belongs on the Installation page.
+Dealer / Next Step
+At the bottom of the journey, visitors should be able to find an authorised installer/dealer.
+A particularly important conversion opportunity is: visit an installer/showroom to see and experience the Elevante Homelift.
+
+10. Required Functionality
+The website should support at least the following functionality.
+Responsive Design
+Full functionality on:
+?desktop;
+?tablet;
+?smartphone.
+Mobile is particularly important because advertising and social traffic will frequently arrive via mobile devices.
+Dealer Locator
+A searchable dealer locator is required.
+It should eventually support multiple countries and potentially search by:
+?postcode;
+?city/location;
+?region;
+?country.
+Dealer records should be editable by Elevante without developer involvement. Each dealer should be capable of having its own information, contact details and potentially showroom/demo availability. The architecture should allow leads to be routed to the relevant dealer.
+Contact / Lead Generation
+Visitors should be able to request information or contact an installer. Forms should be short and designed around useful sales information rather than collecting data unnecessarily. We should be able to identify the source of leads for marketing analysis.
+Video
+The site must support high-quality product video. Video will be particularly useful for explaining:
+
+?movement of the cabin;
+?relationship between lift and staircase;
+?automatic doors;
+?everyday use;
+?installations.
+
+Video performance must be managed carefully so that it does not make the site slow.
+Galleries
+High-quality galleries are required for:
+
+?installations;
+?interiors;
+?product details;
+?finishes;
+?cabin / staircase combinations
+
+These must be manageable internally.
+Testimonials / Cases
+The CMS should allow new customer stories and installations to be added without redesigning pages.
+Downloads
+A download area should support items such as:
+
+?brochures;
+?product information;
+?technical information;
+?installation information;
+?drawings 
+?where appropriate.
+FAQ
+The FAQ must be editable internally and capable of expansion as questions arise from consumers and dealers.
+News / Articles / Advice
+The site should support articles/blog content primarily for:
+?SEO;
+?answering consumer questions;
+?explaining relevant subjects;
+?supporting campaigns.
+This should not dominate the premium visual presentation of the main site.
+Regional / Landing Pages
+We need the ability to create SEO and campaign landing pages for:
+?countries;
+?regions;
+?potentially cities;
+?specific consumer searches;
+?specific campaigns.
+These pages should use controlled templates so that the brand does not become visually fragmented.
+Multilingual Capability
+The platform must be suitable for multiple languages and countries.
+The first markets include the Netherlands, UK and Germany. The architecture must therefore avoid hard-coding a single-country structure.
+Translation management should be practical for our own team.
+Analytics and Tracking
+The site should be configured for appropriate analytics and conversion tracking, including at least:
+
+?website traffic;
+?traffic sources;
+?key page journeys;
+?form submissions;
+?dealer-locator use;
+?outbound dealer contacts;
+?campaign landing pages;
+?downloads;
+?relevant conversion 
+?events.
+Google Analytics and appropriate Google advertising/conversion integration are expected.
+SEO
+The technical build must support proper SEO management, including:
+
+?page titles;
+?meta descriptions;
+?headings;
+?clean URLs;
+?redirects;
+?canonical settings where required;
+?structured data;
+?XML sitemap;
+?image alt text;
+?Open Graph/social metadata;
+?indexing controls;
+?fast loading;
+?Core Web Vitals;
+?multilingual SEO/hreflang when additional countries are introduced.
+
+
+Elevante Beheer must be able to edit the normal SEO fields internally.
+
+11. Marketing Ecosystem
+The website will be the central destination for B2C marketing.
+Traffic will potentially be generated through:
+
+?Google Ads;
+?organic Google search;
+?SEO content;
+?social media;
+?online advertising;
+?magazines and editorial coverage;
+?events;
+?dealer activities;
+?offline marketing using QR codes or campaign URLs.
+
+The website therefore cannot be treated as an isolated corporate brochure. It is the centre of the consumer acquisition and dealer lead-generation process. Campaign-specific landing pages must be easy to create and track.
+
+12. CMS / Development Platform
+A fundamental requirement is that 
+?Elevante Homelift must be able to maintain the website itself after launch. 
+?The website must therefore be built in WordPress.
+?We do not want routine changes to require a developer.
+Our team must be able to independently:
+
+?change text;
+?replace images;
+?add videos;
+?add pages;
+?create landing pages;
+?add projects/cases;
+?add testimonials;
+?publish articles;
+?update FAQs;
+?upload downloads;
+?add or change dealers;
+?change dealer contact information;
+?manage translations;
+?edit SEO fields;
+?update menus where appropriate.
+
+The developer should create a controlled component/block system rather than a collection of individually coded pages. New pages should be constructible from approved Elevante components while retaining consistent typography, spacing and visual identity.
+The WordPress backend should be kept clean and understandable for a non-developer. Custom development should be used where it adds real functionality, not where standard, maintainable WordPress functionality is sufficient.
+The developer should propose the exact WordPress technical stack, including the page/block-building approach, multilingual solution, forms, dealer-locator architecture, SEO tooling, security, caching/performance and backup arrangements.
+Any paid plugins or recurring licences must be identified in advance, including annual costs.
+Elevante must retain administrator access and ownership/control of the website, domain, hosting, analytics accounts and relevant licences.
+
+13. Visual Direction
+The desired visual identity is:
+?premium, architectural, residential, restrained and contemporary.
+?The product should be photographed and presented as part of the home.
+We do not want the visual language normally associated with:
+
+?healthcare;
+?hospitals;
+?nursing;
+?disability equipment;
+?stairlift advertising;
+?generic senior-living advertising.
+
+At the same time, we must not hide the reason people buy the product.
+The website can show:
+?younger and older users;
+?a rollator;
+?a wheelchair;
+?assistance by another person.
+The distinction lies in how they are portrayed.
+People should appear as homeowners in their own environment. They should look credible for the target market, broadly in the 60–75+ age range in lifestyle imagery, rather than using obviously young models pretending to demonstrate accessibility. A wheelchair or rollator should appear naturally in the context of using the product. It does not need to become the central visual symbol of the brand.
+Assistance can similarly be shown as one person accompanying another, rather than through overt healthcare imagery.
+
+14. Photography and Video
+The home is as important visually as the product.
+Photography should show:
+?high-quality but believable residential interiors;
+?the complete staircase/lift relationship;
+?how the system occupies the space;
+?architectural context;
+?product details;
+?materials and finishes;
+?people using the system;
+?wheelchair and rollator use where relevant.
+Avoid excessive close-ups that make it impossible to understand where the product sits in the house.
+We need a combination of:
+?hero/lifestyle imagery – emotional context and aspiration;
+?architectural imagery – how Elevante fits into the house;
+?functional imagery/video – how it works;
+?detail imagery – materials, controls, doors, cabin and finishes.
+Animation or 3D visualisation may be useful where photography cannot adequately explain the integrated movement of staircase and cabin.
+
+15. UX for the Target Audience
+Premium does not mean minimalist to the point of inconvenience.
+The principal users may be 65+, so the website needs:
+
+?highly legible typography;
+?sufficient font size;
+?strong contrast;
+?obvious navigation;
+?large, clear interactive areas;
+?simple forms;
+?predictable navigation;
+?clear back/close behaviour;
+?no dependence on hover interactions;
+?no unnecessarily complex animations;
+?no tiny controls;
+
+?no hidden essential information.
+The site should feel sophisticated because of typography, imagery, proportion, whitespace and discipline, not because basic navigation has been removed. Accessibility should be considered from the beginning of the design and development process.
+
+16. Tone of Voice
+The communication style is a particularly important part of this project. The central principle is: Human through restraint, not informality. Use respectful adult language. The language should be:
+
+?clear;
+?concise;
+?factual;
+?calm;
+?confident;
+?respectful.
+
+Every sentence should communicate something.
+Avoid generic marketing fillers such as:
+
+?“discover”;
+?“experience ultimate comfort”;
+?“designed with you in mind”;
+?“at your own pace”;
+?“we understand”;
+?“a world of possibilities”;
+?“seamlessly fits your lifestyle”.
+
+
+We specifically do not want patronising language directed at older consumers.
+?Do not tell visitors how they feel.
+?Do not manufacture empathy.
+?Do not obscure simple facts with lifestyle language.
+?If the lift accommodates a wheelchair, say that it accommodates a wheelchair.
+?If an automatic door closes the stair opening, describe that function.
+?The premium character should come from clarity and restraint, not an abundance of adjectives.
+
+17. Reference websites
+These websites should be studied for specific aspects of the desired Elevante experience. We are not asking for a copy of any one of them.
+Gaggenau
+The strongest overall reference for the desired premium residential positioning. Relevant characteristics:
+?restrained luxury;
+?excellent interior photography;
+?products shown within architecture;
+?generous use of space;
+?strong typography;
+?confidence without excessive sales language;
+?detailed product information available beneath the visual presentation.
+For Elevante, Gaggenau is particularly relevant to the look, feel and level of brand confidence.
+
+Aritco
+The most relevant direct category reference. Relevant for:
+?presenting a homelift as a residential/design product;
+?product explanation;
+?inspiration;
+?design choices;
+?installation examples;
+?deeper technical information;
+?dealer/customer journey.
+
+Elevante must nevertheless establish its own identity and clearly explain its different integrated staircase/lift concept.
+
+VELUX
+Particularly relevant to explaining a product that becomes part of an existing home. Useful references include:
+?inspiration combined with practical information;
+?explaining applications;
+?installation information;
+?progressive movement from inspiration to specification;
+?helping homeowners understand how a building product affects their house.
+
+Flos
+Relevant as a premium design/architectural reference, particularly for:
+?visual restraint;
+?product photography;
+?materials;
+?interior context;
+?design credibility.
+The relevant reference is Flos, the premium lighting/design brand, not Bufab Flos.
+
+VanMoof
+Relevant to the way a technically innovative product can be introduced as a desirable consumer/design product.
+Useful aspects include:
+?strong first visual impact;
+?relatively little information at first contact;
+?progressive product explanation;
+?making technology understandable without initially overwhelming the visitor with engineering detail.
+
+Stromer
+Useful as a reference for a more structured commercial journey:
+
+?product introduction;
+?product detail;
+?configuration/choice;
+?practical information;
+?dealer locator;
+?support.
+
+Its presentation is more overtly commercial than the intended Elevante style, but the information architecture is useful.
+
+WeTransfer
+This is primarily a communication-discipline reference, rather than a product or visual reference.
+The relevant characteristic is the economy of language:
+
+?short;
+?direct;
+?human;
+?confident;
+?little unnecessary explanation;
+?no corporate filler.
+
+For Elevante this should be combined with a more premium residential and architectural visual identity.
+
+18. Design page
+Design is important, but the homepage should only introduce it. The dedicated Design page can provide greater depth around:
+
+?cabin appearance;
+?staircase design;
+?materials;
+?colours;
+?wall/side finishes;
+?flooring;
+?controls and details;
+?combinations suitable 
+?for different interiors.
+
+A full configurator is not required on the homepage. The developer should, however, structure the site so that richer product selection or configuration functionality could potentially be added later without a complete rebuild.
+
+19. Installation page
+Consumers considering a product of this nature will want to understand what installing it means for their house. The Installation page should eventually explain the process from initial enquiry to completed installation, including subjects such as:
+
+?initial consultation;
+?assessment of the house;
+?measurement/survey;
+?selection of configuration and finishes;
+?preparation;
+?installation;
+?commissioning/handover;
+?service and maintenance
+?.
+This should be presented visually where possible.
+The objective is to answer practical questions, not to bury the consumer in construction methodology.
+
+20. Technical information
+Technical specifications should be readily available to visitors who want them, but should not dominate the homepage. A dedicated technical area can include:
+
+?dimensions;
+?load/capacity;
+?travel;
+?doors;
+?power requirements;
+?applicable configurations;
+?drawings;
+?installation requirements;
+?safety systems;
+?certification;
+?downloadable documentation
+
+The architecture should also be useful to architects, contractors and technically oriented family members without changing the consumer focus of the main website.
+
+21. Trust and proof
+Elevante Homelift is a new proposition. Trust therefore needs to be built through evidence rather than claims. Useful proof elements include:
+
+?clear explanation of operation;
+?real installations;
+?high-quality photography;
+?video of the system operating;
+?certification information;
+?factual safety information;
+?customer experiences;
+?dealer/showroom locations;
+?the ability to see and try the product;
+?clear information about installation and service.
+
+Avoid generic blocks of icons claiming “quality”, “innovation”, “comfort” and “safety” without supporting information.
+
+22. Content architecture and CMS content types
+We would prefer the developer to structure recurring content as manageable content types rather than manually building every item as a unique page. Likely recurring content includes:
+
+?dealers;
+?installations/projects;
+?testimonials;
+?articles;
+?FAQs;
+?downloads;
+?product/design options;
+?countries/regions.
+
+
+This is important for future growth and internal maintenance. For example, adding a dealer should update the relevant dealer locator and dealer information automatically rather than requiring edits on several pages.
+
+23. Performance
+The visual ambition of the site cannot result in a slow website. Particular attention is required for:
+
+?image optimisation;
+?responsive image delivery;
+?video loading;
+?animation;
+?fonts;
+?scripts;
+?third-party plugins;
+?caching;
+?Core Web Vitals.
+
+The developer should establish performance targets at the beginning rather than attempting optimisation only after the site has been built.
+
+24. Development principles
+We expect:
+
+?responsive design;
+?modern semantic HTML;
+?strong technical SEO;
+?accessible implementation;
+?maintainable WordPress architecture;
+?minimal unnecessary plugins;
+?staging environment before publication;
+?appropriate security;
+?backups;
+?cookie/privacy implementation appropriate to the markets served;
+?analytics implemented correctly;
+?testing across current mainstream browsers and devices.
+
+
+Custom functionality must be documented sufficiently for another competent WordPress developer to maintain it. We do not want to become technically dependent on the original developer.
+
+25. Content responsibilities
+Elevante will provide or approve:
+
+?product facts;
+?positioning;
+?final copy;
+?technical data;
+?product photography/visualisations as available;
+?brand assets;
+?dealer information;
+?certification information;
+?downloads.
+
+The developer is expected to translate this into an effective digital experience and should challenge us where information architecture, UX or technical implementation can be improved.
+The developer should not independently rewrite the product proposition into generic lift-industry or senior-care marketing language.
+
+26. Future scalability
+The first website should be built with future growth in mind. Potential developments include:
+
+?additional countries and languages;
+?additional dealers;
+?country-specific content;
+?regional SEO;
+?more installation cases;
+?customer testimonials;
+?expanded design choices;
+?downloadable technical resources;
+?richer lead qualification;
+?CRM integration;
+?dealer lead routing;
+?possible future configuration functionality.
+
+
+We do not need all future functionality at launch, but the architecture should not make these developments unnecessarily difficult.
+
+27. What we expect from the developer
+The proposal should cover:
+UX and design
+
+?sitemap/information architecture;
+?wireframes;
+?responsive visual design;
+?reusable design system/components.
+
+Development
+
+?WordPress implementation;
+?recommended WordPress stack;
+?dealer locator;
+?forms;
+?multilingual architecture;
+?SEO implementation;
+?analytics;
+?performance;
+?security;
+?staging and deployment.
+
+Content implementation
+
+?population of agreed initial pages;
+?images/video;
+?downloads;
+?initial dealers;
+?SEO fields.
+
+Handover
+
+?administrator access;
+?documentation;
+
+
+The proposal should distinguish clearly between: one-off development costs, third-party costs, hosting costs and recurring annual licence/maintenance costs. It should also specify which elements Elevante can edit independently after handover.
+
+28. The standard against which the website should be judged
+A visitor arriving on the website for the first time should be able to answer five questions quickly:
+1.What does Elevante solve for me?
+It allows me to continue living comfortably and safely in my multi-storey home when using the stairs becomes difficult.
+2.What is different about it?
+The homelift and staircase form an integrated system.
+3.How can that work in my house?
+The lift cabin uses the space underneath the staircase, making the concept particularly relevant to existing homes.
+4.Can I use it in my circumstances?
+The website provides concrete information about everyday use, including rollator, wheelchair and assisted use, installation and technical requirements.
+5.What do I do next?
+Find an authorised dealer, request further information or arrange to see and try the Elevante Homelift.
+If those five questions are answered clearly while the website still feels like a premium residential design brand rather than a mobility-equipment supplier, the fundamental brief has been achieved.

@@ -1,0 +1,167 @@
+{
+  "generatedAt": "2026-09-17T08:05:49.219Z",
+  "images": {
+    "stair-gold-hall": {
+      "src": "/media/img/stair-gold-hall.webp",
+      "width": 1620,
+      "height": 1080,
+      "blurDataURL": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAAAQBACdASoUAA0APu1iqU2ppaOiMAgBMB2JQBOgMWqTiJ643UITm2kAAAD8Y8wLI/xDuqpRD8OtsEWxPXwxJyGol2NhQpdq/iwlORi5hklToaXfSZxu3ESv0D3JwWEZEiCO1F9P84sSSqdba0Vu8tyNfiyLVGMy1kPHVjplh9CAAA=="
+    },
+    "consultation": {
+      "src": "/media/img/consultation.webp",
+      "width": 1500,
+      "height": 1000,
+      "blurDataURL": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAABwBACdASoUAA0APu1iqU2ppaOiMAgBMB2JZQCsMoAC/MpPXIrHXNmLSafEYAD5adpwtTUKSQTuJUjzvM7zqL9IaZXA2463VCp7dAuI3CqvFefhYpnHtF44wdimRbhPqKUosDgvh7BiQuBVeWe2hfN3apRRzB0PkpQrKPVlFQAAAA=="
+    },
+    "stair-spiral-above": {
+      "src": "/media/img/stair-spiral-above.webp",
+      "width": 399,
+      "height": 501,
+      "blurDataURL": "data:image/webp;base64,UklGRs4AAABXRUJQVlA4IMIAAACQBQCdASoUABkAPu1ur1IppiQiqAgBMB2JYgCzgpgE+AEFg7hZBuPBs8NgcoxndVNKkvGLRAD+yDiKsRc0KIjTfmlNlDpKH6atWQHEv3gXivooubNtfL049Aht31y078wIVFXJ9fk8a5md0ngXdu2cjVu0IpPyW1+mZEMMj7Q3gg91BH4sJ9Ew0TSEH5MyRmDQThQB09CY2oDA24FtfFZpo05DUfZd887YcoE8XfCS2KNSQ2SyAnNZefcAU2oex7HQAA=="
+    },
+    "stair-floating-glass-lift": {
+      "src": "/media/img/stair-floating-glass-lift.webp",
+      "width": 396,
+      "height": 660,
+      "blurDataURL": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAACwBQCdASoUACEAPu1wsFKppiSipWmZMB2JZwDG+AoIdJi2y67AVmH++iea6gPA6/gsL3ewWAAA/fBj5SD+8JQBGqVSwc0H7Oos6+FypnssBBzfRbLTGOzvs0aOgi9KdWlayMbMZYZR/RwbjiDp3aHWH2lauEZPV04YL3z0IkDxrnSwhds/3ri7haQ4HvQQEltNb2KRvT1HZa+/1bH42Q9hJEbMWQuA2tNh0Ovb5VN9BirIipbxr4DP+Yyi++JnEZvrpfcNNOYwAAAA"
+    },
+    "stair-curved-led": {
+      "src": "/media/img/stair-curved-led.webp",
+      "width": 547,
+      "height": 365,
+      "blurDataURL": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAACwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JZQCw7BkQaOOn/Kl9gAD+dWNvSljrfghdTZSAw7i1kD8YIutOTub9kONtPxhCmouMF1CivDQyMEiijG/VPKtOXmwJ7J3/DcRDXW4KJF767b40AAA="
+    },
+    "stair-dark-wood": {
+      "src": "/media/img/stair-dark-wood.webp",
+      "width": 387,
+      "height": 516,
+      "blurDataURL": "data:image/webp;base64,UklGRtoAAABXRUJQVlA4IM4AAABQBQCdASoUABsAPu1oq08ppiOiMBgIATAdiWUAx+QK+V7PovZMxriAqMnDixklkS+HKAAA/eNhBarWI5vjS3aTmDCFxffCQjgKiMAHj0iGr4xlHGW/SwAMkcWDObonvuRWcquTaPPuY/B0rTIx6trNUqdsvjDCmdm2DunncOJylV2349EVjvnBNpiAFethszWGo/MYh3lCGxCmk/NA+0u/D2vuP2rWbOGVBFIcMsxvU7/laD1fWadeW4IN2IfBjxXuAb8FaVYtPiGQCzAAAA=="
+    },
+    "stair-oak-screen": {
+      "src": "/media/img/stair-oak-screen.webp",
+      "width": 415,
+      "height": 415,
+      "blurDataURL": "data:image/webp;base64,UklGRqQAAABXRUJQVlA4IJgAAACwBACdASoUABQAPu1ur1KppiQiqAgBMB2JQBbZASkodHDlh+MNNKw/1uUXgxYAAPpK3Rdo8IlrYiHUrUCM31KTdTtdQlYQlhOK9TBOxfXntumQEF/IxKY3rAo6tV5Hhkkq6wQFZLbETbzYY+HpdV1L9t1x1oizKyowE96/9j1hZTmziayKoo6VhpNCP9RhQhovU9DmHAAAAA=="
+    },
+    "lift-round-glass-hall": {
+      "src": "/media/img/lift-round-glass-hall.webp",
+      "width": 678,
+      "height": 452,
+      "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADQAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JZACdABtparJKGKVvv0AA/nkombsUdAV/FJ6OfMUdzdm5H2pY0XCbAbz2iSwkPieY2dRIBLrOjVDZGaoxnibRXa0g8TA2+/qZG1MwkZ0/Xk3hWgSnD00ltXo4/WqOfNap76UqmbH/kAAA"
+    },
+    "lift-couple": {
+      "src": "/media/img/lift-couple.webp",
+      "width": 739,
+      "height": 415,
+      "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADQAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JYwCsABEY7krt57h3bAAA/sjLCTY+Rm4/eOXHMeLht1sbolLshF71wQuZ4EwJc0KyAhfmkva0sQzewPlS1R+636z3qd045VOS/cyVItt40e0/tie/KYBFCAAAAA=="
+    },
+    "lift-wheelchair": {
+      "src": "/media/img/lift-wheelchair.webp",
+      "width": 655,
+      "height": 468,
+      "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAAAQBACdASoUAA4APu1iqU2ppaOiMAgBMB2JYwCdACP64RZQxLjer4/geAD8q2OAvnGRF5yxK6NdakIkBvRfIvKDfyKM6GRkEtZKlgt6jKb5JZ8k81A4GgDskEeAAA=="
+    },
+    "lift-family": {
+      "src": "/media/img/lift-family.webp",
+      "width": 560,
+      "height": 430,
+      "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQBACdASoUAA8APu1iqU2ppaQiMAgBMB2JZQCsACHpgvm800K/1QjfUAD+lP0UtrY/celF11GJsYbnClfiVNASKAPZdWU3uxBNLq/nucHOsC+Vt0fi9gZcvPt+2MpGfZBCHMc4zIi4sXuXxtbyCTXhwPugAA=="
+    },
+    "lift-bronze-cabin": {
+      "src": "/media/img/lift-bronze-cabin.webp",
+      "width": 564,
+      "height": 846,
+      "blurDataURL": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4ILwAAABQBQCdASoUAB4APu1ur1KppiQiqAgBMB2JQBWAgQAWP+pVcu3r5ZM+FzIkYEivP1qmocAA/ohLcevWA3TaE6tQzxOH8hbCOVitqZkuv5V3YRVFJip9T+WWXT8snahnpzAmNHLi0Jj2b9om+j5qRPTCHc0DuDqiAG1FmY5B5QrE6ysSwy5F8OhtBPLAV0S1rG0kjkN1Yf3sHi30CaMwrnP4NBIz2Agy8jsrzFEnIGISDcMLxgMYo0HLFuAAAA=="
+    },
+    "lift-deco-cabin": {
+      "src": "/media/img/lift-deco-cabin.webp",
+      "width": 355,
+      "height": 550,
+      "blurDataURL": "data:image/webp;base64,UklGRtYAAABXRUJQVlA4IMoAAABwBQCdASoUAB8APu1mrE+ppSQiMBgIATAdiWMAnTLfTmWTT+2cfPuciMVClD2OGIa3xyMAAP5JZ4R+ojPy991IxKnX5fiMYCVw4aEkrg6Ba5hhztJYaxK0vgobMlo6buVY9gJw/4mLMXAwwu8kjK1BCFHrvjIlm9l5zrDXFWiIy04MndIpKSoAcjULs3ALlNSArEBjTLAppkjJRV0+vgErCt7NhsJBCLx+dyD1uthNGKB8Njrx7xDQMlFnjKppKfJiF4cMcirxgAAA"
+    },
+    "lift-glass-shaft": {
+      "src": "/media/img/lift-glass-shaft.webp",
+      "width": 564,
+      "height": 1133,
+      "blurDataURL": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4IMwAAACwBQCdASoUACgAPu1wsVKppiSipWmZMB2JZQC0cywBldYorNc5tD79Nz6ka3fmGVYnR3afHyAA/lKLjYc3N5JeWM5OLVmT/Nbt4x07lnFYQgDrJIYF0PQAMACBbBSKJmET9JMBUcvQxUiE5pnPUMB+cnaFgMRVtYz/PpVrc+gDcR0qvsThgsRU+AkVj3QvXY018oMj4EQqOgsTRBdNGyKd7P6Bx3zgmBdYQPqNNx+AqoOYZ1qWXmD6ouol8JpAS/RaoNshaJewyMuwAAA="
+    },
+    "survey-measuring": {
+      "src": "/media/img/survey-measuring.webp",
+      "width": 450,
+      "height": 563,
+      "blurDataURL": "data:image/webp;base64,UklGRr4AAABXRUJQVlA4ILIAAADQBACdASoUABkAPu1kq06ppaQiKA1RMB2JZQC2yAxSEJOzgRnnsbXsKBjDhQfeAADOClp3Ti8irDbTE5nI1T2aO9H7xUD+FNCbzp4jKXYob1K+ZAfHmiJwJPiRdTkDycb5lNUacPeMeogxpOye9YhT+OW8pIQajWkGf8SZeq/kIWQU2z4UIGZxan9IGGKbO5cU8u+ebl/gf8wQ1zWl+PjXjZ/nLyhxt3fMMFHzkDZuCAAA"
+    },
+    "installation-collage": {
+      "src": "/media/img/installation-collage.webp",
+      "width": 554,
+      "height": 554,
+      "blurDataURL": "data:image/webp;base64,UklGRuwAAABXRUJQVlA4IOAAAADwBQCdASoUABQAPu1ur1IppiQiqAgBMB2JZACxHoRgBlf43m6+aMpddwneCEU868Rh8F8TUAJWAAD98DqY4FgnUjl2qY8bAGMJLHFj4U5H4ACHY6FULO3G9Xg+EymSmw9MOtl94aFt55aIkwU7NqebCGP6gWIFbq+gGZemxg8q8AXyXx1YYOEE5QC2JAwM5z71q6ivtr2EAOtiVSv0aQZ7uA/GvVKan0bE0Bzd8HkAj0ECMlbbM5tUPGyq+P8Miw32nWill3BWrW3gcb8xO88BwaK/45+K32yck+aOShXgAA=="
+    },
+    "installation-drawing": {
+      "src": "/media/img/installation-drawing.webp",
+      "width": 277,
+      "height": 277,
+      "blurDataURL": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAAAQBQCdASoUABQAPu1ur1IppiQiqAgBMB2JZACdAywToQNmdcxc4vQHdvy+ssaBgScAAMxhZfOBR7v32NNpaBXcUOnbYpw/2cEXvWNZr9f3lxSyUvyOQ0+AToQAXIVXi2ZAaIsl6776rPUL7r5+1UtTUSOKwLkXYl+gpUJzlhZ8y3/cHCrcnqeoRXSmmXFJ1r9hFxz+uEZLMMTLgOSY0tLJC/jUnpQyFSRmP9nuofKpmowAsoryzbnLAAA="
+    },
+    "loft-wide": {
+      "src": "/media/img/loft-wide.webp",
+      "width": 335,
+      "height": 597,
+      "blurDataURL": "data:image/webp;base64,UklGRjgBAABXRUJQVlA4ICwBAADwBgCdASoUACQAPu1uqlEppqOiqrgKATAdiUAW3S2vF00Sm9TK2ASuCTne4Ufk4nVlQ7Nh66X/wSD04bMB/1TwAP6U8PoiErymYvpSbuu5QUqSlLMhS4SWDEFLPj9EiDlKf9oon1Aw7Vythvje2i5Y0BP00F5mLWi3bYB42E5taIael124hopuzDH+1DvMhGiyUmlyQ+37gWHk3/4M3DnPnjzCvwOhPthTLU4S2WiBSI+XvrSDuUlcJGCQsnHjSVxDmRys0ou7f+IBhIfLrHwSdGgWRzklz1RFdBf93spVdFDcw8zMS8wDfY1p/akgSIS9d1RsJ4FMBMXKYw4hFsE5u9f3F5ePlZajfHmfiGp1DEWXGUZnC4hfL4pwnw9qJE2Pq5xTjeAeYNjYAAA="
+    },
+    "material-metal": {
+      "src": "/media/img/material-metal.webp",
+      "width": 240,
+      "height": 320,
+      "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBQCdASoUABsAPu1irE4ppaSiKA1RMB2JQBWGZDA1aZdw9cGTa/Jpocrn1kCJEcoAAOJ78HZC9YvWH6NqvyYAHAp7Dw2IRMfsPvMwNZ87CmzMAZWilOld0Cqm0GtJ5aAybK6UQ8EULUIUB/JwLvTKSEDFAAAA"
+    },
+    "material-oak": {
+      "src": "/media/img/material-oak.webp",
+      "width": 280,
+      "height": 220,
+      "blurDataURL": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABwAwCdASoUABAAPu1iqU2ppaOiMAgBMB2JZQCw7A6LYRRC+oAA/LKD06t0VpFlfzKunK92HejI7rVoUzre2RRRTFsY/u2ZK/DWz140/a0pVQ8XdgNOL2bkmHuB28+RQaY7E62f7CUzWt7MMi/vXsjMX3Izl19q2JeSx1xfPHoND7k1n8uPrdHAAAA="
+    },
+    "material-stone": {
+      "src": "/media/img/material-stone.webp",
+      "width": 300,
+      "height": 340,
+      "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAABQBACdASoUABcAPu1srlEppaQiqAqpMB2JZwDKABI/8bZ7xDTnMLj6NJAAAPYH5JCEoPDrylACR1xLqBsrx5YuDGUDk2AA"
+    }
+  },
+  "videos": {
+    "video-cabin-moving": {
+      "mp4": "/media/video/video-cabin-moving.mp4",
+      "webm": "/media/video/video-cabin-moving.webm",
+      "poster": {
+        "src": "/media/img/video-cabin-moving-poster.webp",
+        "width": 1180,
+        "height": 664,
+        "blurDataURL": "data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAAAQBACdASoUAAsAPu1iqU2ppaOiMAgBMB2JYgCdMoR2WBI4ZT7a8+dDoAD+eObW+J09uDngyo2Gtf+EVMuirIGugR88iMMD17hJMwOwACMFOzxs/mECmJP9zmxfu2qmK+U1y6nir9I6ZZiZY+2/lRxv21sBSaJ80qvTaECRZJqX1JBKT/shu4AA"
+      }
+    },
+    "video-home-integration": {
+      "mp4": "/media/video/video-home-integration.mp4",
+      "webm": "/media/video/video-home-integration.webm",
+      "poster": {
+        "src": "/media/img/video-home-integration-poster.webp",
+        "width": 1180,
+        "height": 664,
+        "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoUAAsAPu1iqU2ppaOiMAgBMB2JZQCdABXhS/mvt0DKvcAAAP4ANQw+joaku5v/4mVjX4NpweEDGvVvblHsdnupEcDtNHVfmPfFGbrdJ76mATnFS/4pUGt65pmhTPF8yGV1FbYHQwka3jJYovq96GoAAAA="
+      }
+    },
+    "video-design-cabin": {
+      "mp4": "/media/video/video-design-cabin.mp4",
+      "webm": "/media/video/video-design-cabin.webm",
+      "poster": {
+        "src": "/media/img/video-design-cabin-poster.webp",
+        "width": 1180,
+        "height": 664,
+        "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAwCdASoUAAsAPu1iqU2ppaQiMAgBMB2JQBOmUABJnFxWYP2ZmQAA/uhfvFODh8pkJCTRS33xYHkW4sjZPhcDi4Wp0Wz6DLeLx7esflp0EizmLpaeC1kn+JhU2EAA"
+      }
+    }
+  },
+  "excluded": {
+    "luxury interior material detail wood stone metal.jpg": "third-party product advertisement carrying brand marks",
+    "modern staircase architectural detail photography.jpg": "third-party watermark"
+  }
+}

@@ -1,38 +1,45 @@
-# ---------------------------------------------------------------
-# CONFIDENTIAL: the client brief is an internal business document.
-# It names Elevante Beheer BV, their commercial model, dealer
-# strategy and market positioning. It must not go into a public
-# repository. Delete this line only if you have decided otherwise.
-# ---------------------------------------------------------------
-Elevante Homelift - Website development brief.txt
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Original full-size photography and video (68 MB).
-# The optimised WebP and compressed mp4 the sites actually use are
-# committed inside each site's assets folder.
-_shared/downloads/
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# Working screenshots and contact sheets from the build
-_shared/screens/
-_shared/contact-sheet.jpg
+# testing
+/coverage
 
-# Intermediate files
-_shared/f-a.css
-_shared/f-b.css
-_shared/urls-staircase.txt
-__pycache__/
-*.pyc
+# next.js
+/.next/
+/out/
 
-# Local tooling
-.agents/
-.claude/
-skills-lock.json
-.playwright-mcp/
+# production
+/build
 
-# OS
+# misc
 .DS_Store
-Thumbs.db
-desktop.ini
+*.pem
 
-# working screenshots from the build
-*.png
-!site-*/assets/**/*.png
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# playwright / local scratch
+/.playwright-mcp
+/test-results

@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens. The palette is the client's; nothing else is allowed. */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-*: initial;
+  --color-warm-white: #f5f3ee;
+  --color-white: #ffffff;
+  --color-charcoal: #151515;
+  --color-charcoal-soft: #2a2926;
+  --color-stone: #dcd7ce;
+  --color-warm-grey: #a8a39a;
+  --color-caption: #6f6a61;
+  --color-oxide: #8c4a2f;
+
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Fluid type scale, 360px to 1440px viewports. */
+  --text-display-1: clamp(2.75rem, 1.17rem + 7.04vw, 7.5rem);
+  --text-display-1--line-height: 0.95;
+  --text-display-1--letter-spacing: -0.03em;
+  --text-display-2: clamp(2.25rem, 1.5rem + 3.33vw, 4.5rem);
+  --text-display-2--line-height: 1.02;
+  --text-display-2--letter-spacing: -0.025em;
+  --text-h3: clamp(1.5rem, 1.33rem + 0.74vw, 2rem);
+  --text-h3--line-height: 1.15;
+  --text-h3--letter-spacing: -0.01em;
+  --text-body-l: 1.25rem;
+  --text-body-l--line-height: 1.55;
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.6;
+  --text-small: 1rem;
+  --text-small--line-height: 1.5;
+  --text-index: 0.875rem;
+  --text-index--line-height: 1;
+
+  --spacing-gutter: clamp(1.25rem, 4vw, 4rem);
+  --spacing-section: clamp(5rem, 12vw, 11rem);
+  --spacing-section-sm: clamp(3rem, 7vw, 6rem);
+  --container-content: 90rem;
+
+  --radius-button: 2px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@layer base {
+  html {
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    background: var(--color-warm-white);
+  }
+  /* Lenis owns scrolling when present; native smooth scroll otherwise. */
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html:not(.lenis) {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background: var(--color-warm-white);
+    color: var(--color-charcoal-soft);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga", "ss01";
+  }
+  h1,
+  h2,
+  h3 {
+    color: var(--color-charcoal);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-oxide);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-stone);
+    color: var(--color-charcoal);
+  }
+  img,
+  video,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  button {
+    font: inherit;
+  }
+}
+
+@layer components {
+  /* Motion-only hidden state. Applied only when JS runs and motion is allowed,
+     so the page is always readable without either. */
+  html.js:not(.reduce) [data-reveal] {
+    opacity: 0;
+  }
+  html.js:not(.reduce) [data-reveal-clip] {
+    clip-path: inset(0 0 100% 0);
+  }
+  html.js:not(.reduce) [data-reveal-lines] > * {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  html.js:not(.reduce) [data-hero-media] {
+    transform: scale(1.06);
+  }
+  .stair-diagram text {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    fill: var(--color-caption);
+  }
+  /* Editorial rules encode structure; they are 1px, never decorative shadows. */
+  .rule {
+    border-top: 1px solid var(--color-stone);
+  }
+}
+
+@utility container-content {
+  width: 100%;
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
