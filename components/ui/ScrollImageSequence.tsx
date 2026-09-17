@@ -132,6 +132,8 @@ export function ScrollImageSequence({
           const i = order[cursor++];
           const img = new Image();
           img.decoding = "async";
+          // Frames must never compete with the hero image for bandwidth.
+          img.fetchPriority = "low";
           img.onload = () => {
             frames.current[i] = img;
             requestDraw();
