@@ -31,9 +31,9 @@ export function PageHero({ content }: { content: PageHeroContent }) {
 
         {content.media && (
           <figure className="mt-14 lg:mt-20 lg:ml-[25%] lg:-mr-gutter">
-            <div data-reveal-clip className="relative aspect-[16/9] w-full overflow-hidden">
-              <div data-parallax="0.2" className="absolute -inset-y-[10%] inset-x-0">
-                <Picture asset={content.media} fill priority sizes="(min-width: 1024px) 75vw, 100vw" className="h-full w-full" />
+            <div data-reveal-clip className="w-full">
+              <div data-parallax="0.15">
+                <Picture asset={content.media} priority sizes="(min-width: 1024px) 75vw, 100vw" className="w-full" />
               </div>
             </div>
             {content.caption && (

@@ -12,7 +12,7 @@ import { cn } from "@/lib/cn";
 import { revealWithin, useMotion } from "@/lib/motion/useMotion";
 import { useHorizontalTrack } from "@/lib/motion/useHorizontalTrack";
 
-const IMG_HOVER = "transition-transform duration-[900ms] ease-[var(--ease-out-quart)] group-hover:scale-[1.04] group-focus-visible:scale-[1.04]";
+const IMG_HOVER = "transition-opacity duration-500 group-hover:opacity-90 group-focus-visible:opacity-90";
 
 /**
  * On wide screens every image is sized by height inside a stage that fits
@@ -21,12 +21,12 @@ const IMG_HOVER = "transition-transform duration-[900ms] ease-[var(--ease-out-qu
  * lower, and nothing is rendered above its pixel width.
  */
 const SLOTS = [
-  { h: "lg:h-[92%]", aspect: "aspect-[3/2]", sizes: "(min-width: 1024px) 60vw, 100vw" },
-  { h: "lg:h-[52%]", aspect: "aspect-square", sizes: "(min-width: 1024px) 24vw, 100vw" },
-  { h: "lg:h-[82%]", aspect: "aspect-video", sizes: "(min-width: 1024px) 60vw, 100vw" },
-  { h: "lg:h-[60%]", aspect: "aspect-[3/4]", sizes: "(min-width: 1024px) 22vw, 100vw" },
-  { h: "lg:h-[78%]", aspect: "aspect-video", sizes: "(min-width: 1024px) 56vw, 100vw" },
-  { h: "lg:h-[64%]", aspect: "aspect-[4/5]", sizes: "(min-width: 1024px) 22vw, 100vw" },
+  { h: "lg:h-[92%]", sizes: "(min-width: 1024px) 60vw, 100vw" },
+  { h: "lg:h-[52%]", sizes: "(min-width: 1024px) 24vw, 100vw" },
+  { h: "lg:h-[82%]", sizes: "(min-width: 1024px) 60vw, 100vw" },
+  { h: "lg:h-[60%]", sizes: "(min-width: 1024px) 22vw, 100vw" },
+  { h: "lg:h-[78%]", sizes: "(min-width: 1024px) 56vw, 100vw" },
+  { h: "lg:h-[64%]", sizes: "(min-width: 1024px) 22vw, 100vw" },
 ];
 
 export function InYourHome({ content }: { content: HomeContent["inYourHome"] }) {
@@ -68,8 +68,8 @@ export function InYourHome({ content }: { content: HomeContent["inYourHome"] }) 
               return (
                 <li key={item.media.id} className={cn("w-full shrink-0 lg:flex lg:w-auto lg:flex-col", slot.h)}>
                   <Link href={content.cta.href} className="group flex h-full flex-col">
-                    <div data-reveal-clip className={cn("relative w-full overflow-hidden lg:min-h-0 lg:w-auto lg:flex-1", slot.aspect)} style={{ maxWidth: item.media.width }}>
-                      <Picture asset={item.media} fill sizes={slot.sizes} className="h-full w-full" imgClassName={IMG_HOVER} />
+                    <div data-reveal-clip className="w-full lg:min-h-0 lg:w-auto lg:flex-1">
+                      <Picture asset={item.media} sizes={slot.sizes} className="lg:h-full" imgClassName={cn(IMG_HOVER, "lg:h-full lg:w-auto")} />
                     </div>
                     <div className="mt-3 flex h-8 shrink-0 items-baseline gap-4 whitespace-nowrap">
                       <span className="font-mono text-small text-caption">{String(i + 1).padStart(2, "0")}</span>

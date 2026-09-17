@@ -26,9 +26,9 @@ export function Idea({ content }: { content: HomeContent["idea"] }) {
             />
             <div className="mt-14 grid items-start gap-10 lg:grid-cols-12 lg:gap-8">
               <div className="lg:col-span-4">
-                <div data-reveal-clip className="relative aspect-[4/5] w-full max-w-[24rem] overflow-hidden">
-                  <div data-parallax="0.35" className="absolute -inset-y-[12%] inset-x-0">
-                    <Picture asset={content.media} fill sizes="(min-width: 1024px) 24rem, 90vw" className="h-full w-full" />
+                <div data-reveal-clip className="w-full max-w-[24rem]">
+                  <div data-parallax="0.3">
+                    <Picture asset={content.media} sizes="(min-width: 1024px) 24rem, 90vw" />
                   </div>
                 </div>
               </div>

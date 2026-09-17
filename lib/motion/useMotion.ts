@@ -67,7 +67,7 @@ export function useMotionEffect(scope: RefObject<HTMLElement | null>, setup: Set
  *
  *  - `data-reveal`         fades and rises once as it enters
  *  - `data-reveal-lines`   staggers its children the same way
- *  - `data-reveal-clip`    wipes open from the top while its image settles from a slight zoom
+ *  - `data-reveal-clip`    wipes open from the top; the picture itself is never scaled or cropped
  *  - `data-mask-words`     each masked word rises into place (see MaskedText)
  *  - `data-parallax="0.2"` drifts vertically against the scroll, by the given strength
  *  - `data-parallax-x="0.2"` the same, horizontally
@@ -118,10 +118,11 @@ export function revealWithin(scope: HTMLElement) {
   });
 
   scope.querySelectorAll<HTMLElement>("[data-reveal-clip]").forEach((el) => {
-    const img = el.querySelector("img");
-    const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: "top 85%", once: true } });
-    tl.fromTo(el, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 1.4, ease: "expo.out" }, 0);
-    if (img) tl.fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.8, ease: "power2.out" }, 0);
+    gsap.fromTo(
+      el,
+      { clipPath: "inset(0 0 100% 0)" },
+      { clipPath: "inset(0 0 0% 0)", duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 85%", once: true } },
+    );
   });
 
   scope.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {

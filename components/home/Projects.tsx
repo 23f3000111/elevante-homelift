@@ -11,13 +11,7 @@ import type { HomeContent, Project } from "@/content/types";
 import { revealWithin, useMotion } from "@/lib/motion/useMotion";
 import { useHorizontalTrack } from "@/lib/motion/useHorizontalTrack";
 
-const IMG_HOVER = "transition-transform duration-[900ms] ease-[var(--ease-out-quart)] group-hover:scale-[1.04] group-focus-visible:scale-[1.04]";
-
-const ASPECT: Record<Project["ratio"], string> = {
-  portrait: "aspect-[3/4]",
-  landscape: "aspect-[3/2]",
-  square: "aspect-square",
-};
+const IMG_HOVER = "transition-opacity duration-500 group-hover:opacity-90 group-focus-visible:opacity-90";
 
 interface ProjectsProps {
   content: HomeContent["projects"];
@@ -71,12 +65,8 @@ export function Projects({ content, projects }: ProjectsProps) {
                     <span className="text-[clamp(2.5rem,4vw,3.5rem)] leading-none font-medium tracking-[-0.05em] text-stone">{String(i + 1).padStart(2, "0")}</span>
                     <span className="font-mono text-small text-caption">{project.placeholder ? content.locationPlaceholder : project.location}</span>
                   </div>
-                  <div
-                    data-reveal-clip
-                    className={`relative mt-4 w-full overflow-hidden lg:min-h-0 lg:w-auto lg:flex-1 ${ASPECT[project.ratio]}`}
-                    style={{ maxWidth: project.media.width }}
-                  >
-                    <Picture asset={project.media} fill sizes="(min-width: 1024px) 34vw, 100vw" className="h-full w-full" imgClassName={IMG_HOVER} />
+                  <div data-reveal-clip className="mt-4 w-full lg:min-h-0 lg:w-auto lg:flex-1">
+                    <Picture asset={project.media} sizes="(min-width: 1024px) 34vw, 100vw" className="lg:h-full" imgClassName={`${IMG_HOVER} lg:h-full lg:w-auto`} />
                   </div>
                   <div className="shrink-0 pt-4">
                     <h3 className="text-[1.375rem] leading-tight font-medium text-charcoal">{project.title}</h3>

@@ -159,9 +159,6 @@
     opacity: 0;
     transform: translateY(2.5rem);
   }
-  html.js:not(.reduce) [data-reveal-clip] img {
-    transform: scale(1.12);
-  }
 
   /* Cinematic stages: a tall track with a sticky, viewport-high scene. Under
      reduced motion the track collapses to one screen and the scene is static. */

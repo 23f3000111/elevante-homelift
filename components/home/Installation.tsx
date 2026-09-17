@@ -77,8 +77,8 @@ export function Installation({ content }: { content: HomeContent["installation"]
                 </li>
               ) : (
                 <li key={item.media.id} className={`lg:shrink-0 ${item.height}`}>
-                  <div data-reveal-clip className="relative aspect-[4/5] w-full max-w-[26rem] overflow-hidden lg:h-full lg:w-auto lg:max-w-none" style={{ maxWidth: item.media.width }}>
-                    <Picture asset={item.media} fill sizes="(min-width: 1024px) 30vw, 90vw" className="h-full w-full" />
+                  <div data-reveal-clip className="w-full max-w-[26rem] lg:h-full lg:w-auto lg:max-w-none">
+                    <Picture asset={item.media} sizes="(min-width: 1024px) 30vw, 90vw" className="lg:h-full" imgClassName="lg:h-full lg:w-auto" />
                   </div>
                 </li>
               ),

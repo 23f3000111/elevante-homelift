@@ -34,7 +34,7 @@ function SituationFigure({ figure }: { figure: Figure }) {
 
 function Visual({ s }: { s: Situation }) {
   if (s.media) {
-    return <Picture asset={s.media} fill sizes="(min-width: 1024px) 50vw, 100vw" className="h-full w-full" />;
+    return <Picture asset={s.media} fill fit="contain" sizes="(min-width: 1024px) 50vw, 100vw" className="h-full w-full" />;
   }
   if (s.figure) {
     return (
