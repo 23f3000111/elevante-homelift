@@ -8,7 +8,8 @@
  * crop removes the generator watermark. Run with `npm run media`.
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync, statSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -98,8 +99,10 @@ async function writeImage(id, input, crop) {
   if (crop) pipeline = pipeline.extract(crop);
   const info = await pipeline.webp({ quality: 82, effort: 5 }).toFile(out);
   const blur = await blurDataURL(out);
+  // A content hash in the URL, so a re-cropped file is never served from a stale cache.
+  const v = createHash("md5").update(readFileSync(out)).digest("hex").slice(0, 8);
   console.log(`img  ${id.padEnd(28)} ${String(info.width).padStart(4)}x${String(info.height).padEnd(5)} ${kb(out)} KB`);
-  return { src: `/media/img/${id}.webp`, width: info.width, height: info.height, blurDataURL: blur };
+  return { src: `/media/img/${id}.webp?v=${v}`, width: info.width, height: info.height, blurDataURL: blur };
 }
 
 function ffmpeg(args) {

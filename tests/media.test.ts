@@ -4,12 +4,14 @@ import path from "node:path";
 import { excluded, images, sequences, videos } from "@/content/media";
 
 const PUBLIC = path.resolve(__dirname, "..", "public");
+/** Image URLs carry a cache-busting query; the file lives at the path before it. */
+const file = (src: string) => path.join(PUBLIC, src.split("?")[0]);
 const PROVENANCE = ["product", "ai", "stock", "placeholder"];
 
 describe("media manifest", () => {
   it("has a file, dimensions, alt text and provenance for every image", () => {
     for (const asset of Object.values(images)) {
-      expect(existsSync(path.join(PUBLIC, asset.src)), `${asset.id} file`).toBe(true);
+      expect(existsSync(file(asset.src)), `${asset.id} file`).toBe(true);
       expect(asset.width, `${asset.id} width`).toBeGreaterThan(0);
       expect(asset.height, `${asset.id} height`).toBeGreaterThan(0);
       expect(asset.alt.trim().length, `${asset.id} alt`).toBeGreaterThan(10);
