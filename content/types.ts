@@ -128,7 +128,11 @@ export interface GalleryItem {
 
 export interface Material {
   name: string;
+  /** Shown whole, at its own proportions; never cropped. */
   media: MediaAsset;
+  /** When present, the film plays in place of the still. */
+  video?: VideoAsset;
+  caption?: string;
 }
 
 export interface HomeContent {

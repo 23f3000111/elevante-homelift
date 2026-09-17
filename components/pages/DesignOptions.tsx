@@ -31,8 +31,8 @@ export function DesignOptions({ title, note, options }: { title: string; note: s
             <li key={o.id} data-reveal className={cn("border-t pt-5", o.placeholder ? "border-dashed border-warm-grey" : "border-stone")}>
               <span className="font-mono text-small text-caption">{GROUP_LABEL[o.group]}</span>
               {o.media ? (
-                <div className="relative mt-4 aspect-[4/3] overflow-hidden" style={{ maxWidth: o.media.width }}>
-                  <Picture asset={o.media} fill sizes="(min-width: 1024px) 30vw, 100vw" className="h-full w-full" />
+                <div className="mt-4" style={{ maxWidth: o.media.width }}>
+                  <Picture asset={o.media} sizes="(min-width: 1024px) 30vw, 100vw" />
                 </div>
               ) : (
                 <div className="mt-4 flex aspect-[4/3] items-end bg-warm-white p-4">

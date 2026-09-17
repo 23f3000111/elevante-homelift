@@ -1,4 +1,4 @@
-import { image } from "../media";
+import { image, video } from "../media";
 import type { DesignOption } from "../types";
 
 /**
@@ -19,7 +19,7 @@ export const designOptions: DesignOption[] = [
     group: "materials",
     name: "Timber",
     description: "Material reference. The Elevante timber finishes will be listed here.",
-    media: image("material-oak"),
+    media: video("video-home-integration").poster,
     placeholder: true,
   },
   {
@@ -27,7 +27,7 @@ export const designOptions: DesignOption[] = [
     group: "materials",
     name: "Stone",
     description: "Material reference. The Elevante stone finishes will be listed here.",
-    media: image("material-stone"),
+    media: video("video-design-cabin").poster,
     placeholder: true,
   },
   {
@@ -35,7 +35,7 @@ export const designOptions: DesignOption[] = [
     group: "finishes",
     name: "Metal",
     description: "Material reference. The Elevante metal finishes will be listed here.",
-    media: image("material-metal"),
+    media: image("lift-bronze-cabin"),
     placeholder: true,
   },
   {
