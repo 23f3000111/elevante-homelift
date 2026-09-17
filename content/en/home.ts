@@ -12,7 +12,8 @@ export const home: HomeContent = {
     lead: "When using the stairs becomes difficult, this does not have to mean that parts of your home can no longer be used. With the Elevante Homelift, all floors remain accessible.",
     primary: { label: "See how it works", href: "#product" },
     secondary: { label: "View examples", href: "#in-your-home" },
-    media: image("stair-gold-hall"),
+    video: video("video-design-cabin"),
+    caption: "Visualisation. Product film to follow.",
     scrollCue: "Scroll",
   },
 

@@ -7,6 +7,8 @@ import { cn } from "@/lib/cn";
 interface VideoLoopProps {
   video: VideoAsset;
   className?: string;
+  /** Attach sources at once (the hero); everything else waits until it is near. */
+  eager?: boolean;
 }
 
 /**
@@ -15,7 +17,7 @@ interface VideoLoopProps {
  * viewport of the screen, playback pauses when it leaves, and a visitor who
  * prefers reduced motion only ever sees the poster.
  */
-export function VideoLoop({ video, className }: VideoLoopProps) {
+export function VideoLoop({ video, className, eager = false }: VideoLoopProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [armed, setArmed] = useState(false);
 
@@ -37,7 +39,7 @@ export function VideoLoop({ video, className }: VideoLoopProps) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [eager]);
 
   return (
     <video
@@ -50,11 +52,11 @@ export function VideoLoop({ video, className }: VideoLoopProps) {
       loop
       playsInline
       autoPlay={armed}
-      preload="none"
+      preload={eager ? "auto" : "none"}
       aria-label={video.poster.alt}
       onLoadedData={(e) => void e.currentTarget.play().catch(() => {})}
     >
-      {armed && (
+      {(eager || armed) && (
         <>
           <source src={video.webm} type="video/webm" />
           <source src={video.mp4} type="video/mp4" />

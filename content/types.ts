@@ -137,7 +137,9 @@ export interface HomeContent {
     lead: string;
     primary: Cta;
     secondary: Cta;
-    media: MediaAsset;
+    /** The film behind the opening; its poster stands in under reduced motion. */
+    video: VideoAsset;
+    caption: string;
     scrollCue: string;
   };
   productReveal: SectionIndexContent & {

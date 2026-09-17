@@ -5,7 +5,7 @@ interface SectionIndexProps {
   label: string;
   /** `stone` sits on light ground; `light` sits on photography. */
   tone?: "stone" | "light" | "oxide";
-  size?: "large" | "huge";
+  size?: "small" | "large" | "huge";
   className?: string;
 }
 
@@ -15,7 +15,8 @@ interface SectionIndexProps {
  */
 export function SectionIndex({ index, label, tone = "stone", size = "large", className }: SectionIndexProps) {
   const colour = tone === "light" ? "text-warm-white" : tone === "oxide" ? "text-oxide" : "text-stone";
-  const scale = size === "huge" ? "text-[clamp(6rem,16vw,15rem)]" : "text-[clamp(5rem,12vw,11rem)]";
+  const scale =
+    size === "huge" ? "text-[clamp(6rem,16vw,15rem)]" : size === "small" ? "text-[clamp(3.5rem,6vw,5.5rem)]" : "text-[clamp(5rem,12vw,11rem)]";
   return (
     <div className={cn("select-none", className)}>
       <span aria-hidden className={cn("block leading-[0.8] font-medium tracking-[-0.06em]", scale, colour)}>

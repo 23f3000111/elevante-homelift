@@ -16,15 +16,16 @@ export function HeroMotion({ children }: { children: ReactNode }) {
     revealWithin(scope);
     const section = scope.querySelector("section");
     const media = scope.querySelector("[data-hero-media]");
-    const img = media?.querySelector("img");
     const zoom = scope.querySelector("[data-hero-zoom]");
+    const plate = scope.querySelector("[data-hero-plate]");
     const inner = scope.querySelector("[data-hero-inner]");
     const fades = scope.querySelectorAll("[data-hero-fade]");
 
     const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-    if (media) tl.to(media, { clipPath: "inset(0 0 0 0%)", duration: 1.6 }, 0.15);
-    if (img) tl.to(img, { scale: 1, duration: 2.2, ease: "power2.out" }, 0.15);
-    tl.to(fades, { autoAlpha: 1, duration: 0.9, stagger: 0.12 }, 0.8);
+    if (media) tl.to(media, { autoAlpha: 1, duration: 1.4, ease: "power2.out" }, 0);
+    if (zoom) tl.to(zoom, { scale: 1, duration: 2.6, ease: "power2.out" }, 0);
+    if (plate) tl.to(plate, { autoAlpha: 1, y: 0, duration: 1.3 }, 0.35);
+    tl.to(fades, { autoAlpha: 1, duration: 0.9, stagger: 0.12 }, 1.0);
 
     // Desktop: hold the scene while the next section slides over it.
     if (section && matches(DESKTOP)) {
