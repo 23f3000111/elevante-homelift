@@ -1,0 +1,34 @@
+# ---------------------------------------------------------------
+# CONFIDENTIAL: the client brief is an internal business document.
+# It names Elevante Beheer BV, their commercial model, dealer
+# strategy and market positioning. It must not go into a public
+# repository. Delete this line only if you have decided otherwise.
+# ---------------------------------------------------------------
+Elevante Homelift - Website development brief.txt
+
+# Original full-size photography and video (68 MB).
+# The optimised WebP and compressed mp4 the sites actually use are
+# committed inside each site's assets folder.
+_shared/downloads/
+
+# Working screenshots and contact sheets from the build
+_shared/screens/
+_shared/contact-sheet.jpg
+
+# Intermediate files
+_shared/f-a.css
+_shared/f-b.css
+_shared/urls-staircase.txt
+__pycache__/
+*.pyc
+
+# Local tooling
+.agents/
+.claude/
+skills-lock.json
+.playwright-mcp/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
