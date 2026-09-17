@@ -81,6 +81,33 @@ The first pair of sites was generic, and the animation was thin. Both fair.
 
 ---
 
+## Filling the page
+
+An earlier pass left inner-page headers as a headline on an empty white field,
+with two thirds of the grid unused. Four image components now carry those areas:
+
+| Component | Where | What it fixes |
+|---|---|---|
+| **Hero cluster** | Every inner-page header | Three overlapping frames at different sizes fill the half of the header that was blank. |
+| **Full-bleed band** | Under every header, and under the homepage hero | Four frames edge to edge, breaking the page margin. |
+| **Mosaic** | Both homepages | One tall, one wide, two square and one full-width cell. Sized to fill its grid exactly, with no empty tail. |
+| **Image marquee** | Both homepages | A continuous strip of photographs, replacing the word marquee. |
+
+Direction B also gains a **full-width vermilion band** for the testimonial, so
+one saturated block of colour carries the brand on an otherwise pale sheet.
+Measured at 5.45:1 contrast, which passes AA at every size used.
+
+Photography went from 39 files to **65**, with **47 in use** per site across the
+seven pages, up from 26. Section padding was tightened throughout, since the
+generous vertical rhythm was reading as dead air rather than space.
+
+One trap worth recording: the full-bleed components originally used
+`width: 100vw; margin-left: calc(50% - 50vw)`. `vw` includes the scrollbar, so
+every page gained exactly 8px of horizontal scroll. They now render outside
+`.shell`, where 100% is already edge to edge and excludes the scrollbar.
+
+---
+
 ## Motion, and the brief's accessibility requirement
 
 Brief section 15 asks for no complex animation because the audience is 60-75+.

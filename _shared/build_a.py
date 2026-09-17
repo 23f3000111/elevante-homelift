@@ -14,7 +14,7 @@ import parts as P
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "site-a-atelier"
 SPRITE = (ROOT / "_shared" / "sprite.html").read_text(encoding="utf-8")
-VER = "2"
+VER = "5"
 
 
 def ico(name, size=19):
@@ -171,6 +171,27 @@ def cta():
 </section>"""
 
 
+
+
+def phero(page, eyebrow, h1, lead):
+    """Inner-page header. Text on the left, an overlapping image cluster on the
+    right, then a full-bleed band. Replaces the text-on-empty-white version."""
+    eb = f'<span class="eyebrow">{eyebrow}</span>' if eyebrow else ""
+    return f"""
+<section class="phero">
+  <div class="shell sheet">
+    <div class="c-1-6">
+      {eb}
+      <h1 class="d1" data-split style="margin-top:14px">{h1}</h1>
+      <p class="lead">{lead}</p>
+    </div>
+    <div class="c-7-13" data-reveal="right">{P.hero_cluster(C.HERO_CLUSTERS[page])}</div>
+  </div>
+</section>
+<section class="sec-tight" style="padding-top:clamp(20px,3vw,40px)">
+  {P.image_band(C.BANDS[page])}
+</section>"""
+
 # ============================================================ HOME
 def home():
     proj_cards = [f"""
@@ -185,8 +206,6 @@ def home():
       <div class="tl-item" data-reveal="up">
         <div class="tl-n">{i:02d}</div><h3>{t}</h3><p>{b}</p>
       </div>""" for i, (t, b) in enumerate(C.STEPS[:4], 1))
-
-    marquee = "".join(f"<span>{m[0]}</span>" for m in C.MATERIALS) * 2
 
     return head("Elevante Homelift | A lift built into your staircase",
                 "The Elevante Homelift travels inside the staircase footprint of an existing "
@@ -213,6 +232,10 @@ def home():
       {''.join(f'<span>{m}</span>' for m in C.HERO['meta'])}
     </div>
   </div>
+</section>
+
+<section class="sec-tight" style="padding-top:clamp(18px,3vw,36px)">
+  {P.image_band(C.BANDS['home'], 'Houses in the Netherlands, the United Kingdom and Germany')}
 </section>
 
 <!-- NUMBERS -->
@@ -283,7 +306,11 @@ def home():
   </div>
 </section>
 
-<div class="marquee" aria-hidden="true"><div class="marquee-track">{marquee}</div></div>
+{P.image_marquee(C.MARQUEE_IMAGES)}
+
+<section class="sec-tight">
+  <div class="shell">{P.mosaic(C.MOSAIC)}</div>
+</section>
 
 <!-- DESIGN TEASER (brief s.9 and s.18: introduce, do not configure) -->
 <section class="sec">
@@ -358,15 +385,7 @@ def homelift():
                 "How the Elevante Homelift works: the cabin, the staircase, the automatic "
                 "doors and the safety system.",
                 "homelift") + nav("the-homelift.html") + f"""
-<section class="phero">
-  <div class="shell sheet">
-    <div class="c-1-9">
-      <span class="eyebrow">The system</span>
-      <h1 class="d1" data-split style="margin-top:16px">A lift that travels inside the staircase</h1>
-      <p class="lead">{C.SYSTEM['body'][0]}</p>
-    </div>
-  </div>
-</section>
+{phero('homelift', 'The system', 'A lift that travels inside the staircase', f"{C.SYSTEM['body'][0]}")}
 
 {P.section_drawing('productSection')}
 
@@ -417,15 +436,7 @@ def in_your_home():
     return head("In your home | Elevante Homelift",
                 "How the Elevante Homelift fits into an existing house without taking a room away.",
                 "inyourhome") + nav("in-your-home.html") + f"""
-<section class="phero">
-  <div class="shell sheet">
-    <div class="c-1-9">
-      <span class="eyebrow">{C.INTEGRATION['eyebrow']}</span>
-      <h1 class="d1" data-split style="margin-top:16px">{C.INTEGRATION['h2']}</h1>
-      <p class="lead">{C.INTEGRATION['body'][0]}</p>
-    </div>
-  </div>
-</section>
+{phero('inyourhome', C.INTEGRATION['eyebrow'], f"{C.INTEGRATION['h2']}", f"{C.INTEGRATION['body'][0]}")}
 
 <section class="sec-tight">
   <div class="shell">{P.plan_compare('iyhPlans')}</div>
@@ -490,16 +501,7 @@ def design():
                 "Cabin, staircase, materials and finishes for the Elevante Homelift, "
                 "specified to match an existing interior.",
                 "design") + nav("design.html") + f"""
-<section class="phero">
-  <div class="shell sheet">
-    <div class="c-1-9">
-      <span class="eyebrow">Design</span>
-      <h1 class="d1" data-split style="margin-top:16px">Specified to match the house it goes into</h1>
-      <p class="lead">Cabin, staircase, wall finishes and flooring are chosen together, so the
-      result reads as part of the interior rather than equipment added to it.</p>
-    </div>
-  </div>
-</section>
+{phero('design', 'Design', 'Specified to match the house it goes into', 'Cabin, staircase, wall finishes and flooring are chosen together, so the result reads as part of the interior rather than equipment added to it.')}
 
 <section class="sec-tight">
   <div class="shell sheet">
@@ -552,19 +554,7 @@ def installation():
                 "What installing an Elevante Homelift involves, from first enquiry through "
                 "survey and installation to handover and service.",
                 "installation") + nav("installation.html") + f"""
-<section class="phero">
-  <div class="shell sheet">
-    <div class="c-1-9">
-      <span class="eyebrow">Installation</span>
-      <h1 class="d1" data-split style="margin-top:16px">Fitted into a house that is already lived in</h1>
-      <p class="lead">Elevante goes into finished houses, not building sites. The survey
-      establishes what is possible before anything is ordered.</p>
-    </div>
-    <div class="c-1-13" data-reveal="scale" style="margin-top:clamp(30px,5vw,60px)">
-      <div class="media-frame ar-219 px-wrap">{img('material-detail-03', 'A joiner working timber for a staircase', '100vw', 'px', eager=True)}</div>
-    </div>
-  </div>
-</section>
+{phero('installation', 'Installation', 'Fitted into a house that is already lived in', 'Elevante goes into finished houses, not building sites. The survey establishes what is possible before anything is ordered.')}
 
 <section class="sec">
   <div class="shell">
@@ -612,16 +602,7 @@ def projects():
     return head("Projects | Elevante Homelift",
                 "Elevante Homelift installations in existing private houses.",
                 "projects") + nav("projects.html") + f"""
-<section class="phero">
-  <div class="shell sheet">
-    <div class="c-1-9">
-      <span class="eyebrow">Projects</span>
-      <h1 class="d1" data-split style="margin-top:16px">Houses that were finished before we arrived</h1>
-      <p class="lead">Every installation starts from a staircase that already exists. These are
-      the situations the system is built for.</p>
-    </div>
-  </div>
-</section>
+{phero('projects', 'Projects', 'Houses that were finished before we arrived', 'Every installation starts from a staircase that already exists. These are the situations the system is built for.')}
 
 <!-- PLACEHOLDER PROJECTS. Replace with real installations as they complete.
      Brief s.22 asks for these to be a CMS content type. -->
@@ -661,15 +642,7 @@ def dealers():
                 "Authorised Elevante installers in the Netherlands, the United Kingdom and "
                 "Germany. Several have a working Elevante you can travel in.",
                 "dealers") + nav("dealers.html") + f"""
-<section class="phero">
-  <div class="shell sheet">
-    <div class="c-1-9">
-      <h1 class="d1" data-split>{C.DEALER_LABEL}</h1>
-      <p class="lead">Authorised installers survey the house, quote the work, install the lift
-      and service it afterwards. Several have a working Elevante in their showroom.</p>
-    </div>
-  </div>
-</section>
+{phero('dealers', '', f'{C.DEALER_LABEL}', 'Authorised installers survey the house, quote the work, install the lift and service it afterwards. Several have a working Elevante in their showroom.')}
 
 <section class="sec-tight" id="showroom">
   <div class="shell">

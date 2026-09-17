@@ -110,7 +110,7 @@ p{max-width:64ch}
 /* ---------- 4. LAYOUT ---------- */
 .shell{width:var(--shell);margin-inline:auto}
 section{position:relative}
-.sec{padding-block:clamp(78px,10vw,164px)}
+.sec{padding-block:clamp(64px,8vw,124px)}
 .sec-tight{padding-block:clamp(50px,6vw,92px)}
 .stack>*+*{margin-top:20px}
 .stack-lg>*+*{margin-top:36px}
@@ -119,6 +119,7 @@ section{position:relative}
 .c-1-5{grid-column:1/6}.c-1-6{grid-column:1/7}.c-1-7{grid-column:1/8}
 .c-2-8{grid-column:2/9}.c-3-9{grid-column:3/10}.c-4-13{grid-column:4/13}
 .c-5-13{grid-column:5/13}.c-6-13{grid-column:6/13}.c-8-13{grid-column:8/13}
+.c-7-13{grid-column:7/13}
 .c-1-9{grid-column:1/10}.c-1-13{grid-column:1/13}
 
 .rule{height:1px;background:var(--line);border:0}
@@ -213,7 +214,7 @@ section{position:relative}
 .drawer .btn{margin-top:26px;width:100%;justify-content:center;font-size:1.0625rem;border-bottom:0}
 
 /* ---------- 7. HERO ---------- */
-.hero{padding-top:clamp(116px,14vh,164px);padding-bottom:clamp(36px,5vh,72px)}
+.hero{padding-top:clamp(108px,11vh,144px);padding-bottom:clamp(30px,4vh,56px)}
 .hero h1{max-width:12ch;margin-bottom:24px}
 .hero .lead{margin-bottom:32px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
@@ -228,7 +229,7 @@ section{position:relative}
 .ticked::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
 .ticked::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
 
-.phero{padding-top:clamp(124px,14vh,184px);padding-bottom:clamp(34px,5vw,68px)}
+.phero{padding-top:clamp(108px,11vh,144px);padding-bottom:clamp(28px,4vw,52px)}
 .phero h1{max-width:14ch}
 .phero .lead{margin-top:20px}
 
@@ -292,6 +293,21 @@ section{position:relative}
 .band-dark .dim{color:rgba(251,250,247,.6)}
 .band-dark .cab-tab{color:var(--sheet);border-color:rgba(255,255,255,.3)}
 .band-dark .cab-tab[aria-selected="true"]{background:#FF7A4D;border-color:#FF7A4D;color:#14161A}
+
+
+/* a full-width block of real colour, used once per page. The sheet is
+   deliberately pale, so one saturated band carries the brand. */
+.band-accent{background:var(--accent);color:#fff;
+  --dwg-ink:#FFFFFF;--dwg-paper:#C03A14;--dwg-accent:#FFD9CC;--line:rgba(255,255,255,.3)}
+.band-accent h2,.band-accent h3,.band-accent blockquote{color:#fff}
+.band-accent p,.band-accent .lead,.band-accent .body-lg{color:rgba(255,255,255,.88)}
+.band-accent .eyebrow,.band-accent .dim,.band-accent .tb-label{color:#FFD9CC}
+.band-accent .quote figcaption{color:rgba(255,255,255,.82)}
+.band-accent .quote figcaption b{color:#fff}
+.band-accent .media-frame{border-color:#fff}
+.band-accent .tlink{color:#fff}
+.band-accent .btn-ghost{color:#fff;border-color:#fff}
+.band-accent .btn-ghost:hover{background:#fff;color:var(--accent)}
 
 /* ---------- 13. MATERIAL SWATCHES ---------- */
 .mats{display:flex;flex-wrap:wrap;gap:10px}
@@ -500,7 +516,7 @@ section{position:relative}
 }
 @media (max-width:820px){
   .sheet-grid{grid-template-columns:1fr;gap:24px}
-  .c-1-5,.c-1-6,.c-1-7,.c-2-8,.c-3-9,.c-4-13,.c-5-13,.c-6-13,.c-8-13,.c-1-13,.c-1-9{grid-column:1/-1}
+  .c-1-5,.c-1-6,.c-1-7,.c-2-8,.c-3-9,.c-4-13,.c-5-13,.c-6-13,.c-8-13,.c-7-13,.c-1-13,.c-1-9{grid-column:1/-1}
   .dealer-grid,.steps{grid-template-columns:1fr}
   .foot-top{grid-template-columns:1fr;gap:28px}
   .hero-actions .btn{flex:1 1 100%}

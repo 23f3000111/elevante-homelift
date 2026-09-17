@@ -208,3 +208,71 @@ CTA = {
             "Several have a working Elevante you can travel in.",
     "image": "stair-arch-01",
 }
+
+
+# ---------------------------------------------------------------- IMAGE SETS
+# Chosen so each page has its own faces and rooms rather than repeating one
+# hero shot. Every page gets a cluster in the header and a full-bleed band,
+# which is what stops the sheet reading as empty.
+
+HERO_CLUSTERS = {
+    "home":        [("stair-hero-01", "A staircase with the space beneath it in use"),
+                    ("life-01", "A couple laughing together in their living room"),
+                    ("room-04", "A curved staircase in a private house")],
+    "homelift":    [("stair-modern-01", "A wooden staircase in a sunlit house"),
+                    ("life-06", "Two homeowners at home together"),
+                    ("room-01", "A bright landing with a handrail")],
+    "inyourhome":  [("room-05", "A double-height hallway and staircase"),
+                    ("life-03", "A couple on the sofa in their living room"),
+                    ("room-13", "A landing looking down into the living space")],
+    "design":      [("material-wood-01", "Oak, brushed and oiled"),
+                    ("room-14", "A corner of a living room with plants"),
+                    ("stair-detail-02", "A wooden staircase seen from above")],
+    "installation":[("material-detail-03", "A joiner working timber for a staircase"),
+                    ("people-couple-05", "An installer going through the survey with a homeowner"),
+                    ("room-11", "A room prepared before installation")],
+    "projects":    [("interior-living-01", "A living room in an existing house"),
+                    ("life-07", "A couple dancing in their living room"),
+                    ("stair-spiral-01", "A wooden staircase with plants")],
+    "dealers":     [("stair-arch-01", "A hallway and staircase in a private home"),
+                    ("life-10", "Two people greeting each other at home"),
+                    ("room-06", "A living room with large windows")],
+}
+
+BANDS = {
+    "home":        [("life-02", "A couple in their living room"), ("room-02", "A staircase above an open living space"),
+                    ("life-05", "Music at home"), ("room-07", "A living room with plants and a teal sofa")],
+    "homelift":    [("stair-detail-01", "Sunlight on a staircase"), ("room-03", "A warm interior with timber and plants"),
+                    ("stair-light-01", "Daylight over a staircase"), ("life-08", "Reading together at home")],
+    "inyourhome":  [("room-08", "A dining area in an existing house"), ("interior-living-03", "A living room with a blue sofa"),
+                    ("room-12", "An armchair by a window"), ("life-04", "A couple at home on the sofa")],
+    "design":      [("material-wood-02", "Walnut, natural matt"), ("material-detail-01", "Anthracite, honed stone"),
+                    ("material-detail-02", "Chalk, lime plaster"), ("material-detail-04", "Ribbed painted timber")],
+    "installation":[("stair-dark-01", "Panelling beside a staircase"), ("material-detail-03", "Timber being worked"),
+                    ("room-16", "A room cleared for installation"), ("stair-arch-01", "A finished hallway")],
+    "projects":    [("interior-living-04", "A dark slatted wall in a living room"), ("interior-room-03", "A modern living room"),
+                    ("interior-kitchen-01", "A kitchen in an existing house"), ("room-10", "A dining area beside a kitchen")],
+    "dealers":     [("room-02", "A staircase above an open living space"), ("life-09", "Two people at home with a laptop"),
+                    ("interior-room-04", "A living room with a plant"), ("room-13", "A landing above the living space")],
+}
+
+MOSAIC = [
+    ("life-01", "A couple laughing in their living room", "Everyday use"),
+    ("room-05", "A double-height hallway and staircase", "The stairwell"),
+    ("material-wood-01", "Oak, brushed and oiled", "Materials"),
+    ("life-07", "A couple dancing at home", "Staying put"),
+    ("stair-detail-02", "A wooden staircase from above", "The staircase"),
+]
+
+MARQUEE_IMAGES = [
+    ("room-02", "A staircase above an open living space"),
+    ("life-03", "A couple on the sofa"),
+    ("stair-modern-01", "A wooden staircase in a sunlit house"),
+    ("room-07", "A living room with plants"),
+    ("life-06", "Two homeowners at home"),
+    ("material-wood-01", "Oak, brushed and oiled"),
+    ("room-13", "A landing above the living space"),
+    ("life-05", "Music at home"),
+    ("stair-detail-01", "Sunlight on a staircase"),
+    ("room-08", "A dining area"),
+]

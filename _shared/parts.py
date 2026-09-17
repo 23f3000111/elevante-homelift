@@ -243,3 +243,56 @@ def plan_compare(ident="planCompare"):
   </figure>
 </div>
 """
+
+
+# ---------------------------------------------------------- 4. IMAGE LAYOUTS
+# These exist to stop pages reading as text on an empty field. Each one is a
+# composition, not a filler: overlapping offsets, full-bleed bands and an
+# image marquee give the sheet something to hold.
+
+def _img(name, alt, sizes, cls="", eager=False):
+    load = 'fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
+    return ('<img src="assets/img/%s-1600.webp" '
+            'srcset="assets/img/%s-800.webp 800w, assets/img/%s-1600.webp 1600w" '
+            'sizes="%s" alt="%s" class="%s" %s>' % (name, name, name, sizes, alt, cls, load))
+
+
+def hero_cluster(items, eager=True):
+    """Three overlapping frames at different sizes. Fills the half of an inner
+    hero that was previously blank."""
+    a, b, c = items
+    return f"""
+<div class="cluster">
+  <figure class="cluster-a px-wrap">{_img(a[0], a[1], '(max-width:820px) 60vw, 26vw', 'px', eager)}</figure>
+  <figure class="cluster-b px-wrap">{_img(b[0], b[1], '(max-width:820px) 40vw, 18vw', 'px')}</figure>
+  <figure class="cluster-c px-wrap">{_img(c[0], c[1], '(max-width:820px) 45vw, 20vw', 'px')}</figure>
+</div>"""
+
+
+def image_band(items, caption=None):
+    """Full-bleed strip of frames, edge to edge, breaking the page margin."""
+    cells = "".join(
+        f'<figure class="band-cell px-wrap">{_img(n, a, "(max-width:820px) 60vw, 25vw", "px")}</figure>'
+        for n, a in items)
+    cap = f'<div class="shell"><p class="band-cap">{caption}</p></div>' if caption else ""
+    return f'<div class="img-band" data-stagger>{cells}</div>{cap}'
+
+
+def image_marquee(items):
+    """A continuous strip of photographs. Used once per page, opposite the
+    word marquee, so the two never appear on the same page."""
+    cells = "".join(
+        f'<figure class="mq-cell">{_img(n, a, "22vw")}</figure>' for n, a in items)
+    return f'<div class="img-marquee" aria-hidden="true"><div class="mq-track">{cells}{cells}</div></div>'
+
+
+def mosaic(items):
+    """Asymmetric grid: one tall, one wide, three square. Sized by content
+    rather than a uniform row of equal cards."""
+    # exact fit for 5 cells in a 6 column grid, no empty tail
+    cls = ["m-tall", "m-wide", "m-sq", "m-sq", "m-full"]
+    cells = "".join(
+        f'<figure class="m-cell {cls[i % len(cls)]} px-wrap">{_img(n, a, "(max-width:820px) 100vw, 32vw", "px")}'
+        f'<figcaption>{cap}</figcaption></figure>'
+        for i, (n, a, cap) in enumerate(items))
+    return f'<div class="mosaic" data-stagger>{cells}</div>'
