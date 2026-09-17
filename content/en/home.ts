@@ -10,7 +10,7 @@ export const home: HomeContent = {
   hero: {
     title: "Comfortably and safely remain living in your own home.",
     lead: "When using the stairs becomes difficult, this does not have to mean that parts of your home can no longer be used. With the Elevante Homelift, all floors remain accessible.",
-    primary: { label: "See how it works", href: "#how-it-works" },
+    primary: { label: "See how it works", href: "#product" },
     secondary: { label: "View examples", href: "#in-your-home" },
     media: image("stair-gold-hall"),
   },
@@ -35,6 +35,7 @@ export const home: HomeContent = {
   howItWorks: {
     title: "How it works",
     intro: "Three stages, each of them visible in the house.",
+    diagramNote: "Schematic section. Not to scale.",
     steps: [
       {
         number: "01",
@@ -80,12 +81,9 @@ export const home: HomeContent = {
     body: "Elevante is designed as part of the interior, in the way a staircase already is. Cabin, materials and finishes are chosen to suit the house.",
     cta: { label: "See how it fits", href: "/in-your-home" },
     gallery: [
-      { media: image("stair-gold-hall"), label: "Reference interior" },
-      { media: image("stair-floating-glass-lift"), label: "Reference interior" },
-      { media: image("stair-oak-screen"), label: "Reference interior" },
-      { media: image("stair-curved-led"), label: "Reference interior" },
-      { media: image("stair-dark-wood"), label: "Reference interior" },
-      { media: image("lift-round-glass-hall"), label: "Reference interior" },
+      { media: image("stair-gold-hall"), label: "Entrance hall, stone and brass" },
+      { media: image("stair-oak-screen"), label: "Curved stair behind an oak screen" },
+      { media: image("stair-dark-wood"), label: "Curved stair, dark timber" },
     ],
   },
 
@@ -118,11 +116,16 @@ export const home: HomeContent = {
         figure: "stair-opening",
       },
       {
-        id: "wheels",
-        title: "With a rollator or wheelchair",
-        body: "The cabin is designed to take a rollator or a wheelchair.",
+        id: "rollator",
+        title: "With a rollator",
+        body: "The cabin is designed to take a rollator, with the person using it.",
+        figure: "rollator",
+      },
+      {
+        id: "wheelchair",
+        title: "With a wheelchair",
+        body: "The cabin is designed to take a wheelchair.",
         media: image("lift-wheelchair"),
-        figure: "wheelchair",
       },
       {
         id: "assist",
@@ -131,6 +134,7 @@ export const home: HomeContent = {
         figure: "two-people",
       },
     ],
+    visualisationLabel: "Visualisation",
     safetyTitle: "Movement detection",
     safety:
       "The system detects movement on or around the staircase. The lift will not start when movement is detected, and stops immediately if movement is detected during travel.",
@@ -153,6 +157,7 @@ export const home: HomeContent = {
   projects: {
     title: "Made for real homes.",
     body: "Installations will appear here as the first homes are completed. Until then, these interiors show the kind of houses Elevante is designed for.",
+    visualisationLabel: "Visualisation",
     cta: { label: "More inspiration", href: "/inspiration" },
     placeholderLabel: "Reference interior, not an Elevante installation",
   },

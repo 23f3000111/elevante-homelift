@@ -18,7 +18,7 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* Fluid type scale, 360px to 1440px viewports. */
-  --text-display-1: clamp(2.75rem, 1.17rem + 7.04vw, 7.5rem);
+  --text-display-1: clamp(2.75rem, 1.58rem + 5.19vw, 6.25rem);
   --text-display-1--line-height: 0.95;
   --text-display-1--letter-spacing: -0.03em;
   --text-display-2: clamp(2.25rem, 1.5rem + 3.33vw, 4.5rem);
@@ -133,14 +133,40 @@
     opacity: 0;
     transform: translateY(1.5rem);
   }
-  html.js:not(.reduce) [data-hero-media] {
-    transform: scale(1.06);
-  }
   .stair-diagram text {
     font-family: var(--font-mono);
     font-size: 13px;
     letter-spacing: 0.02em;
     fill: var(--color-caption);
+  }
+  .stair-diagram.plan text {
+    font-size: 11px;
+  }
+  /* Hero entrance: hidden only when JS runs and motion is allowed. */
+  html.js:not(.reduce) [data-hero-word] {
+    transform: translateY(110%);
+  }
+  html.js:not(.reduce) [data-hero-fade] {
+    opacity: 0;
+  }
+  html.js:not(.reduce) [data-hero-media] {
+    clip-path: inset(0 0 100% 0);
+  }
+  html.js:not(.reduce) [data-hero-media] img {
+    transform: scale(1.06);
+  }
+  /* How-it-works steps: the inactive ones recede only while JS drives the drawing. */
+  [data-step] {
+    transition: opacity 0.5s var(--ease-out-quart);
+  }
+  [data-step][data-active="false"] {
+    opacity: 0.4;
+  }
+  /* Drawing labels are unreadable below ~600px of render width. */
+  @media (max-width: 63.99rem) {
+    .diagram-hide-labels-mobile text {
+      display: none;
+    }
   }
   /* Editorial rules encode structure; they are 1px, never decorative shadows. */
   .rule {

@@ -120,6 +120,7 @@ export interface HomeContent {
     title: string;
     intro: string;
     steps: Step[];
+    diagramNote: string;
   };
   underTheStaircase: {
     title: string;
@@ -142,6 +143,7 @@ export interface HomeContent {
     title: string;
     intro: string;
     situations: Situation[];
+    visualisationLabel: string;
     safetyTitle: string;
     safety: string;
   };
@@ -159,6 +161,7 @@ export interface HomeContent {
     body: string;
     cta: Cta;
     placeholderLabel: string;
+    visualisationLabel: string;
   };
   installation: {
     title: string;

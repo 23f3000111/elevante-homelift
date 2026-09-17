@@ -21,7 +21,6 @@ interface PictureProps {
 export function Picture({ asset, sizes, priority, fill, className, imgClassName }: PictureProps) {
   const common = {
     src: asset.src,
-    alt: asset.alt,
     sizes,
     priority,
     placeholder: asset.blurDataURL ? ("blur" as const) : ("empty" as const),
@@ -31,13 +30,13 @@ export function Picture({ asset, sizes, priority, fill, className, imgClassName 
   if (fill) {
     return (
       <div className={cn("relative overflow-hidden", className)}>
-        <Image {...common} fill />
+        <Image {...common} alt={asset.alt} fill />
       </div>
     );
   }
   return (
     <div className={cn("overflow-hidden", className)}>
-      <Image {...common} width={asset.width} height={asset.height} className={cn("h-auto w-full", imgClassName)} />
+      <Image {...common} alt={asset.alt} width={asset.width} height={asset.height} className={cn("h-auto w-full", imgClassName)} />
     </div>
   );
 }

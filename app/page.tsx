@@ -1,24 +1,40 @@
-export default function Page() {
+import { DealerCta } from "@/components/home/DealerCta";
+import { DesignTeaser } from "@/components/home/DesignTeaser";
+import { EverydayUse } from "@/components/home/EverydayUse";
+import { Hero } from "@/components/home/Hero";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { Idea } from "@/components/home/Idea";
+import { Installation } from "@/components/home/Installation";
+import { InYourHome } from "@/components/home/InYourHome";
+import { ProductReveal } from "@/components/home/ProductReveal";
+import { Projects } from "@/components/home/Projects";
+import { Trust } from "@/components/home/Trust";
+import { UnderTheStaircase } from "@/components/home/UnderTheStaircase";
+import { getHome, getProjects, getSite } from "@/lib/content";
+import { jsonLdScript, productJsonLd } from "@/lib/seo/jsonld";
+
+/**
+ * The homepage is a sequence of sections, each fed from the content layer.
+ * Order follows the brief's journey: benefit, recognition, possibility,
+ * the system, proof, next step.
+ */
+export default async function HomePage() {
+  const [home, projects, site] = await Promise.all([getHome(), getProjects(), getSite()]);
   return (
-    <main className="container-content py-section">
-      <p className="text-small text-caption">Design tokens</p>
-      <h1 className="text-display-1 mt-6 max-w-[14ch]">
-        Comfortably and safely remain living in your own home.
-      </h1>
-      <h2 className="text-display-2 mt-16 max-w-[18ch]">A lift inside the staircase.</h2>
-      <h3 className="text-h3 mt-10">The staircase stays. The way you move through it changes.</h3>
-      <p className="text-body-l mt-6 max-w-[60ch]">
-        When using the stairs becomes difficult, this does not have to mean that parts of your home can no longer be used.
-      </p>
-      <p className="text-body mt-4 max-w-[64ch]">
-        The Elevante Homelift is an integrated system in which the staircase and lift come together. The cabin travels in the space underneath the staircase.
-      </p>
-      <p className="mt-10 font-mono text-index text-caption">01 Enter 02 Move 03 Arrive</p>
-      <div className="mt-10 flex gap-3">
-        {["bg-warm-white", "bg-white", "bg-charcoal", "bg-charcoal-soft", "bg-stone", "bg-warm-grey", "bg-caption", "bg-oxide"].map((c) => (
-          <div key={c} className={`h-16 w-16 border border-stone ${c}`} />
-        ))}
-      </div>
-    </main>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(productJsonLd(site, home)) }} />
+      <Hero content={home.hero} />
+      <ProductReveal content={home.productReveal} />
+      <Idea content={home.idea} />
+      <HowItWorks content={home.howItWorks} />
+      <UnderTheStaircase content={home.underTheStaircase} />
+      <InYourHome content={home.inYourHome} />
+      <EverydayUse content={home.everydayUse} />
+      <DesignTeaser content={home.design} />
+      <Projects content={home.projects} projects={projects} />
+      <Installation content={home.installation} />
+      <Trust content={home.trust} />
+      <DealerCta content={home.dealerCta} />
+    </>
   );
 }
