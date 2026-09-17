@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T08:51:26.703Z",
+  "generatedAt": "2026-09-17T09:39:14.519Z",
   "images": {
     "stair-gold-hall": {
       "src": "/media/img/stair-gold-hall.webp",
@@ -111,9 +111,9 @@
     },
     "material-metal": {
       "src": "/media/img/material-metal.webp",
-      "width": 300,
-      "height": 600,
-      "blurDataURL": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAABwBgCdASoUACgAPu1ysFOppqQipWgBMB2JQBfJATrdzCzzjP94r0VggfOEcthOqq2lwxUTb2JDsJ/kjJoA/k1UWRM6jqYZb+R/7qQE6sJSFBjohHnH89vvKfRK1pVFJPvZ7Tu5Pr780L4Y8VPVZOfI9u0hRzLBJq8kS+I4RGWG1cNa3E1wBOkLCGde/o+7bRiHM8yC1+WsLWQVBG9kLKDD3rhLRBp4gxioXPkQLTg1KN/bOXij610yCFwY5bgAAAA="
+      "width": 400,
+      "height": 500,
+      "blurDataURL": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAAAQBQCdASoUABkAPu1sqlGppaOiqAqpMB2JYgCdMoABW7jOgkRyPspVa4hmufa/aiPQAP7SLXPfPbGkWSrG4niNQhZkkqlWUmvpjJAy85SuzeDXEf/oQSATS1qzbHswS+wVC0JzI3n4EqjtaRTeqEH7uUaCGdRKBJGL0o14AP63AbIrxa52Uv1mtU1GaqnEnnwUk8unJYd/Q+cka1irhL8tBc4AAA=="
     },
     "material-oak": {
       "src": "/media/img/material-oak.webp",
@@ -124,8 +124,8 @@
     "material-stone": {
       "src": "/media/img/material-stone.webp",
       "width": 330,
-      "height": 620,
-      "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAwBQCdASoUACYAPu1kqk4ppaQiKrgN+TAdiWUAw3AiPz5Wx+HIvXXUr3JpV/9sL6TuAAD7j1HpCRGeSRY3q/uHTfW8PfOssMITaYPFv6KgCHBUKjL1bBnd+qzdk8CipaDpNR3mxHQq7dbMgcBwAA=="
+      "height": 412,
+      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACQAwCdASoUABkAPu1srVEppaQnKAqpMB2JZwDGBAwvY4juNGAAAPaAVy9nqOgJFjM6W7l+mjMHh9H3j/EBcLoRE4AAAA=="
     }
   },
   "videos": {

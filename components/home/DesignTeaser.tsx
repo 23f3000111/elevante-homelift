@@ -14,9 +14,9 @@ import type { HomeContent } from "@/content/types";
  * source's proportions and nothing is cropped; each drifts sideways a little.
  */
 const PANELS = [
-  { pos: "top-[4%] right-0", h: 0.42, drift: "-0.1" }, // oak, landscape
-  { pos: "top-0 left-0", h: 0.8, drift: "0.1" }, // stone, tall
-  { pos: "bottom-0 left-[26%]", h: 0.64, drift: "0.05" }, // metal, tall, over the stone's edge
+  { pos: "top-[2%] right-0", h: 0.44, drift: "-0.1" }, // oak, landscape, top right
+  { pos: "top-0 left-0", h: 0.68, drift: "0.08" }, // stone, upright, top left
+  { pos: "bottom-0 left-[30%]", h: 0.62, drift: "0.04" }, // metal, upright, over the stone's corner
 ];
 
 /** Caption row above each panel, in rem, subtracted from the panel height. */

@@ -60,7 +60,7 @@ const IMAGES = {
   "loft-wide": { file: "staircase architecture residential interior wide angle.jpg" },
   "material-metal": {
     file: "luxury home elevator interior design.jpg",
-    crop: { left: 30, top: 150, width: 300, height: 600 },
+    crop: { left: 40, top: 110, width: 400, height: 500 },
   },
 };
 
@@ -82,7 +82,7 @@ const VIDEO_CROP = "1180:664"; // centred; removes the generator mark at bottom-
 /** Crops taken from video posters after they exist. */
 const DERIVED = {
   "material-oak": { poster: "video-home-integration", crop: { left: 40, top: 250, width: 400, height: 320 } },
-  "material-stone": { poster: "video-design-cabin", crop: { left: 850, top: 20, width: 330, height: 620 } },
+  "material-stone": { poster: "video-design-cabin", crop: { left: 846, top: 60, width: 330, height: 412 } },
 };
 
 const kb = (p) => Math.round(statSync(p).size / 1024);
