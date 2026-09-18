@@ -28,8 +28,8 @@ export default async function InformationPage() {
         note={information.downloadsNote}
         kinds={information.downloadKinds}
         items={downloads}
-        pendingLabel={information.specs[0].status}
-        downloadLabel="Download"
+        pendingLabel={information.pendingLabel}
+        downloadLabel={information.downloadLabel}
       />
       <Statement id="professionals" title={information.professionalsTitle} body={information.professionalsBody} />
       <Faq title={information.faqTitle} items={faqs} />

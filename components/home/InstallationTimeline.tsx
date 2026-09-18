@@ -82,7 +82,7 @@ export function InstallationTimeline({ content, index }: InstallationTimelinePro
                       aria-current={i + 1 === step ? "step" : undefined}
                       aria-label={`${s.number} ${s.title}`}
                       onClick={() => choose(i + 1)}
-                      className={cn("min-h-11 w-full font-mono text-mono transition-colors", i + 1 <= step ? "text-charcoal" : "text-warm-grey hover:text-caption")}
+                      className={cn("min-h-11 w-full font-mono text-mono transition-colors", i + 1 <= step ? "text-charcoal" : "text-caption hover:text-charcoal")}
                     >
                       {s.number}
                     </button>

@@ -81,7 +81,7 @@ export function HowItWorks({ content, drawingLabels, index }: HowItWorksProps) {
                   data-active={i === 0 ? "true" : "false"}
                   className={cn(
                     "grid grid-cols-[auto_1fr] items-baseline gap-x-6 border-t border-stone pt-5 transition-opacity duration-500",
-                    "data-[active=false]:opacity-40",
+                    "data-[active=false]:opacity-60",
                   )}
                 >
                   <span aria-hidden className="font-mono text-mono text-oxide">

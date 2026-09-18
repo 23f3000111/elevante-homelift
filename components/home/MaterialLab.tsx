@@ -74,7 +74,7 @@ export function MaterialLab({ content, index }: MaterialLabProps) {
                     onClick={() => setActive(i)}
                     className={cn(
                       "flex min-h-16 w-full items-center justify-between gap-6 py-3 text-left text-[clamp(2rem,4.5vw,3.75rem)] leading-none font-medium tracking-[-0.03em] transition-[color,padding] duration-400 ease-[var(--ease-out-quart)]",
-                      i === active ? "pl-4 text-charcoal" : "text-charcoal/40 hover:text-charcoal/70",
+                      i === active ? "pl-4 text-charcoal" : "text-charcoal/60 hover:text-charcoal/80",
                     )}
                   >
                     {m.name}

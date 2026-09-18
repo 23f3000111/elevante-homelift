@@ -193,6 +193,8 @@ export const pagesContent: PagesContent = {
       installation: "Installation information",
       drawing: "Drawings",
     },
+    downloadLabel: "Download",
+    pendingLabel: "To be published",
     faqTitle: "Questions and answers",
     professionalsTitle: "For architects and contractors",
     professionalsBody: "Drawings, installation requirements and technical documentation for professionals will be published on this page alongside the consumer information, so the same facts serve everyone involved in a decision.",

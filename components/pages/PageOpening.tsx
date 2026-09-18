@@ -39,6 +39,12 @@ export function PageOpening({ content, index }: { content: PageOpeningContent; i
         </div>
       </div>
 
+      {!content.media && !content.video && (
+        <div className="container-content mt-16 lg:mt-24">
+          <div data-hero-fade className="rule" />
+        </div>
+      )}
+
       {(content.media || content.video) && (
         <figure className="mt-14 lg:mt-20">
           <div data-opening-media>

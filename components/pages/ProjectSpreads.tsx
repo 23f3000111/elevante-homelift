@@ -28,8 +28,9 @@ export function ProjectSpreads({ projects, kinds }: ProjectSpreadsProps) {
                 {wide ? (
                   <Picture asset={p.media} sizes="100vw" className="mx-auto" />
                 ) : (
-                  <div className="h-[60svh] min-h-[20rem]">
-                    <MediaFrame asset={p.media} sizes="(min-width: 64rem) 55vw, 100vw" tone="white" className={cn(left ? "justify-start" : "justify-end")} />
+                  <div className="h-[56svh] min-h-[18rem]">
+                    {/* The mat hugs a small picture rather than stranding it in a large box. */}
+                    <MediaFrame asset={p.media} sizes="(min-width: 64rem) 55vw, 100vw" tone="white" className={cn("w-fit", left ? "" : "ml-auto")} />
                   </div>
                 )}
               </figure>
@@ -38,7 +39,7 @@ export function ProjectSpreads({ projects, kinds }: ProjectSpreadsProps) {
                   {String(i + 1).padStart(2, "0")} / {kinds[p.kind]}
                 </p>
                 <h2 className="mt-3 text-display-3 font-medium text-charcoal">{p.title}</h2>
-                <p className="mt-2 font-mono text-mono text-caption">{p.location}</p>
+                {p.location && <p className="mt-2 font-mono text-mono text-caption">{p.location}</p>}
                 <p className="mt-4 max-w-[36ch] text-body text-charcoal-soft">{p.summary}</p>
               </div>
             </article>

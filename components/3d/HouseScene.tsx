@@ -151,6 +151,7 @@ export function HouseScene({ progress, quality }: HouseSceneProps) {
   const soffitRef = useRef<THREE.Mesh>(null);
   const cabinRef = useRef<THREE.Group>(null);
   const leafRefs = useRef<Array<THREE.Group | null>>([]);
+  const frameRef = useRef<THREE.Group>(null);
   const panelRefs = useRef<Array<THREE.Group | null>>([]);
   const houseLines = useRef<THREE.LineSegments>(null);
   const stairLines = useRef<THREE.LineSegments>(null);
@@ -221,8 +222,13 @@ export function HouseScene({ progress, quality }: HouseSceneProps) {
       cabinRef.current.position.y = pose.travel * STOREY;
     }
     S.frame.mat.opacity = 1;
+    // The landing door and its frame arrive with the cabin, not before it.
+    const shown = pose.cabin > 0.01;
+    if (frameRef.current) frameRef.current.visible = shown;
     leafRefs.current.forEach((g, i) => {
-      if (g) g.position.x = (i === 0 ? -1 : 1) * LOWER_DOOR_SLIDE * pose.lowerDoor;
+      if (!g) return;
+      g.visible = shown;
+      g.position.x = (i === 0 ? -1 : 1) * LOWER_DOOR_SLIDE * pose.lowerDoor;
     });
     panelRefs.current.forEach((g, i) => {
       if (g) g.position.z = (i === 0 ? -1 : 1) * UPPER_DOOR_SLIDE * pose.upperDoor;
@@ -233,14 +239,17 @@ export function HouseScene({ progress, quality }: HouseSceneProps) {
     // closing statement has the top left of the screen.
     const aspect = size.width / Math.max(1, size.height);
     const narrow = aspect < 0.85;
-    const fitWidth = narrow ? 8.6 : 10.8;
     const cam = camera as THREE.PerspectiveCamera;
     const halfV = Math.tan(THREE.MathUtils.degToRad(cam.fov / 2));
-    const dist = Math.max(11, fitWidth / 2 / (halfV * aspect)) * (1 + 0.3 * pose.settle);
-    // The target sits below the house's centre so the house rides high and
-    // leaves the lower part of the viewport to the captions.
-    const shift = narrow ? 0 : -1.9 * pose.settle;
-    tmp.target.set((narrow ? -0.4 : -0.5) + shift, (narrow ? 1.5 : 1.75) + (narrow ? -0.9 : 0.55) * pose.settle, 0);
+    // Frame the house to a notional width, then back off as the scene settles.
+    const fitWidth = narrow ? 8.6 : 10.8;
+    const dist = Math.max(11, fitWidth / 2 / (halfV * aspect)) * (1 + (narrow ? 0.12 : 0.3) * pose.settle);
+    // The target sits a little below the house's centre (2.3), so the house
+    // rides above the captions. At the end it moves to leave room for the
+    // closing statement: aside on a wide screen, down on a narrow one.
+    const x = (narrow ? -0.4 : -0.5) + (narrow ? 0 : -1.9) * pose.settle;
+    const y = (narrow ? 2.05 : 1.75) + (narrow ? 0.45 : 0.55) * pose.settle;
+    tmp.target.set(x, y, 0);
     tmp.a.set(0.06, 0.08, 1).normalize();
     tmp.b.set(0.58, 0.36, 0.73).normalize();
     tmp.dir.copy(tmp.a).lerp(tmp.b, pose.camera).normalize();
@@ -278,8 +287,12 @@ export function HouseScene({ progress, quality }: HouseSceneProps) {
           <BoxMesh key={i} box={b} material={i === 0 ? S.ground.mat : i <= 2 ? S.wall.mat : S.slab.mat} shadow={shadow} />
         ))}
         <lineSegments ref={houseLines} geometry={edges.house} material={lineMats.house} />
+      </group>
+
+      {/* The opening at the lower level: its frame, then its two leaves */}
+      <group ref={frameRef} visible={false}>
         {LOWER_FRAME_BOXES.map((b, i) => (
-          <BoxMesh key={`f${i}`} box={b} material={S.wall.mat} shadow={shadow} />
+          <BoxMesh key={i} box={b} material={S.wall.mat} shadow={shadow} />
         ))}
         <lineSegments geometry={edges.frame} material={lineMats.cabin} />
       </group>
@@ -344,10 +357,10 @@ export function HouseScene({ progress, quality }: HouseSceneProps) {
         <lineSegments geometry={edges.cabin} material={lineMats.cabin} />
       </group>
 
-      {/* Lower landing door, fixed to the house */}
       {LOWER_DOOR_LEAVES.map((b, i) => (
         <group
           key={i}
+          visible={false}
           ref={(el) => {
             leafRefs.current[i] = el;
           }}

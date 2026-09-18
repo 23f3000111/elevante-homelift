@@ -84,7 +84,7 @@ export function EverydayUse({ content, planLabels, index }: EverydayUseProps) {
                       onClick={() => choose(i)}
                       className={cn(
                         "grid w-full grid-cols-[3.5rem_1fr] items-baseline gap-x-2 border-t border-stone py-2.5 text-left transition-opacity duration-400",
-                        i === active ? "opacity-100" : "opacity-45 hover:opacity-80",
+                        i === active ? "opacity-100" : "opacity-60 hover:opacity-85",
                       )}
                     >
                       <span aria-hidden className={cn("font-mono text-mono", i === active ? "text-oxide" : "text-caption")}>

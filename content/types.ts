@@ -523,6 +523,9 @@ export interface PagesContent {
     downloadsTitle: string;
     downloadsNote: string;
     downloadKinds: Record<Download["kind"], string>;
+    /** The action on a download that exists, and the note on one that does not. */
+    downloadLabel: string;
+    pendingLabel: string;
     faqTitle: string;
     professionalsTitle: string;
     professionalsBody: string;
