@@ -1,214 +1,123 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { CabinPlan } from "@/components/diagram/CabinPlan";
-import { StairSection } from "@/components/diagram/StairSection";
-import { Caption } from "@/components/ui/Caption";
-import { Picture } from "@/components/ui/Picture";
-import { Container } from "@/components/ui/Section";
-import { SectionIndex } from "@/components/ui/SectionIndex";
-import type { Figure, HomeContent, Situation } from "@/content/types";
+import { CabinPlan, type CabinPlanLabels } from "@/components/diagram/CabinPlan";
+import type { HomeContent } from "@/content/types";
 import { cn } from "@/lib/cn";
-import { scrollToElement } from "@/lib/motion/scroll";
-import { revealWithin, useMotion } from "@/lib/motion/useMotion";
+import { useMotion } from "@/lib/motion/useMotion";
 
-/** Every situation the brief lists gets a photograph where one exists and a drawing where none does. */
-function SituationFigure({ figure }: { figure: Figure }) {
-  const stair = "h-auto max-h-full w-full";
-  const plan = "h-full w-auto max-w-full";
-  switch (figure) {
-    case "move":
-      return <StairSection state="move" labels={false} className={stair} />;
-    case "doors":
-      return (
-        <StairSection
-          state="enter"
-          highlight="door-lower"
-          labels={false}
-          className={stair}
-        />
-      );
-    case "stair-opening":
-      return (
-        <StairSection
-          state="move"
-          highlight="door-upper"
-          labels={false}
-          className={stair}
-        />
-      );
-    case "rollator":
-      return <CabinPlan occupant="rollator" className={plan} />;
-    case "wheelchair":
-      return <CabinPlan occupant="wheelchair" className={plan} />;
-    case "two-people":
-      return <CabinPlan occupant="two-people" className={plan} />;
-  }
-}
-
-function Visual({ s }: { s: Situation }) {
-  if (s.media) {
-    return (
-      <Picture
-        asset={s.media}
-        fill
-        fit="contain"
-        sizes="(min-width: 1024px) 52vw, 100vw"
-        className="h-full w-full"
-      />
-    );
-  }
-  if (s.figure) {
-    return (
-      <div className="flex h-full w-full items-center justify-center p-6 lg:p-10">
-        <SituationFigure figure={s.figure} />
-      </div>
-    );
-  }
-  return null;
+interface EverydayUseProps {
+  content: HomeContent["everydayUse"];
+  planLabels: CabinPlanLabels;
+  index: string;
 }
 
 /**
- * An editorial sequence rather than a grid: the situations run down the
- * left as large type, and the picture on the right changes with them,
- * whether you scroll past them or choose one. Every situation's text is
- * always on the page.
+ * Seven situations, one cabin. Scrolling moves through them; the cabin plan
+ * redraws for each: door open or closed, a person, a rollator, a
+ * wheelchair, two people. Every situation is also a button, so the list is
+ * usable without scrolling and without motion.
  */
-export function EverydayUse({
-  content,
-}: {
-  content: HomeContent["everydayUse"];
-}) {
+export function EverydayUse({ content, planLabels, index }: EverydayUseProps) {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const items = useRef<Array<HTMLLIElement | null>>([]);
+  const count = content.situations.length;
+  const stRef = useRef<{ start: number; end: number } | null>(null);
 
   useMotion(ref, ({ ScrollTrigger, scope }) => {
-    revealWithin(scope);
-    const lis = Array.from(
-      scope.querySelectorAll<HTMLElement>("[data-situation]"),
-    );
-    lis.forEach((li, i) => {
-      ScrollTrigger.create({
-        trigger: li,
-        start: "top 60%",
-        end: "bottom 60%",
-        onToggle: (self) => {
-          if (self.isActive) setActive(i);
-        },
-      });
+    const st = ScrollTrigger.create({
+      trigger: scope,
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate: (self) => {
+        const i = Math.min(count - 1, Math.floor(self.progress * count));
+        setActive((prev) => (prev === i ? prev : i));
+      },
+      onRefresh: (self) => {
+        stRef.current = { start: self.start, end: self.end };
+      },
     });
+    stRef.current = { start: st.start, end: st.end };
+    return () => {
+      st.kill();
+      stRef.current = null;
+    };
   });
 
-  const current = content.situations[active];
+  const choose = (i: number) => {
+    setActive(i);
+    const st = stRef.current;
+    if (!st) return;
+    const target = st.start + ((st.end - st.start) * (i + 0.5)) / count;
+    if (window.__lenis) window.__lenis.scrollTo(target, { duration: 1 });
+    else window.scrollTo({ top: target, behavior: "smooth" });
+  };
+
+  const situation = content.situations[active];
 
   return (
     <section
       ref={ref}
       id="everyday-use"
-      aria-labelledby="eu-title"
-      className="bg-white py-section"
+      aria-labelledby="everyday-title"
+      className="scroll-track bg-white"
+      style={{ ["--track" as string]: "280svh", ["--track-mobile" as string]: "240svh" }}
     >
-      <Container>
-        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
-          <div className="lg:col-span-7">
-            <SectionIndex
-              index={content.index}
-              label={content.indexLabel}
-              size="small"
-            />
-            <h2 id="eu-title" data-reveal className="mt-6 text-display-2">
+      <div className="scroll-stage">
+        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-8 lg:pb-10">
+          <div className="flex items-baseline gap-6">
+            <p className="font-mono text-mono text-caption">{index}</p>
+            <h2 id="everyday-title" className="text-h3 font-medium text-charcoal">
               {content.title}
             </h2>
-          </div>
-          <p
-            data-reveal
-            className="max-w-[40ch] text-body-l text-charcoal-soft lg:col-span-4 lg:col-start-9"
-          >
-            {content.intro}
-          </p>
-        </div>
-
-        <div className="mt-10 grid lg:grid-cols-12 lg:gap-10">
-          <div className="sticky top-[4.5rem] z-10 bg-white py-3 lg:top-24 lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:self-start lg:py-0">
-            <div className="relative h-[62vw] max-h-[26rem] overflow-hidden bg-warm-white sm:h-[24rem] lg:h-[clamp(22rem,58svh,34rem)]">
-              {content.situations.map((s, i) => (
-                <div
-                  key={s.id}
-                  data-visual-item
-                  data-active={i === active ? "true" : "false"}
-                  className="absolute inset-0"
-                  aria-hidden={i !== active}
-                >
-                  <Visual s={s} />
-                </div>
-              ))}
-            </div>
-            <div className="mt-3 flex items-baseline justify-between border-t border-stone pt-3">
-              <span className="text-body font-medium text-charcoal">
-                <span className="mr-3 font-mono text-small text-oxide">
-                  {String(active + 1).padStart(2, "0")}
-                </span>
-                {current.title}
-              </span>
-              <Caption>
-                {current.media
-                  ? content.visualisationLabel
-                  : content.schematicLabel}
-              </Caption>
-            </div>
+            <p className="hidden text-body text-caption sm:block">{content.intro}</p>
           </div>
 
-          <ol className="mt-6 lg:col-span-5 lg:row-start-1 lg:mt-0">
-            {content.situations.map((s, i) => (
-              <li
-                key={s.id}
-                data-situation
-                ref={(el) => {
-                  items.current[i] = el;
-                }}
-                className={cn(
-                  "border-t border-stone",
-                  i === active ? "text-charcoal" : "text-charcoal-soft",
-                )}
-              >
-                <button
-                  type="button"
-                  aria-pressed={i === active}
-                  onClick={() => {
-                    setActive(i);
-                    const el = items.current[i];
-                    if (el) scrollToElement(el, -140);
-                  }}
-                  className="flex min-h-14 w-full items-baseline gap-5 pt-4 pb-1 text-left"
-                >
-                  <span
-                    className={cn(
-                      "font-mono text-small",
-                      i === active ? "text-oxide" : "text-caption",
-                    )}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-[clamp(1.5rem,2.4vw,2.125rem)] leading-none font-medium tracking-[-0.02em]">
-                    {s.title}
-                  </span>
-                </button>
-                <p className="max-w-[42ch] pb-5 pl-[3.25rem] text-body text-charcoal-soft">
-                  {s.body}
-                </p>
-              </li>
-            ))}
-          </ol>
+          <div className="sheet flex-1 items-center gap-y-8 pt-6 lg:pt-8">
+            <div className="col-span-12 order-2 lg:order-1 lg:col-span-5">
+              <ol className="grid gap-1">
+                {content.situations.map((s, i) => (
+                  <li key={s.id}>
+                    <button
+                      type="button"
+                      aria-pressed={i === active}
+                      onClick={() => choose(i)}
+                      className={cn(
+                        "grid w-full grid-cols-[3.5rem_1fr] items-baseline gap-x-2 border-t border-stone py-2.5 text-left transition-opacity duration-400",
+                        i === active ? "opacity-100" : "opacity-45 hover:opacity-80",
+                      )}
+                    >
+                      <span aria-hidden className={cn("font-mono text-mono", i === active ? "text-oxide" : "text-caption")}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>
+                        <span className="block text-h3 font-medium text-charcoal">{s.title}</span>
+                        <span data-situation-body className={cn("mt-1 block max-w-[38ch] text-body text-charcoal-soft", i === active ? "" : "hidden")}>
+                          {s.body}
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="col-span-12 order-1 lg:order-2 lg:col-span-6 lg:col-start-7">
+              <div className="mx-auto max-w-[26rem] lg:max-w-none" aria-live="polite">
+                <CabinPlan
+                  className="drawing-small"
+                  occupant={situation.figure.occupant}
+                  door={situation.figure.door}
+                  focus={situation.figure.focus}
+                  labels={planLabels}
+                  title={`${content.planTitle}: ${situation.title}`}
+                  desc={`${content.planDesc} ${situation.body}`}
+                />
+              </div>
+              <p className="mt-3 text-center font-mono text-mono text-caption lg:text-right">{content.note}</p>
+            </div>
+          </div>
         </div>
-
-        <div className="mt-12 grid gap-5 border-t-2 border-oxide pt-6 lg:mt-16 lg:grid-cols-12">
-          <h3 className="text-h3 lg:col-span-4">{content.safetyTitle}</h3>
-          <p className="max-w-[56ch] text-body-l text-charcoal-soft lg:col-span-7 lg:col-start-6">
-            {content.safety}
-          </p>
-        </div>
-      </Container>
+      </div>
     </section>
   );
 }

@@ -1,28 +1,33 @@
 import type { Metadata } from "next";
-import { DealerCta } from "@/components/home/DealerCta";
-import { DesignTeaser } from "@/components/home/DesignTeaser";
+import { MaterialLab } from "@/components/home/MaterialLab";
 import { DesignOptions } from "@/components/pages/DesignOptions";
-import { PageHero } from "@/components/pages/PageHero";
-import { TextBlocks } from "@/components/pages/TextBlocks";
-import { getDesignOptions, getHome, getPages } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo/metadata";
+import { Faq } from "@/components/pages/Faq";
+import { Ledger } from "@/components/pages/Ledger";
+import { NextStep } from "@/components/pages/NextStep";
+import { PageOpening } from "@/components/pages/PageOpening";
+import { getDesignOptions, getFaqs, getHome, getPages } from "@/lib/content";
+import { openingMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { design } = await getPages();
-  return pageMetadata({ title: design.hero.title, body: design.hero.lead, note: "" }, "/design");
+  return openingMetadata(design.opening, "/design");
 }
 
-/** Design: the composition, the film, the groups the range will fill. No configurator. */
+/**
+ * Design: the film, the four areas of the design, the material board, and
+ * the options as a specification a configurator can grow from.
+ */
 export default async function DesignPage() {
-  const [pages, home, options] = await Promise.all([getPages(), getHome(), getDesignOptions()]);
+  const [pages, home, options, faqs] = await Promise.all([getPages(), getHome(), getDesignOptions(), getFaqs("en", "design")]);
   const { design } = pages;
   return (
     <>
-      <PageHero content={design.hero} />
-      <TextBlocks blocks={design.blocks} />
-      <DesignTeaser content={home.design} />
-      <DesignOptions title={design.optionsTitle} note={design.optionsNote} options={options} />
-      <DealerCta content={home.dealerCta} />
+      <PageOpening content={design.opening} index="02" />
+      <Ledger blocks={design.areas} />
+      <MaterialLab content={home.design} index="02" />
+      <DesignOptions title={design.optionsTitle} note={design.optionsNote} configuratorNote={design.configuratorNote} groupLabels={design.groupLabels} options={options} />
+      {faqs.length > 0 && <Faq title={pages.information.faqTitle} items={faqs} />}
+      <NextStep content={home.finalCta} />
     </>
   );
 }

@@ -21,13 +21,15 @@ export function useHorizontalTrack(scope: RefObject<HTMLElement | null>) {
     if (!stage || !wrap || !track) return;
 
     wrap.style.overflowX = "visible";
-    const distance = () => Math.max(0, track.scrollWidth + track.getBoundingClientRect().left - window.innerWidth + 48);
+    // How far the row must move for its right edge to reach the viewport's,
+    // measured without the transform so refreshes stay accurate.
+    const distance = () => Math.max(0, track.offsetLeft + track.scrollWidth - window.innerWidth + 24);
 
     const tl = gsap.timeline({
       defaults: { ease: "none" },
       scrollTrigger: {
         trigger: stage,
-        start: "top top+=64",
+        start: "top top",
         end: () => `+=${distance()}`,
         pin: true,
         scrub: 0.6,

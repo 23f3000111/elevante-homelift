@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { getSite } from "@/lib/content";
 import { fontVariables } from "@/lib/fonts";
 import { LenisProvider } from "@/lib/motion/LenisProvider";
+import { PageTransition } from "@/lib/motion/PageTransition";
 import { jsonLdScript, organizationJsonLd } from "@/lib/seo/jsonld";
 import { rootMetadata } from "@/lib/seo/metadata";
 import "./globals.css";
@@ -35,13 +36,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body suppressHydrationWarning>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-charcoal focus:px-4 focus:py-3 focus:text-warm-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[90] focus:bg-charcoal focus:px-4 focus:py-3 focus:text-warm-white"
         >
-          Skip to content
+          {site.skipLink}
         </a>
         <LenisProvider />
-        <Header nav={site.nav} dealerCta={site.dealerCta} regionNote={site.footer.regionNote} />
-        <main id="main">{children}</main>
+        <PageTransition />
+        <Header site={site} />
+        <main id="main" data-transition-in>
+          {children}
+        </main>
         <Footer site={site} />
       </body>
     </html>

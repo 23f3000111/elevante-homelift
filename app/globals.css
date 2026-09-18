@@ -2,6 +2,7 @@
 
 /* ------------------------------------------------------------------ */
 /* Design tokens. The palette is the client's; nothing else is allowed. */
+/* Oxide is reserved for meaning: the cabin, active states, focus.      */
 /* ------------------------------------------------------------------ */
 @theme {
   --color-*: initial;
@@ -17,33 +18,43 @@
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Fluid type scale, 360px to 1440px viewports. */
-  --text-display-1: clamp(2.75rem, 1.58rem + 5.19vw, 6.25rem);
-  --text-display-1--line-height: 0.95;
-  --text-display-1--letter-spacing: -0.03em;
-  --text-display-2: clamp(2.25rem, 1.5rem + 3.33vw, 4.5rem);
-  --text-display-2--line-height: 1.02;
-  --text-display-2--letter-spacing: -0.025em;
-  --text-h3: clamp(1.5rem, 1.33rem + 0.74vw, 2rem);
+  /* Fluid type scale, 360px to 1920px viewports. The hero and the section
+     statements are the largest elements on the site; nothing else competes. */
+  --text-hero: clamp(2.875rem, 0.6rem + 8.6vw, 9.75rem);
+  --text-hero--line-height: 0.92;
+  --text-hero--letter-spacing: -0.04em;
+  --text-display-1: clamp(2.5rem, 0.7rem + 6.4vw, 7.5rem);
+  --text-display-1--line-height: 0.94;
+  --text-display-1--letter-spacing: -0.035em;
+  --text-display-2: clamp(2rem, 1rem + 3.4vw, 4.75rem);
+  --text-display-2--line-height: 1;
+  --text-display-2--letter-spacing: -0.03em;
+  --text-display-3: clamp(1.75rem, 1.2rem + 1.8vw, 3rem);
+  --text-display-3--line-height: 1.05;
+  --text-display-3--letter-spacing: -0.02em;
+  --text-h3: clamp(1.5rem, 1.25rem + 0.9vw, 2.125rem);
   --text-h3--line-height: 1.15;
-  --text-h3--letter-spacing: -0.01em;
-  --text-body-l: 1.25rem;
-  --text-body-l--line-height: 1.55;
+  --text-h3--letter-spacing: -0.015em;
+  --text-body-l: clamp(1.1875rem, 1.05rem + 0.45vw, 1.5rem);
+  --text-body-l--line-height: 1.5;
   --text-body: 1.125rem;
   --text-body--line-height: 1.6;
   --text-small: 1rem;
   --text-small--line-height: 1.5;
-  --text-index: 0.875rem;
-  --text-index--line-height: 1;
+  --text-mono: 0.8125rem;
+  --text-mono--line-height: 1.4;
+  --text-mono--letter-spacing: 0.04em;
 
-  --spacing-gutter: clamp(1.25rem, 4vw, 4rem);
-  --spacing-section: clamp(4rem, 8vw, 7.5rem);
-  --spacing-section-sm: clamp(2.75rem, 5vw, 4.5rem);
+  --spacing-gutter: clamp(1.25rem, 1rem + 2.6vw, 4rem);
+  --spacing-section: clamp(5rem, 3rem + 8vw, 11rem);
+  --spacing-section-sm: clamp(3rem, 2rem + 4vw, 6rem);
+  --spacing-header: 5rem;
   --container-content: 90rem;
 
   --radius-button: 2px;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 @layer base {
@@ -52,7 +63,8 @@
     -webkit-text-size-adjust: 100%;
     background: var(--color-warm-white);
   }
-  /* Lenis owns scrolling when present; native smooth scroll otherwise. */
+  /* Lenis owns scrolling when present; native smooth scroll otherwise.
+     `html { scroll-behavior: smooth }` fights Lenis, so it is scoped. */
   html:not(.lenis) {
     scroll-behavior: smooth;
   }
@@ -86,7 +98,7 @@
     line-height: var(--text-body--line-height);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "kern", "liga", "ss01";
+    font-feature-settings: "kern", "liga";
   }
   h1,
   h2,
@@ -103,7 +115,7 @@
   }
   :focus-visible {
     outline: 2px solid var(--color-oxide);
-    outline-offset: 3px;
+    outline-offset: 4px;
   }
   ::selection {
     background: var(--color-stone);
@@ -111,18 +123,23 @@
   }
   img,
   video,
-  svg {
+  svg,
+  canvas {
     display: block;
     max-width: 100%;
   }
   button {
     font: inherit;
   }
+  /* Large numerals and statements set tight; the mono face sets loose. */
+  .font-mono {
+    letter-spacing: var(--text-mono--letter-spacing);
+  }
 }
 
 @layer components {
-  /* Motion-only hidden state. Applied only when JS runs and motion is allowed,
-     so the page is always readable without either. */
+  /* Motion-only hidden states. They apply only when JS runs and motion is
+     allowed, so a page that cannot animate is always fully visible. */
   html.js:not(.reduce) [data-reveal] {
     opacity: 0;
   }
@@ -131,37 +148,20 @@
   }
   html.js:not(.reduce) [data-reveal-lines] > * {
     opacity: 0;
-    transform: translateY(1.5rem);
+    transform: translateY(1.25rem);
   }
-  .stair-diagram text {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    letter-spacing: 0.02em;
-    fill: var(--color-caption);
-  }
-  .stair-diagram.plan text {
-    font-size: 11px;
-  }
-  /* Masked type and the hero entrance: hidden only when JS runs and motion is allowed. */
   html.js:not(.reduce) [data-mask-word] {
-    transform: translateY(115%);
+    transform: translateY(112%);
   }
-  html.js:not(.reduce) [data-hero-fade] {
+  html.js:not(.reduce) [data-stage-line] {
     opacity: 0;
   }
-  html.js:not(.reduce) [data-hero-media] {
+  html.js:not(.reduce) [data-transition-in] {
     opacity: 0;
-  }
-  html.js:not(.reduce) [data-hero-media] > * {
-    transform: scale(1.08);
-  }
-  html.js:not(.reduce) [data-hero-plate] {
-    opacity: 0;
-    transform: translateY(2.5rem);
   }
 
-  /* Cinematic stages: a tall track with a sticky, viewport-high scene. Under
-     reduced motion the track collapses to one screen and the scene is static. */
+  /* Cinematic stages: a tall track with a sticky, viewport-high scene.
+     Under reduced motion the track collapses and the scene flows. */
   .scroll-track {
     position: relative;
     height: var(--track, 400svh);
@@ -182,36 +182,269 @@
       min-height: 100svh;
     }
   }
-  /* Progressive copy inside stages: hidden only with JS + motion. */
-  html.js:not(.reduce) [data-stage-line] {
+
+  @media (max-width: 63.99rem) {
+    .scroll-track {
+      height: var(--track-mobile, var(--track, 400svh));
+    }
+  }
+  /* Without JavaScript the same elements flow as a page. */
+  html:not(.js) .scroll-track {
+    height: auto;
+  }
+  html:not(.js) .scroll-stage {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  html.reduce .scroll-stage {
+    min-height: 0;
+  }
+
+  /* The mechanism scene. With JS and motion, its layers stack in the
+     viewport and the scroll position chooses what shows. Otherwise the
+     opening, the drawing, the statement and the captions read in order. */
+  [data-m-opening] {
+    min-height: 70svh;
+  }
+  [data-m-drawing] {
+    padding-block: 2rem;
+  }
+  html.js:not(.reduce) [data-m-opening],
+  html.js:not(.reduce) [data-m-scene],
+  html.js:not(.reduce) [data-m-statement],
+  html.js:not(.reduce) [data-m-captions] {
+    position: absolute;
+    inset: 0;
+  }
+  html.js:not(.reduce) [data-m-opening] {
+    min-height: 0;
+  }
+  html.js:not(.reduce) [data-m-drawing] {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 12svh;
+    padding: 0;
+  }
+  html.js:not(.reduce) [data-m-statement] {
+    top: 11svh;
+    bottom: auto;
+    opacity: 0;
+    pointer-events: none;
+  }
+  html.js:not(.reduce) [data-m-captions] {
+    top: auto;
+    pointer-events: none;
+  }
+  html.js:not(.reduce) [data-m-caption-list] {
+    position: relative;
+    min-height: 8.5rem;
+  }
+  html.js:not(.reduce) [data-m-caption] {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transform: translateY(0.75rem);
+    transition:
+      opacity 0.5s var(--ease-out-quart),
+      transform 0.5s var(--ease-out-quart);
+  }
+  html.js:not(.reduce) [data-m-caption][data-active="true"] {
+    opacity: 1;
+    transform: none;
+  }
+  html.js:not(.reduce) [data-m-caption="0"] {
+    visibility: hidden;
+  }
+  html.js:not(.reduce) [data-m-note] {
     opacity: 0;
   }
-  /* Everyday-use visuals stack; only the active one shows. */
-  [data-visual-item] {
+  html:not(.js) [data-m-caption-list],
+  html.reduce [data-m-caption-list] {
+    display: grid;
+    gap: 1.25rem;
+    padding-block: 2rem;
+  }
+  [data-m-rail] {
+    display: none;
+  }
+  @media (min-width: 64rem) {
+    html.js:not(.reduce) [data-m-rail] {
+      display: block;
+    }
+  }
+
+  /* The closing film: a block after the statement without motion; a layer
+     that wipes up over it with motion. */
+  [data-film] {
+    position: relative;
+    height: 80svh;
+    min-height: 24rem;
+  }
+  html.js:not(.reduce) [data-cta-statement] {
+    height: 100%;
+  }
+  html.js:not(.reduce) [data-film] {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    height: auto;
+    clip-path: inset(0 0 100% 0);
+  }
+  /* Without JavaScript every situation shows its line. */
+  html:not(.js) [data-situation-body] {
+    display: block !important;
+  }
+  /* Drawing parts that change state cross-fade rather than jump. */
+  [data-drawing] [data-part="cabin"],
+  [data-drawing] [data-part="void"],
+  [data-drawing] [data-part="tread"],
+  [data-drawing] [data-part="door-upper"],
+  [data-drawing] [data-part="path"] {
     transition: opacity 0.6s var(--ease-out-quart);
   }
-  [data-visual-item]:not([data-active="true"]) {
-    opacity: 0;
+
+  /* The architectural drawings. Annotations are mono, quiet, and hidden
+     where the render width makes them unreadable. */
+  .drawing text {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    fill: var(--color-caption);
   }
-  [data-situation] {
-    transition: color 0.4s var(--ease-out-quart);
+  .drawing.drawing-small text {
+    font-size: 10px;
   }
-  /* How-it-works steps: the inactive ones recede only while JS drives the drawing. */
-  [data-step] {
-    transition: opacity 0.5s var(--ease-out-quart);
-  }
-  [data-step][data-active="false"] {
-    opacity: 0.4;
-  }
-  /* Drawing labels are unreadable below ~600px of render width. */
-  @media (max-width: 63.99rem) {
-    .diagram-hide-labels-mobile text {
+  @media (max-width: 47.99rem) {
+    .drawing [data-annotation] {
       display: none;
     }
   }
-  /* Editorial rules encode structure; they are 1px, never decorative shadows. */
+
+  /* A 1px rule encodes structure. Never a shadow. */
   .rule {
     border-top: 1px solid var(--color-stone);
+  }
+  .rule-dark {
+    border-top: 1px solid var(--color-charcoal);
+  }
+
+  /* Inline text link: an underline that thickens on hover, no colour change. */
+  .text-link {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.35em;
+    text-decoration-color: var(--color-warm-grey);
+    transition: text-decoration-color 0.3s var(--ease-out-quart);
+  }
+  .text-link:hover,
+  .text-link:focus-visible {
+    text-decoration-color: var(--color-charcoal);
+  }
+
+  /* The action link: an arrow that moves on hover. Large, obvious, one kind. */
+  .action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.5rem;
+    font-size: var(--text-body-l);
+    line-height: 1;
+    font-weight: 500;
+    color: var(--color-charcoal);
+    border-bottom: 1px solid var(--color-charcoal);
+    padding-block: 0.5rem;
+    transition: border-color 0.3s var(--ease-out-quart);
+  }
+  .action svg {
+    width: 1.25em;
+    height: 1.25em;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .action:hover svg,
+  .action:focus-visible svg {
+    transform: translateX(0.35em);
+  }
+  .action:hover {
+    border-color: var(--color-oxide);
+  }
+
+  /* Solid button, for the two places a button is the right thing:
+     the header's dealer link and form submits. */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 3.5rem;
+    padding-inline: 1.75rem;
+    border-radius: var(--radius-button);
+    background: var(--color-charcoal);
+    color: var(--color-warm-white);
+    font-size: var(--text-body);
+    font-weight: 500;
+    line-height: 1;
+    transition:
+      background-color 0.3s var(--ease-out-quart),
+      transform 0.3s var(--ease-out-quart);
+  }
+  .button:hover {
+    background: var(--color-charcoal-soft);
+  }
+  .button:active {
+    transform: translateY(1px);
+  }
+  .button-light {
+    background: var(--color-warm-white);
+    color: var(--color-charcoal);
+  }
+  .button-light:hover {
+    background: var(--color-white);
+  }
+
+  /* Form fields: tall, plain, obvious. */
+  .field {
+    min-height: 3.5rem;
+    width: 100%;
+    border-radius: var(--radius-button);
+    border: 1px solid color-mix(in srgb, var(--color-charcoal) 30%, transparent);
+    background: var(--color-white);
+    padding-inline: 1rem;
+    font-size: var(--text-body);
+    color: var(--color-charcoal);
+  }
+  .field::placeholder {
+    color: var(--color-caption);
+  }
+  .field:focus {
+    border-color: var(--color-charcoal);
+    outline: none;
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--color-oxide);
+  }
+
+  /* Page-transition veil: a warm-white sheet that wipes across on navigation. */
+  .veil {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background: var(--color-warm-white);
+    transform: translateY(101%);
+    pointer-events: none;
+  }
+  .veil::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: var(--color-oxide);
   }
 }
 
@@ -220,4 +453,11 @@
   max-width: var(--container-content);
   margin-inline: auto;
   padding-inline: var(--spacing-gutter);
+}
+
+/* The 12-column sheet. Children place themselves with col-span / col-start. */
+@utility sheet {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
 }

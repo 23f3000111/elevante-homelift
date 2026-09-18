@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const intro = await getPageIntro(slug);
   if (!intro) return {};
-  return pageMetadata(intro, `/${slug}`);
+  return pageMetadata({ title: intro.title, description: intro.body }, `/${slug}`);
 }
 
 export default async function LegalPage({ params }: Params) {

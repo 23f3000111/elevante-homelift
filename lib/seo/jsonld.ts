@@ -20,7 +20,7 @@ export function productJsonLd(site: SiteContent, home: HomeContent) {
     "@type": "Product",
     name: site.name,
     brand: { "@type": "Brand", name: "Elevante" },
-    description: home.productReveal.lines.join(" "),
+    description: home.mechanism.statement + " " + home.lead.lines[1],
     category: "Residential homelift",
     url: siteUrl,
   };

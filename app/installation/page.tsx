@@ -1,26 +1,33 @@
 import type { Metadata } from "next";
-import { DealerCta } from "@/components/home/DealerCta";
-import { Installation } from "@/components/home/Installation";
-import { PageHero } from "@/components/pages/PageHero";
-import { TextBlocks } from "@/components/pages/TextBlocks";
-import { getHome, getPages } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo/metadata";
+import { InstallationTimeline } from "@/components/home/InstallationTimeline";
+import { Faq } from "@/components/pages/Faq";
+import { Ledger } from "@/components/pages/Ledger";
+import { NextStep } from "@/components/pages/NextStep";
+import { PageOpening } from "@/components/pages/PageOpening";
+import { Statement } from "@/components/pages/Placeholders";
+import { getFaqs, getHome, getPages } from "@/lib/content";
+import { openingMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { installation } = await getPages();
-  return pageMetadata({ title: installation.hero.title, body: installation.hero.lead, note: "" }, "/installation");
+  return openingMetadata(installation.opening, "/installation");
 }
 
-/** The seven stages, then who does the work and what happens before and after. */
+/**
+ * Installation: the seven stages as one drawing, who does the work, what
+ * happens before, and the service arrangement.
+ */
 export default async function InstallationPage() {
-  const [pages, home] = await Promise.all([getPages(), getHome()]);
+  const [pages, home, faqs] = await Promise.all([getPages(), getHome(), getFaqs("en", "installation")]);
   const { installation } = pages;
   return (
     <>
-      <PageHero content={installation.hero} />
-      <Installation content={home.installation} />
-      <TextBlocks blocks={installation.blocks} />
-      <DealerCta content={home.dealerCta} />
+      <PageOpening content={installation.opening} index="04" />
+      <InstallationTimeline content={home.installation} index="04" />
+      <Ledger blocks={installation.blocks} tone="white" />
+      <Statement id="service" title={installation.serviceTitle} body={installation.serviceBody} note={installation.servicePlaceholder} />
+      <Faq title={pages.information.faqTitle} items={faqs} />
+      <NextStep content={home.finalCta} />
     </>
   );
 }

@@ -1,28 +1,39 @@
 import type { Metadata } from "next";
-import { DealerCta } from "@/components/home/DealerCta";
-import { Downloads } from "@/components/pages/Downloads";
 import { Faq } from "@/components/pages/Faq";
-import { PageHero } from "@/components/pages/PageHero";
-import { SpecLedger } from "@/components/pages/SpecLedger";
+import { NextStep } from "@/components/pages/NextStep";
+import { PageOpening } from "@/components/pages/PageOpening";
+import { Statement } from "@/components/pages/Placeholders";
+import { Downloads, SpecLedger } from "@/components/pages/SpecLedger";
 import { getDownloads, getFaqs, getHome, getPages } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo/metadata";
+import { openingMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { information } = await getPages();
-  return pageMetadata({ title: information.hero.title, body: information.hero.lead, note: "" }, "/information");
+  return openingMetadata(information.opening, "/information");
 }
 
-/** Technical topics with their status, downloads, and the questions. Nothing invented. */
+/**
+ * Information: every technical topic with its status, the downloads, the
+ * full set of questions, and a word for professionals.
+ */
 export default async function InformationPage() {
-  const [pages, home, downloads, faqs] = await Promise.all([getPages(), getHome(), getDownloads(), getFaqs()]);
+  const [pages, home, downloads, faqs] = await Promise.all([getPages(), getHome(), getDownloads(), getFaqs("en", "information")]);
   const { information } = pages;
   return (
     <>
-      <PageHero content={information.hero} />
-      <SpecLedger title={information.specsTitle} note={information.specsNote} rows={information.specs} />
-      <Downloads title={information.downloadsTitle} note={information.downloadsNote} items={downloads} />
+      <PageOpening content={information.opening} index="06" />
+      <SpecLedger title={information.specsTitle} note={information.specsNote} statusLabel={information.statusLabel} rows={information.specs} />
+      <Downloads
+        title={information.downloadsTitle}
+        note={information.downloadsNote}
+        kinds={information.downloadKinds}
+        items={downloads}
+        pendingLabel={information.specs[0].status}
+        downloadLabel="Download"
+      />
+      <Statement id="professionals" title={information.professionalsTitle} body={information.professionalsBody} />
       <Faq title={information.faqTitle} items={faqs} />
-      <DealerCta content={home.dealerCta} />
+      <NextStep content={home.finalCta} />
     </>
   );
 }

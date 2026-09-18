@@ -1,212 +1,101 @@
 "use client";
 
-import { useRef, type CSSProperties } from "react";
-import { Plan } from "@/components/diagram/PlanComparison";
-import { Caption } from "@/components/ui/Caption";
-import { ScrollImageSequence } from "@/components/ui/ScrollImageSequence";
-import { SectionIndex } from "@/components/ui/SectionIndex";
-import { Container } from "@/components/ui/Section";
-import type { HomeContent } from "@/content/types";
-import { revealWithin, useMotion } from "@/lib/motion/useMotion";
+import { useRef, useState } from "react";
+import { PlanDrawing, type PlanLabels } from "@/components/diagram/PlanDrawing";
+import { SectionDrawing } from "@/components/diagram/SectionDrawing";
+import { AppLink } from "@/components/ui/AppLink";
+import { Arrow } from "@/components/ui/Arrow";
+import type { HomeContent, MechanismContent } from "@/content/types";
+import { cn } from "@/lib/cn";
+import { useMotion } from "@/lib/motion/useMotion";
 
-/** Guide points in the film's own coordinates (1180 x 664), drawn over the canvas with the same cover fit. */
-const GUIDES = [
-  {
-    key: "staircase",
-    dot: [372, 328],
-    path: "M372 328 V240 H440",
-    label: [452, 246],
-    anchor: "start",
-  },
-  {
-    key: "cabin",
-    dot: [600, 300],
-    path: "M600 300 H470",
-    label: [458, 306],
-    anchor: "end",
-  },
-  {
-    key: "space",
-    dot: [420, 592],
-    path: "M420 592 H520",
-    label: [532, 598],
-    anchor: "start",
-  },
-] as const;
+interface UnderTheStaircaseProps {
+  content: HomeContent["underTheStaircase"];
+  drawingLabels: MechanismContent["drawingLabels"];
+  planLabels: PlanLabels;
+  index: string;
+}
 
 /**
- * The spatial consequence, as a second cinematic scene: the film runs with
- * the scroll while thin guide lines draw on to name the staircase, the
- * cabin and the space beneath. The statement holds on a plate that cuts
- * into the picture. Below, the same house is compared in plan.
+ * The spatial argument, in plan and in section: the same hall before and
+ * with Elevante. The drawings switch when the section comes into view, and
+ * two large buttons let the visitor switch them back and forth.
  */
-export function UnderTheStaircase({
-  content,
-}: {
-  content: HomeContent["underTheStaircase"];
-}) {
+export function UnderTheStaircase({ content, drawingLabels, planLabels, index }: UnderTheStaircaseProps) {
   const ref = useRef<HTMLElement>(null);
-  const labels = {
-    staircase: content.overlay.staircase,
-    cabin: content.overlay.cabin,
-    space: content.overlay.space,
-  };
+  const [after, setAfter] = useState(false);
 
-  useMotion(ref, ({ gsap, scope }) => {
-    revealWithin(scope);
-    const lines = scope.querySelectorAll("[data-stage-line]");
-    const guides = scope.querySelectorAll<SVGGElement>("[data-guide]");
-    gsap.set(guides, { autoAlpha: 0 });
-    guides.forEach((g) =>
-      gsap.set(g.querySelector("path"), {
-        strokeDasharray: 1,
-        strokeDashoffset: 1,
-      }),
-    );
-
-    const tl = gsap.timeline({
-      defaults: { ease: "power2.out" },
-      scrollTrigger: {
-        trigger: scope.querySelector(".scroll-track"),
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.4,
-      },
+  // Coming into view switches to "with Elevante" once; the visitor takes over from there.
+  useMotion(ref, ({ ScrollTrigger, scope }) => {
+    const st = ScrollTrigger.create({
+      trigger: scope.querySelector("[data-drawings]") ?? scope,
+      start: "top 55%",
+      once: true,
+      onEnter: () => window.setTimeout(() => setAfter(true), 500),
     });
-    tl.to(lines[0], { autoAlpha: 1, duration: 0.1 }, 0.05).to(
-      lines[1],
-      { autoAlpha: 1, duration: 0.1 },
-      0.5,
-    );
-    guides.forEach((g, i) => {
-      const at = 0.12 + i * 0.28;
-      tl.to(g, { autoAlpha: 1, duration: 0.04 }, at).to(
-        g.querySelector("path"),
-        { strokeDashoffset: 0, duration: 0.14, ease: "none" },
-        at,
-      );
-    });
-    tl.to({}, { duration: 0.1 }, 0.9);
+    return () => st.kill();
   });
 
   return (
-    <section
-      ref={ref}
-      id="under-the-staircase"
-      aria-labelledby="uts-title"
-      className="relative bg-white"
-    >
-      <div
-        className="scroll-track"
-        style={{ "--track": "340svh" } as CSSProperties}
-      >
-        <div className="scroll-stage flex flex-col lg:block">
-          <div className="relative h-[52svh] w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-auto lg:w-[64vw]">
-            <ScrollImageSequence
-              sequence={content.sequence}
-              trigger={ref}
-              start="top top"
-              end="bottom bottom"
-              className="absolute inset-0"
-            />
-            <svg
-              viewBox="0 0 1180 664"
-              preserveAspectRatio="xMidYMid slice"
-              aria-hidden
-              className="stair-diagram pointer-events-none absolute inset-0 h-full w-full"
-            >
-              {GUIDES.map((g) => (
-                <g key={g.key} data-guide>
-                  <circle
-                    cx={g.dot[0]}
-                    cy={g.dot[1]}
-                    r="7"
-                    fill="var(--color-oxide)"
-                    stroke="var(--color-warm-white)"
-                    strokeWidth="3"
-                  />
-                  <path
-                    d={g.path}
-                    pathLength={1}
-                    fill="none"
-                    stroke="var(--color-charcoal)"
-                    strokeWidth="1.5"
-                  />
-                  <text
-                    x={g.label[0]}
-                    y={g.label[1]}
-                    textAnchor={g.anchor}
-                    className="hidden lg:block"
-                    style={{
-                      fontSize: 20,
-                      fill: "var(--color-charcoal)",
-                      paintOrder: "stroke",
-                      stroke: "var(--color-warm-white)",
-                      strokeWidth: 8,
-                      strokeLinejoin: "round",
-                    }}
+    <section ref={ref} id="under-the-staircase" aria-labelledby="space-title" className="bg-warm-white py-section">
+      <div className="container-content">
+        <div className="sheet gap-y-12">
+          <div className="col-span-12 lg:col-span-5">
+            <div className="lg:sticky lg:top-[calc(var(--spacing-header)+2rem)]">
+              <p className="font-mono text-mono text-caption">{index}</p>
+              <h2 id="space-title" className="mt-6 max-w-[14ch] text-display-2 font-medium text-charcoal">
+                {content.title}
+              </h2>
+              <div className="mt-10 max-w-[44ch] space-y-5 text-body-l text-charcoal-soft">
+                {content.body.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
+
+              <div className="mt-12 grid grid-cols-2 border border-charcoal" role="group" aria-label={`${content.before} / ${content.after}`}>
+                {[
+                  { label: content.before, value: false },
+                  { label: content.after, value: true },
+                ].map((o) => (
+                  <button
+                    key={o.label}
+                    type="button"
+                    aria-pressed={after === o.value}
+                    onClick={() => setAfter(o.value)}
+                    className={cn(
+                      "min-h-14 px-4 text-body font-medium transition-colors duration-300",
+                      after === o.value ? "bg-charcoal text-warm-white" : "bg-transparent text-charcoal hover:bg-white",
+                    )}
                   >
-                    {labels[g.key]}
-                  </text>
-                </g>
-              ))}
-            </svg>
-            <div className="absolute top-24 left-gutter z-10 lg:top-28">
-              <SectionIndex
-                index={content.index}
-                label={content.indexLabel}
-                tone="light"
-              />
+                    {o.label}
+                  </button>
+                ))}
+              </div>
+              <AppLink href={content.cta.href} className="action mt-10">
+                {content.cta.label}
+                <Arrow />
+              </AppLink>
             </div>
           </div>
 
-          <div className="relative flex-1 bg-warm-white p-6 sm:p-8 lg:absolute lg:top-1/2 lg:right-0 lg:w-[42vw] lg:-translate-y-1/2 lg:p-12 lg:pl-14">
-            <h2 id="uts-title" className="text-display-2 max-w-[13ch]">
-              {content.title}
-            </h2>
-            <div className="mt-6 max-w-[40ch] space-y-4 text-body-l text-charcoal-soft">
-              {content.body.map((p) => (
-                <p key={p} data-stage-line>
-                  {p}
-                </p>
-              ))}
-            </div>
-            <Caption className="mt-6">{content.caption}</Caption>
+          <div data-drawings className="col-span-12 grid gap-12 lg:col-span-7 lg:gap-16">
+            <figure>
+              <PlanDrawing variant="elevante" cabinHidden={!after} labels={planLabels} title={content.planTitle} desc={content.planDesc} />
+              <figcaption className="mt-3 flex items-center justify-between gap-6 font-mono text-mono text-caption">
+                <span>{after ? content.after : content.before}</span>
+                <span>{content.planTitle}</span>
+              </figcaption>
+            </figure>
+            <figure>
+              <SectionDrawing progress={after ? 0.42 : 0.32} labels={drawingLabels} title={content.sectionTitle} desc={content.sectionDesc} highlight={after ? "cabin" : "void"} />
+              <figcaption className="mt-3 flex items-center justify-between gap-6 font-mono text-mono text-caption">
+                <span>{content.sectionTitle}</span>
+                <span>{content.note}</span>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>
-
-      <Container className="py-section">
-        <div className="grid gap-10 lg:grid-cols-12">
-          <h3 data-reveal className="text-h3 lg:col-span-4">
-            {content.comparison.title}
-          </h3>
-          <div className="grid gap-8 sm:grid-cols-2 lg:col-span-8">
-            <figure data-reveal>
-              <Plan variant="conventional" />
-              <figcaption className="mt-4">
-                <span className="block text-body font-medium text-charcoal">
-                  {content.comparison.conventional.title}
-                </span>
-                <span className="mt-1 block text-body text-charcoal-soft">
-                  {content.comparison.conventional.body}
-                </span>
-              </figcaption>
-            </figure>
-            <figure data-reveal>
-              <Plan variant="elevante" />
-              <figcaption className="mt-4">
-                <span className="block text-body font-medium text-charcoal">
-                  {content.comparison.elevante.title}
-                </span>
-                <span className="mt-1 block text-body text-charcoal-soft">
-                  {content.comparison.elevante.body}
-                </span>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </Container>
     </section>
   );
 }

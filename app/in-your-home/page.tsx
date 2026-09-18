@@ -1,28 +1,39 @@
 import type { Metadata } from "next";
-import { DealerCta } from "@/components/home/DealerCta";
-import { InYourHome } from "@/components/home/InYourHome";
+import { Comparison } from "@/components/home/Comparison";
+import { HomeExperience } from "@/components/home/HomeExperience";
 import { UnderTheStaircase } from "@/components/home/UnderTheStaircase";
-import { PageHero } from "@/components/pages/PageHero";
-import { TextBlocks } from "@/components/pages/TextBlocks";
-import { getHome, getPages } from "@/lib/content";
-import { pageMetadata } from "@/lib/seo/metadata";
+import { Faq } from "@/components/pages/Faq";
+import { Ledger } from "@/components/pages/Ledger";
+import { NextStep } from "@/components/pages/NextStep";
+import { PageOpening } from "@/components/pages/PageOpening";
+import { Configurations, Statement } from "@/components/pages/Placeholders";
+import { getFaqs, getHome, getPages } from "@/lib/content";
+import { openingMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { inYourHome } = await getPages();
-  return pageMetadata({ title: inYourHome.hero.title, body: inYourHome.hero.lead, note: "" }, "/in-your-home");
+  return openingMetadata(inYourHome.opening, "/in-your-home");
 }
 
-/** Existing houses: the gallery, the space beneath the stair, the plan comparison. */
+/**
+ * In your home: existing houses, the space beneath the staircase in plan
+ * and section, the three alternatives compared, configurations, examples.
+ */
 export default async function InYourHomePage() {
-  const [pages, home] = await Promise.all([getPages(), getHome()]);
+  const [pages, home, faqs] = await Promise.all([getPages(), getHome(), getFaqs("en", "home")]);
   const { inYourHome } = pages;
+  const labels = home.mechanism.drawingLabels;
   return (
     <>
-      <PageHero content={inYourHome.hero} />
-      <InYourHome content={home.inYourHome} />
-      <UnderTheStaircase content={home.underTheStaircase} />
-      <TextBlocks blocks={inYourHome.blocks} tone="warm-white" />
-      <DealerCta content={home.dealerCta} />
+      <PageOpening content={inYourHome.opening} index="03" />
+      <Ledger blocks={inYourHome.blocks} />
+      <UnderTheStaircase content={home.underTheStaircase} drawingLabels={labels} planLabels={home.planLabels} index="02" />
+      <Comparison content={home.comparison} planLabels={home.planLabels} index="03" />
+      <Configurations title={inYourHome.configurationsTitle} note={inYourHome.configurationsNote} items={inYourHome.configurations} />
+      <HomeExperience content={home.inYourHome} index="04" />
+      <Statement id="examples" title={inYourHome.examplesTitle} body={inYourHome.examplesNote} />
+      <Faq title={pages.information.faqTitle} items={faqs} />
+      <NextStep content={home.finalCta} />
     </>
   );
 }

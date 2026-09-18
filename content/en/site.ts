@@ -1,3 +1,4 @@
+import { image } from "../media";
 import type { SiteContent } from "../types";
 
 export const site: SiteContent = {
@@ -6,15 +7,23 @@ export const site: SiteContent = {
   description:
     "A homelift whose cabin travels in the space underneath the staircase, so that every floor of an existing home stays in use.",
   nav: [
-    { label: "The Homelift", href: "/the-homelift" },
-    { label: "Design", href: "/design" },
-    { label: "In your home", href: "/in-your-home" },
-    { label: "Installation", href: "/installation" },
-    { label: "Inspiration", href: "/inspiration" },
-    { label: "Information", href: "/information" },
+    { label: "The Homelift", href: "/the-homelift", hint: "What it is and how it works" },
+    { label: "Design", href: "/design", hint: "Cabin, staircase, materials, finishes" },
+    { label: "In your home", href: "/in-your-home", hint: "Existing houses, the space beneath the stairs" },
+    { label: "Installation", href: "/installation", hint: "Seven stages, from consultation to handover" },
+    { label: "Inspiration", href: "/inspiration", hint: "Interiors, projects, experiences" },
+    { label: "Information", href: "/information", hint: "Technical facts, downloads, questions" },
   ],
   dealerCta: { label: "Find a dealer", href: "/find-a-dealer" },
+  menu: {
+    open: "Menu",
+    close: "Close",
+    label: "Menu",
+    media: image("stair-gold-hall"),
+    mediaCaption: "Reference interior",
+  },
   footer: {
+    statement: "Comfortably and safely remain living in your own home.",
     groups: [
       {
         title: "Elevante",
@@ -44,8 +53,9 @@ export const site: SiteContent = {
         ],
       },
     ],
-    regionNote: "Netherlands, English. Further countries and languages will follow.",
+    regionNote: "Netherlands, in English. Further countries and languages will follow.",
     contactNote: "Contact details for Elevante and its dealers will be published here.",
     legal: "Elevante Beheer BV. Elevante Homelift is a registered trade name.",
   },
+  skipLink: "Skip to content",
 };

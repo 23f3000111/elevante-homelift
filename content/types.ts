@@ -1,17 +1,26 @@
 /**
  * Content models. These are the contract between the site and whatever
- * supplies its content: today static modules under `content/en`, later the
- * Elevante admin API. Components only ever see these shapes.
+ * supplies its content: today static modules under `content/<locale>`, later
+ * the Elevante admin API. Components only ever see these shapes, so the
+ * admin can replace any of it without a redesign.
  */
 
-export type Locale = "en";
+import type { Locale } from "@/lib/i18n";
+export type { Locale };
 
 /**
  * Where an asset came from. Anything that is not `product` must never be
  * presented as the Elevante product itself; components add a visible caption
  * when such an asset stands in for it.
+ *
+ *  - product        photograph or render of the Elevante Homelift, approved
+ *  - visualisation  concept rendering that does not show the real mechanism
+ *  - ai             generated imagery, used for mood only
+ *  - stock          licensed photograph of a reference interior
+ *  - reference      a material or interior reference, not an Elevante option
+ *  - placeholder    stands in until the real asset arrives
  */
-export type Provenance = "product" | "ai" | "stock" | "placeholder";
+export type Provenance = "product" | "visualisation" | "ai" | "stock" | "reference" | "placeholder";
 
 export interface MediaAsset {
   id: string;
@@ -19,8 +28,14 @@ export interface MediaAsset {
   width: number;
   height: number;
   alt: string;
+  type?: "image";
   blurDataURL?: string;
   provenance: Provenance;
+  /** Caption shown with the asset, e.g. "Visualisation". */
+  caption?: string;
+  /** Optional art-directed sources. */
+  mobileSrc?: string;
+  desktopSrc?: string;
   /** Internal note on origin or limits. Never rendered. */
   note?: string;
 }
@@ -35,16 +50,12 @@ export interface VideoAsset {
 }
 
 export interface SequenceVariant {
-  /** Public directory holding the frames, e.g. `/media/seq/video-cabin-moving/d`. */
   dir: string;
   width: number;
   height: number;
 }
 
-/**
- * A film cut into frames so the scroll position can drive it. Two sizes:
- * the full crop for desktops and a lighter set for phones.
- */
+/** A film cut into frames so the scroll position can drive it. */
 export interface SequenceAsset {
   id: string;
   frames: number;
@@ -52,7 +63,6 @@ export interface SequenceAsset {
   ext: string;
   desktop: SequenceVariant;
   mobile: SequenceVariant;
-  /** Frame 0 at desktop size, with a blur placeholder. */
   poster: MediaAsset;
   alt: string;
   provenance: Provenance;
@@ -67,6 +77,8 @@ export interface Cta {
 export interface NavItem {
   label: string;
   href: string;
+  /** One line under the label in the full-screen menu. */
+  hint?: string;
 }
 
 export interface FooterGroup {
@@ -80,18 +92,22 @@ export interface SiteContent {
   description: string;
   nav: NavItem[];
   dealerCta: Cta;
+  menu: {
+    open: string;
+    close: string;
+    label: string;
+    /** The image previewed in the full-screen menu. */
+    media: MediaAsset;
+    mediaCaption: string;
+  };
   footer: {
+    statement: string;
     groups: FooterGroup[];
     regionNote: string;
     contactNote: string;
     legal: string;
   };
-}
-
-/** The running number every story section carries, e.g. "03" and "How it works". */
-export interface SectionIndexContent {
-  index: string;
-  indexLabel: string;
+  skipLink: string;
 }
 
 export interface Step {
@@ -100,147 +116,231 @@ export interface Step {
   body: string;
 }
 
-/** Schematic figures the diagram components can draw. */
-export type Figure = "move" | "doors" | "stair-opening" | "wheelchair" | "rollator" | "two-people";
+/** Occupant symbols the cabin plan can draw. */
+export type Occupant = "person" | "rollator" | "wheelchair" | "two-people";
+
+/** What the everyday-use drawing shows for a situation. */
+export interface SituationFigure {
+  occupant: Occupant;
+  door: "closed" | "open";
+  /** Which part of the drawing to emphasise. */
+  focus?: "door" | "opening" | "cabin";
+}
 
 export interface Situation {
   id: string;
   title: string;
   body: string;
-  media?: MediaAsset;
-  figure?: Figure;
-}
-
-export interface TrustItem {
-  title: string;
-  body: string;
-  placeholder?: boolean;
-  /** The single fact to set in the accent colour. */
-  highlight?: boolean;
-}
-
-export interface GalleryItem {
-  media: MediaAsset;
-  label: string;
-  /** Shown under the image when the asset is not a photograph of the product. */
-  caption?: string;
+  figure: SituationFigure;
 }
 
 export interface Material {
+  id: string;
   name: string;
-  /** Shown whole, at its own proportions; never cropped. */
+  /** The scene: shown whole, at its own proportions; never cropped. */
   media: MediaAsset;
+  /** A close crop of the material itself. */
+  swatch: MediaAsset;
   /** When present, the film plays in place of the still. */
   video?: VideoAsset;
-  caption?: string;
+  /** One line about what the reference shows. */
+  note: string;
+  /** Always a reference until the Elevante range is published. */
+  reference: boolean;
+}
+
+export interface MechanismStateContent {
+  id: string;
+  label: string;
+  caption: string;
+}
+
+export interface DrawingLabels {
+  upperFloor: string;
+  lowerFloor: string;
+  staircase: string;
+  space: string;
+  cabin: string;
+  door: string;
+}
+
+export interface PlanLabels {
+  staircase: string;
+  cabin: string;
+  hall: string;
+  separate: string;
+  stairlift: string;
+  up: string;
+}
+
+export interface CabinPlanLabels {
+  door: string;
+  cabin: string;
+}
+
+export interface MechanismContent {
+  states: MechanismStateContent[];
+  statement: string;
+  note: string;
+  drawingLabels: DrawingLabels;
+  drawingTitle: string;
+  drawingDesc: string;
+  railLabel: string;
+}
+
+export type EvidenceStatus = "shown" | "stated" | "to-follow";
+
+export interface EvidenceItem {
+  title: string;
+  body: string;
+  status: EvidenceStatus;
+  href?: string;
+}
+
+export interface ComparisonItem {
+  id: "stairlift" | "conventional" | "elevante";
+  name: string;
+  statement: string;
+  body: string;
 }
 
 export interface HomeContent {
   hero: {
+    label: string;
     title: string;
-    lead: string;
     primary: Cta;
     secondary: Cta;
-    /** The film behind the opening; its poster stands in under reduced motion. */
-    video: VideoAsset;
-    caption: string;
     scrollCue: string;
   };
-  productReveal: SectionIndexContent & {
-    title: string;
+  mechanism: MechanismContent;
+  /** Annotations shared by the plan drawings. */
+  planLabels: PlanLabels;
+  cabinPlanLabels: CabinPlanLabels;
+  lead: {
     lines: string[];
-    sequence: SequenceAsset;
-    caption: string;
-    diagramNote: string;
-    /** Labels for the three phases of the film, by scroll progress. */
-    states: [string, string, string];
-    frameLabel: string;
+    primary: Cta;
+    secondary: Cta;
   };
-  idea: SectionIndexContent & {
-    title: string;
+  staircaseStays: {
+    titleA: string;
+    titleB: string;
     body: string;
-    media: MediaAsset;
+    drawingTitle: string;
+    drawingDesc: string;
+    note: string;
   };
-  howItWorks: SectionIndexContent & {
+  comparison: {
     title: string;
-    intro: string;
-    steps: Step[];
-    diagramNote: string;
+    items: ComparisonItem[];
+    note: string;
+    dragHint: string;
   };
-  underTheStaircase: SectionIndexContent & {
+  howItWorks: {
+    title: string;
+    steps: Step[];
+    note: string;
+  };
+  underTheStaircase: {
     title: string;
     body: string[];
-    sequence: SequenceAsset;
-    caption: string;
-    overlay: { staircase: string; cabin: string; space: string };
-    comparison: {
-      title: string;
-      conventional: { title: string; body: string };
-      elevante: { title: string; body: string };
-    };
+    before: string;
+    after: string;
+    planTitle: string;
+    planDesc: string;
+    sectionTitle: string;
+    sectionDesc: string;
+    note: string;
+    cta: Cta;
   };
-  inYourHome: SectionIndexContent & {
+  inYourHome: {
     title: string;
     body: string;
+    image: MediaAsset;
+    imageLabel: string;
+    sequence: SequenceAsset;
+    sequenceCaption: string;
+    statement: string;
     cta: Cta;
-    gallery: GalleryItem[];
   };
-  everydayUse: SectionIndexContent & {
+  everydayUse: {
     title: string;
     intro: string;
     situations: Situation[];
-    visualisationLabel: string;
-    schematicLabel: string;
-    safetyTitle: string;
-    safety: string;
+    planTitle: string;
+    planDesc: string;
+    note: string;
   };
-  design: SectionIndexContent & {
+  safety: {
+    titleA: string;
+    titleB: string;
+    intro: string;
+    /** Short label on the marked area of the drawing. */
+    zoneLabel: string;
+    behaviours: Array<{ id: string; title: string; body: string }>;
+    figureTitle: string;
+    figureDesc: string;
+    note: string;
+  };
+  design: {
     title: string;
     body: string;
-    video: VideoAsset;
-    caption: string;
-    materialsNote: string;
     materials: Material[];
+    materialsNote: string;
+    boardLabel: string;
+    referenceLabel: string;
+    finishLabel: string;
     cta: Cta;
   };
-  projects: SectionIndexContent & {
+  projects: {
     title: string;
     body: string;
     cta: Cta;
+    /** What each kind of entry is called in the gallery. */
+    kinds: Record<ProjectKind, string>;
+    /** One line under the gallery while no installation exists. */
     placeholderLabel: string;
-    locationPlaceholder: string;
-    visualisationLabel: string;
+    dragHint: string;
   };
-  installation: SectionIndexContent & {
+  installation: {
     title: string;
     body: string;
     steps: Step[];
-    media: MediaAsset[];
+    sheetTitle: string;
+    sheetDesc: string;
+    note: string;
     cta: Cta;
   };
-  trust: SectionIndexContent & {
+  evidence: {
     title: string;
     body: string;
-    items: TrustItem[];
+    items: EvidenceItem[];
+    statusLabels: Record<EvidenceStatus, string>;
   };
-  dealerCta: {
+  finalCta: {
     title: string;
     body: string;
     primary: Cta;
     secondary: Cta;
-    media: MediaAsset;
+    video: VideoAsset;
+    caption: string;
   };
 }
+
+/* ------------------------------------------------------------------ */
+/* Recurring content types, managed by the admin.                       */
+/* ------------------------------------------------------------------ */
+
+export type ProjectKind = "installation" | "visualisation" | "reference";
 
 export interface Project {
   id: string;
   slug: string;
   title: string;
+  /** Country or region, or a note that the location is to follow. */
   location: string;
   summary: string;
   media: MediaAsset;
-  /** Presentation hint for the editorial grid. */
-  ratio: "portrait" | "landscape" | "square";
+  kind: ProjectKind;
   /** True until a real Elevante installation replaces the reference interior. */
   placeholder: boolean;
 }
@@ -257,24 +357,42 @@ export interface Faq {
   id: string;
   question: string;
   answer: string;
+  /** Where the answer belongs; the same FAQ feeds several pages. */
+  topics: Array<"product" | "design" | "home" | "installation" | "information" | "dealer">;
+}
+
+export interface Country {
+  code: string;
+  name: string;
+  /** Locale used for this market when translations exist. */
+  locale: Locale;
+  /** Whether dealers can be listed here yet. */
+  active: boolean;
+}
+
+export interface Region {
+  id: string;
+  countryCode: string;
+  name: string;
 }
 
 export interface Dealer {
   id: string;
   name: string;
-  country: string;
+  countryCode: string;
+  regionId?: string;
   city: string;
-  region?: string;
   postcode?: string;
+  address?: string;
+  contactName?: string;
   phone?: string;
   email?: string;
+  website?: string;
   showroom: boolean;
+  demoAvailable: boolean;
+  /** Postcode prefixes or towns the dealer serves. */
+  serviceArea: string[];
   placeholder: boolean;
-}
-
-export interface Market {
-  code: string;
-  name: string;
 }
 
 export interface Article {
@@ -291,17 +409,39 @@ export interface Download {
   title: string;
   kind: "brochure" | "product" | "technical" | "installation" | "drawing";
   href?: string;
+  /** e.g. "PDF, 2 MB" once the file exists. */
+  meta?: string;
   placeholder: boolean;
 }
 
+export type DesignGroup = "cabin" | "staircase" | "materials" | "finishes" | "flooring" | "controls";
+
 export interface DesignOption {
   id: string;
-  group: "cabin" | "materials" | "finishes" | "flooring" | "controls";
+  group: DesignGroup;
   name: string;
   description: string;
   media?: MediaAsset;
   placeholder: boolean;
 }
+
+export interface LandingPage {
+  id: string;
+  slug: string;
+  locale: Locale;
+  countryCode?: string;
+  regionId?: string;
+  title: string;
+  description: string;
+  /** Sections composed from the site's own blocks, by id. */
+  blocks: string[];
+  noindex: boolean;
+  placeholder: boolean;
+}
+
+/* ------------------------------------------------------------------ */
+/* Secondary pages.                                                     */
+/* ------------------------------------------------------------------ */
 
 export interface PageIntroContent {
   title: string;
@@ -309,74 +449,100 @@ export interface PageIntroContent {
   note: string;
 }
 
-/** A page opening: a statement, a lead, and optionally a large image. */
-export interface PageHeroContent {
-  index?: string;
-  eyebrow?: string;
+export interface PageOpeningContent {
+  eyebrow: string;
   title: string;
   lead: string;
+  /** A large picture or film under the statement. */
   media?: MediaAsset;
+  video?: VideoAsset;
   caption?: string;
 }
 
-/** A titled block of short paragraphs used on secondary pages. */
 export interface TextBlock {
   title: string;
   paragraphs: string[];
 }
 
-/** A ledger row on the Information page: a topic and its current status. */
 export interface SpecRow {
   topic: string;
   status: string;
   placeholder: boolean;
 }
 
+export interface ConfigurationItem {
+  id: string;
+  name: string;
+  body: string;
+  placeholder: boolean;
+}
+
 export interface PagesContent {
   theHomelift: {
-    hero: PageHeroContent;
-    sequenceTitle: string;
-    sequenceLines: string[];
+    opening: PageOpeningContent;
+    mechanism: MechanismContent;
     blocks: TextBlock[];
     faqTitle: string;
   };
   design: {
-    hero: PageHeroContent;
-    blocks: TextBlock[];
+    opening: PageOpeningContent;
+    areas: TextBlock[];
     optionsTitle: string;
     optionsNote: string;
+    groupLabels: Record<DesignGroup, string>;
+    configuratorNote: string;
   };
   inYourHome: {
-    hero: PageHeroContent;
+    opening: PageOpeningContent;
     blocks: TextBlock[];
+    configurationsTitle: string;
+    configurationsNote: string;
+    configurations: ConfigurationItem[];
+    examplesTitle: string;
+    examplesNote: string;
   };
   installation: {
-    hero: PageHeroContent;
+    opening: PageOpeningContent;
     blocks: TextBlock[];
+    serviceTitle: string;
+    serviceBody: string;
+    servicePlaceholder: string;
   };
   inspiration: {
-    hero: PageHeroContent;
+    opening: PageOpeningContent;
+    kinds: Record<ProjectKind, string>;
     testimonialsTitle: string;
     testimonialsNote: string;
   };
   information: {
-    hero: PageHeroContent;
+    opening: PageOpeningContent;
     specsTitle: string;
     specsNote: string;
     specs: SpecRow[];
+    statusLabel: string;
     downloadsTitle: string;
     downloadsNote: string;
+    downloadKinds: Record<Download["kind"], string>;
     faqTitle: string;
+    professionalsTitle: string;
+    professionalsBody: string;
   };
   findADealer: {
-    hero: PageHeroContent;
+    opening: PageOpeningContent;
     locatorTitle: string;
     locatorBody: string;
     countryLabel: string;
+    regionLabel: string;
+    anyRegion: string;
     searchLabel: string;
     searchPlaceholder: string;
     searchButton: string;
+    resultsLabel: string;
     noDealers: string;
+    inactiveCountry: string;
+    showroomLabel: string;
+    demoLabel: string;
+    serviceAreaLabel: string;
     showroomTitle: string;
     showroomBody: string;
     requestTitle: string;
@@ -384,21 +550,22 @@ export interface PagesContent {
     form: {
       name: string;
       email: string;
+      phone: string;
       country: string;
       postcode: string;
+      interest: string;
+      interests: Array<{ value: string; label: string }>;
       message: string;
       submit: string;
-      /** Shown when the request reached Elevante. */
+      sending: string;
       success: string;
-      /** Shown when no lead endpoint is configured, so nothing was sent. */
       unrouted: string;
-      /** Shown when a field is missing or malformed. */
       invalid: string;
-      /** Shown when the endpoint refused the request. */
       error: string;
+      /** One line per field the form can refuse. */
+      errors: { name: string; email: string; country: string; postcode: string; interest: string };
       privacy: string;
       privacyLink: string;
-      /** Standing note while the form has nowhere to send to. */
       notConnected: string;
     };
   };

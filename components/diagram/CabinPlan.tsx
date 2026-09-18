@@ -1,141 +1,137 @@
 import { useId } from "react";
-import type { Figure } from "@/content/types";
+import type { CabinPlanLabels, Occupant } from "@/content/types";
 import { cn } from "@/lib/cn";
+import { CABIN } from "@/lib/scene/geometry";
 
-type Occupant =
-  Extract<Figure, "wheelchair" | "rollator" | "two-people"> | "person";
+export type { CabinPlanLabels };
 
 interface CabinPlanProps {
   occupant: Occupant;
+  door: "open" | "closed";
+  focus?: "door" | "opening" | "cabin";
+  labels?: CabinPlanLabels;
+  title: string;
+  desc: string;
   className?: string;
 }
 
-const DESC: Record<Occupant, string> = {
-  person: "Plan of the cabin with one person standing inside.",
-  rollator: "Plan of the cabin with a person and a rollator inside.",
-  wheelchair: "Plan of the cabin with a person in a wheelchair inside.",
-  "two-people": "Plan of the cabin with two people standing side by side.",
-};
+const S = 200;
+const M = 0.4;
+const W = (CABIN.width + M * 2) * S;
+const H = (CABIN.depth + M * 2) * S;
+const cx = (x: number) => (x + M) * S;
+const cy = (z: number) => (z + M) * S;
 
-/** A person seen from above: head and shoulders. */
-function Person({ x, y }: { x: number; y: number }) {
+/** A person seen from above: head and shoulders, as on an architect's plan. */
+function Person({ x, y, tone = "var(--color-charcoal)" }: { x: number; y: number; tone?: string }) {
   return (
-    <g>
-      <ellipse
-        cx={x}
-        cy={y + 4}
-        rx="34"
-        ry="13"
-        fill="var(--color-warm-grey)"
-      />
-      <circle cx={x} cy={y - 6} r="13" fill="var(--color-charcoal-soft)" />
+    <g transform={`translate(${x} ${y})`} fill="none" stroke={tone} strokeWidth="2">
+      <ellipse rx="32" ry="13" fill="var(--color-white)" />
+      <circle r="11" cy="-3" fill="var(--color-white)" />
+    </g>
+  );
+}
+
+function Rollator({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`} fill="none" stroke="var(--color-charcoal)" strokeWidth="2">
+      <path d="M-30 0 v42 M30 0 v42 M-30 42 h60" />
+      <path d="M-30 0 h60" strokeWidth="3" />
+      <circle cx="-30" cy="0" r="4" fill="var(--color-white)" />
+      <circle cx="30" cy="0" r="4" fill="var(--color-white)" />
+      <circle cx="-30" cy="42" r="4" fill="var(--color-white)" />
+      <circle cx="30" cy="42" r="4" fill="var(--color-white)" />
+    </g>
+  );
+}
+
+function Wheelchair({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`} fill="none" stroke="var(--color-charcoal)" strokeWidth="2">
+      {/* seat */}
+      <rect x="-30" y="-6" width="60" height="44" rx="4" fill="var(--color-white)" />
+      {/* large wheels either side */}
+      <rect x="-44" y="-10" width="9" height="56" rx="4" fill="var(--color-white)" />
+      <rect x="35" y="-10" width="9" height="56" rx="4" fill="var(--color-white)" />
+      {/* footrests */}
+      <path d="M-20 38 v14 h12 M20 38 v14 h-12" />
     </g>
   );
 }
 
 /**
- * The cabin in plan, schematic, with the everyday situations the brief lists.
- * No dimension is implied; the outline is a proportion, not a size.
+ * The cabin from above with its door on the hall side and the occupant for
+ * the situation being described. The symbols are the ones an architect
+ * draws: no photograph of a stranger stands in for the visitor.
  */
-export function CabinPlan({ occupant, className }: CabinPlanProps) {
+export function CabinPlan({ occupant, door, focus, labels, title, desc, className }: CabinPlanProps) {
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  const doorY = cy(CABIN.depth);
+  const doorHalf = 0.42 * S;
+  const mid = cx(CABIN.width / 2);
+  const slide = door === "open" ? 0.36 * S : 0;
+  const doorTone = focus === "door" ? "var(--color-oxide)" : "var(--color-charcoal)";
+  const cabinTone = focus === "cabin" || focus === "opening" ? "var(--color-oxide)" : "var(--color-charcoal)";
+  const centreX = cx(CABIN.width / 2);
+  const centreY = cy(CABIN.depth / 2);
+
   return (
     <svg
-      viewBox="0 0 320 340"
+      viewBox={`0 0 ${W} ${H}`}
       role="img"
-      aria-labelledby={`t-${uid}`}
-      className={cn("stair-diagram plan", className ?? "h-auto w-full")}
+      aria-labelledby={`t-${uid} d-${uid}`}
+      className={cn("drawing h-auto w-full", className)}
+      data-drawing="cabin-plan"
+      data-occupant={occupant}
+      data-door={door}
     >
-      <title id={`t-${uid}`}>{DESC[occupant]}</title>
-      {/* cabin outline */}
-      <rect
-        x="60"
-        y="30"
-        width="200"
-        height="280"
-        fill="var(--color-white)"
-        stroke="var(--color-charcoal-soft)"
-        strokeWidth="1.5"
-      />
-      <rect
-        x="70"
-        y="40"
-        width="180"
-        height="260"
-        fill="none"
-        stroke="var(--color-stone)"
-        strokeWidth="1"
-      />
-      {/* automatic door on the entrance side */}
-      <line
-        x1="110"
-        y1="310"
-        x2="210"
-        y2="310"
-        stroke="var(--color-oxide)"
-        strokeWidth="5"
-      />
-      <text x="160" y="332" textAnchor="middle">
-        Door
-      </text>
+      <title id={`t-${uid}`}>{title}</title>
+      <desc id={`d-${uid}`}>{desc}</desc>
 
-      {occupant === "person" && <Person x={160} y={175} />}
+      {/* Cabin outline */}
+      <rect x={cx(0)} y={cy(0)} width={CABIN.width * S} height={CABIN.depth * S} fill="var(--color-white)" stroke={cabinTone} strokeWidth="3" />
+      <rect x={cx(0) + 10} y={cy(0) + 10} width={CABIN.width * S - 20} height={CABIN.depth * S - 20} fill="none" stroke={cabinTone} strokeWidth="1" strokeOpacity="0.45" />
 
-      {occupant === "two-people" && (
-        <>
-          <Person x={116} y={175} />
-          <Person x={204} y={175} />
-        </>
-      )}
+      {/* Door opening: the wall is cut, the leaves part */}
+      <line x1={mid - doorHalf} y1={doorY} x2={mid + doorHalf} y2={doorY} stroke="var(--color-white)" strokeWidth="6" />
+      <g data-part="door">
+        <line x1={mid - doorHalf - slide} y1={doorY} x2={mid - slide} y2={doorY} stroke={doorTone} strokeWidth="5" />
+        <line x1={mid + slide} y1={doorY} x2={mid + doorHalf + slide} y2={doorY} stroke={doorTone} strokeWidth="5" />
+        {door === "open" && (
+          <path d={`M${mid - doorHalf + 8} ${doorY + 40} L${mid} ${doorY + 22} L${mid + doorHalf - 8} ${doorY + 40}`} fill="none" stroke={doorTone} strokeWidth="1" strokeDasharray="3 4" />
+        )}
+      </g>
 
+      {/* Occupants */}
+      {occupant === "person" && <Person x={centreX} y={centreY + 4} />}
       {occupant === "rollator" && (
         <>
-          <Person x={160} y={150} />
-          <g fill="none" stroke="var(--color-charcoal-soft)" strokeWidth="2">
-            <rect x="118" y="196" width="84" height="56" rx="6" />
-            <line x1="118" y1="196" x2="202" y2="196" strokeWidth="4" />
-            {[
-              [124, 202],
-              [196, 202],
-              [124, 246],
-              [196, 246],
-            ].map(([cx, cy]) => (
-              <circle
-                key={`${cx}-${cy}`}
-                cx={cx}
-                cy={cy}
-                r="5"
-                fill="var(--color-warm-white)"
-              />
-            ))}
-          </g>
+          <Person x={centreX} y={centreY - 34} />
+          <Rollator x={centreX} y={centreY + 6} />
+        </>
+      )}
+      {occupant === "wheelchair" && (
+        <>
+          <Wheelchair x={centreX} y={centreY - 14} />
+          <Person x={centreX} y={centreY - 30} />
+        </>
+      )}
+      {occupant === "two-people" && (
+        <>
+          <Person x={centreX - 60} y={centreY + 4} />
+          <Person x={centreX + 60} y={centreY + 4} tone="var(--color-charcoal-soft)" />
         </>
       )}
 
-      {occupant === "wheelchair" && (
-        <>
-          <g fill="none" stroke="var(--color-charcoal-soft)" strokeWidth="2">
-            <rect x="112" y="118" width="96" height="120" rx="8" />
-            <rect
-              x="100"
-              y="140"
-              width="10"
-              height="90"
-              rx="5"
-              fill="var(--color-warm-white)"
-            />
-            <rect
-              x="210"
-              y="140"
-              width="10"
-              height="90"
-              rx="5"
-              fill="var(--color-warm-white)"
-            />
-            <line x1="112" y1="118" x2="208" y2="118" strokeWidth="5" />
-          </g>
-          <Person x={160} y={168} />
-        </>
+      {labels && (
+        <g data-annotation>
+          <text x={cx(0)} y={cy(0) - 12}>
+            {labels.cabin}
+          </text>
+          <text x={mid} y={doorY + 62} textAnchor="middle" fill={doorTone}>
+            {labels.door}
+          </text>
+        </g>
       )}
     </svg>
   );

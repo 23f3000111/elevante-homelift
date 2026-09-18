@@ -3,8 +3,8 @@ import type { DesignOption } from "../types";
 
 /**
  * The brief says the product offers choices in finishes, materials and cabin
- * design, and that the detail will be supplied separately. These entries name
- * the groups only; the actual range is still to come.
+ * design, and that the detail will be supplied separately. These entries
+ * name the groups only; the actual range is still to come.
  */
 export const designOptions: DesignOption[] = [
   {
@@ -12,6 +12,13 @@ export const designOptions: DesignOption[] = [
     group: "cabin",
     name: "Cabin appearance",
     description: "Cabin design options will be published when the range is released.",
+    placeholder: true,
+  },
+  {
+    id: "do-stair",
+    group: "staircase",
+    name: "Staircase design",
+    description: "How the staircase and cabin are designed together will be shown here.",
     placeholder: true,
   },
   {
@@ -36,6 +43,13 @@ export const designOptions: DesignOption[] = [
     name: "Metal",
     description: "Material reference. The Elevante metal finishes will be listed here.",
     media: image("lift-bronze-cabin"),
+    placeholder: true,
+  },
+  {
+    id: "do-walls",
+    group: "finishes",
+    name: "Wall and side finishes",
+    description: "Wall and side finish options will be published when the range is released.",
     placeholder: true,
   },
   {

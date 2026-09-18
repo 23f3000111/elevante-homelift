@@ -1,21 +1,20 @@
 import { image, video } from "../media";
 import type { PageIntroContent, PagesContent } from "../types";
+import { mechanism } from "./home";
 
 /**
  * Secondary pages. Each opens with a statement and a lead in the brief's
- * voice, then reuses the homepage scenes where the story is the same, and
- * says plainly what is still to be published.
+ * voice, carries its own visual system, and says plainly what is still to
+ * be published.
  */
 export const pagesContent: PagesContent = {
   theHomelift: {
-    hero: {
-      index: "01",
+    opening: {
       eyebrow: "The Homelift",
       title: "The staircase and the lift, as one system.",
       lead: "The Elevante Homelift is designed together with the staircase. The cabin travels in the space underneath it, arrives at the upper floor, and leaves the staircase exactly as it was: a normal part of the house.",
     },
-    sequenceTitle: "Watch the cabin travel",
-    sequenceLines: ["Scroll to run the film forwards and back.", "The drawing at the top right keeps the cabin's position honest."],
+    mechanism,
     blocks: [
       {
         title: "What it is",
@@ -32,10 +31,9 @@ export const pagesContent: PagesContent = {
         ],
       },
       {
-        title: "Safety, plainly",
+        title: "Who it is for",
         paragraphs: [
-          "The system detects movement on or around the staircase. The lift will not start when movement is detected, and stops immediately if movement is detected during travel.",
-          "Detailed technical specifications and certification information will be published on the Information page as they are released.",
+          "Owners of existing multi-storey private homes who want to continue living comfortably and safely in their own home, and who value their house and its interior. The cabin is designed for everyday requirements, including use with a rollator, a wheelchair, or another person providing assistance.",
         ],
       },
     ],
@@ -43,26 +41,25 @@ export const pagesContent: PagesContent = {
   },
 
   design: {
-    hero: {
-      index: "02",
+    opening: {
       eyebrow: "Design",
       title: "Part of the interior, not an addition to it.",
       lead: "Cabin, staircase, materials, finishes, flooring, controls and details are chosen so the system belongs to the house it is installed in. The full range is published here as it is released.",
-      media: video("video-design-cabin").poster,
+      video: video("video-design-cabin"),
       caption: "Visualisation. Product photography to follow.",
     },
-    blocks: [
+    areas: [
       {
-        title: "Cabin and staircase",
-        paragraphs: [
-          "The cabin's appearance and the staircase design are decided together, so the two read as one piece of joinery rather than a lift beside a stair.",
-        ],
+        title: "Cabin",
+        paragraphs: ["The cabin's appearance: its frame, its glazing, its proportions. Options will be published when the range is released."],
+      },
+      {
+        title: "Staircase",
+        paragraphs: ["The cabin and the staircase are decided together, so the two read as one piece of joinery rather than a lift beside a stair."],
       },
       {
         title: "Materials and finishes",
-        paragraphs: [
-          "Walls, side finishes, flooring, colours and metalwork are available in a choice of materials and finishes suited to different interiors, from period houses to new builds.",
-        ],
+        paragraphs: ["Walls, side finishes, flooring, colours and metalwork in a choice of materials suited to different interiors, from period houses to new builds."],
       },
       {
         title: "Controls and details",
@@ -70,15 +67,25 @@ export const pagesContent: PagesContent = {
       },
     ],
     optionsTitle: "Design options",
-    optionsNote: "Each group will list the Elevante range when it is released. Until then, the materials shown are references, not product finishes.",
+    optionsNote: "Each group lists the Elevante range when it is released. Until then, the materials shown are references, not product finishes.",
+    groupLabels: {
+      cabin: "Cabin",
+      staircase: "Staircase",
+      materials: "Materials",
+      finishes: "Finishes",
+      flooring: "Flooring",
+      controls: "Controls and details",
+    },
+    configuratorNote: "The options are structured so that a configurator can be added later without rebuilding the page.",
   },
 
   inYourHome: {
-    hero: {
-      index: "03",
+    opening: {
       eyebrow: "In your home",
       title: "Made for the house you already live in.",
       lead: "Elevante is for existing homes. It uses the space underneath the staircase, so a lift becomes possible where a separate lift position would not fit.",
+      media: image("stair-gold-hall"),
+      caption: "Reference interior. No Elevante installation is shown.",
     },
     blocks: [
       {
@@ -88,21 +95,24 @@ export const pagesContent: PagesContent = {
         ],
       },
       {
-        title: "Configurations",
+        title: "Architectural integration",
         paragraphs: [
-          "The applicable staircase and cabin configurations, with drawings, will be published on the Information page. Your dealer confirms what is possible in your house during the assessment.",
+          "The lift is designed as part of the interior, in the way a staircase already is. Cabin, materials and finishes are chosen to suit the house.",
         ],
       },
-      {
-        title: "Examples",
-        paragraphs: ["Installation examples will appear here as the first homes are completed. The interiors shown are reference interiors."],
-      },
     ],
+    configurationsTitle: "Configurations",
+    configurationsNote: "The applicable staircase and cabin configurations, with drawings, will be published here and on the Information page. Your dealer confirms what is possible in your house during the assessment.",
+    configurations: [
+      { id: "cfg-straight", name: "Straight flight", body: "The configuration drawn throughout this site: a straight staircase with the cabin beneath its head.", placeholder: false },
+      { id: "cfg-other", name: "Further configurations", body: "Other staircase types and cabin arrangements will be listed as they are confirmed.", placeholder: true },
+    ],
+    examplesTitle: "Examples",
+    examplesNote: "Installation examples will appear here as the first homes are completed. The interiors shown are reference interiors and visualisations.",
   },
 
   installation: {
-    hero: {
-      index: "04",
+    opening: {
       eyebrow: "Installation",
       title: "What installing Elevante means for your house.",
       lead: "Seven stages, from the first conversation to handover, all handled by an authorised dealer. The detail is practical, not construction methodology.",
@@ -123,32 +133,41 @@ export const pagesContent: PagesContent = {
         ],
       },
       {
-        title: "Service and maintenance",
-        paragraphs: ["Service and maintenance are arranged through your dealer. Details will be published here as the service programme is confirmed."],
+        title: "Installation and handover",
+        paragraphs: [
+          "The house is prepared, the integrated staircase and lift are installed, and the system is commissioned, explained and handed over to you.",
+        ],
       },
     ],
+    serviceTitle: "Service and maintenance",
+    serviceBody: "Service and maintenance are arranged through your dealer.",
+    servicePlaceholder: "Details of the service programme will be published here as they are confirmed.",
   },
 
   inspiration: {
-    hero: {
-      index: "05",
+    opening: {
       eyebrow: "Inspiration",
       title: "Homes, staircases, and the space beneath them.",
       lead: "Photography, examples and, in time, customer experiences. Everything shown before the first installations is a reference interior or a visualisation, and is labelled as such.",
+    },
+    kinds: {
+      installation: "Elevante installation",
+      visualisation: "Visualisation",
+      reference: "Reference interior",
     },
     testimonialsTitle: "Customer experiences",
     testimonialsNote: "Real experiences from the first installations will be published here. Nothing is invented in the meantime.",
   },
 
   information: {
-    hero: {
-      index: "06",
+    opening: {
       eyebrow: "Information",
       title: "The facts, as they are released.",
       lead: "Technical specifications, downloads and answers for homeowners, family members, architects and contractors. Each item below shows its current status.",
     },
     specsTitle: "Technical information",
     specsNote: "Elevante publishes each item here once it is confirmed. No figure appears before then.",
+    statusLabel: "Status",
     specs: [
       { topic: "Dimensions", status: "To be published", placeholder: true },
       { topic: "Load and capacity", status: "To be published", placeholder: true },
@@ -167,39 +186,69 @@ export const pagesContent: PagesContent = {
     ],
     downloadsTitle: "Downloads",
     downloadsNote: "Brochures, product, technical and installation information and drawings will be available here.",
+    downloadKinds: {
+      brochure: "Brochure",
+      product: "Product information",
+      technical: "Technical information",
+      installation: "Installation information",
+      drawing: "Drawings",
+    },
     faqTitle: "Questions and answers",
+    professionalsTitle: "For architects and contractors",
+    professionalsBody: "Drawings, installation requirements and technical documentation for professionals will be published on this page alongside the consumer information, so the same facts serve everyone involved in a decision.",
   },
 
   findADealer: {
-    hero: {
-      index: "07",
+    opening: {
       eyebrow: "Find a dealer",
       title: "See it, try it, talk to someone who installs it.",
       lead: "Authorised dealers handle assessment, quotation, installation and service, and can arrange for you to see and try an Elevante Homelift.",
     },
     locatorTitle: "Dealers near you",
-    locatorBody: "Choose your country and enter a postcode or town. Dealers are listed as they are appointed, starting with the Netherlands, then the United Kingdom and Germany.",
+    locatorBody: "Choose your country, then a region or a postcode or town. Dealers are listed as they are appointed, starting with the Netherlands, then the United Kingdom and Germany.",
     countryLabel: "Country",
+    regionLabel: "Region",
+    anyRegion: "Any region",
     searchLabel: "Postcode or town",
     searchPlaceholder: "For example 1012 or Utrecht",
     searchButton: "Search",
-    noDealers: "No dealers are listed yet in {country}. Leave your details below and Elevante will contact you when a dealer is appointed near you.",
+    resultsLabel: "Dealers",
+    noDealers: "No dealers are listed yet for this search in {country}. Leave your details below and Elevante will contact you when a dealer is appointed near you.",
+    inactiveCountry: "Dealers are not yet appointed in {country}. Leave your details below and Elevante will contact you.",
+    showroomLabel: "Showroom",
+    demoLabel: "Demonstration available",
+    serviceAreaLabel: "Service area",
     showroomTitle: "Showrooms and demonstrations",
-    showroomBody: "Dealers offering showroom demonstrations will be marked in the results. Seeing and trying the lift is the best way to judge it.",
+    showroomBody: "Dealers offering showroom demonstrations are marked in the results. Seeing and trying the lift is the best way to judge it.",
     requestTitle: "Request information",
     requestBody: "Tell us where you live and what you would like to know. Your request goes to Elevante and, once appointed, to the authorised dealer for your area.",
     form: {
       name: "Your name",
       email: "Email address",
+      phone: "Telephone (optional)",
       country: "Country",
       postcode: "Postcode",
-      message: "What would you like to know? (optional)",
+      interest: "What would you like?",
+      interests: [
+        { value: "information", label: "Information about Elevante" },
+        { value: "demo", label: "To see and try the Elevante Homelift" },
+        { value: "assessment", label: "An assessment of my house" },
+        { value: "professional", label: "Information as an architect, adviser or contractor" },
+      ],
+      message: "Anything else we should know? (optional)",
       submit: "Send request",
+      sending: "Sending",
       success: "Thank you. Your request has been received.",
-      unrouted:
-        "This preview is not connected to Elevante's systems yet, so nothing was sent. Your details stayed in this browser.",
+      unrouted: "This preview is not connected to Elevante's systems yet, so nothing was sent. Your details stayed in this browser.",
       invalid: "Please check the highlighted fields.",
       error: "The request could not be sent. Please try again, or contact a dealer directly.",
+      errors: {
+        name: "Please enter your name.",
+        email: "Please enter a valid email address.",
+        country: "Please choose a country.",
+        postcode: "Please enter your postcode.",
+        interest: "Please choose what you would like.",
+      },
       privacy: "Your details are used only to answer this request.",
       privacyLink: "See the privacy statement.",
       notConnected: "Lead routing to Elevante and its dealers is the next integration; this form does not send yet.",

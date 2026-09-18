@@ -1,83 +1,65 @@
-import { Caption } from "@/components/ui/Caption";
-import { Picture } from "@/components/ui/Picture";
+import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Reveal } from "@/components/ui/Reveal";
-import { Section } from "@/components/ui/Section";
-import type { DesignOption } from "@/content/types";
+import type { DesignGroup, DesignOption } from "@/content/types";
 import { cn } from "@/lib/cn";
 
-const GROUP_LABEL: Record<DesignOption["group"], string> = {
-  cabin: "Cabin",
-  materials: "Materials",
-  finishes: "Finishes",
-  flooring: "Flooring",
-  controls: "Controls",
-};
-
-/** The groups the Design page will fill. Placeholders are dashed and say so. */
-export function DesignOptions({
-  title,
-  note,
-  options,
-}: {
+interface DesignOptionsProps {
   title: string;
   note: string;
+  configuratorNote: string;
+  groupLabels: Record<DesignGroup, string>;
   options: DesignOption[];
-}) {
+}
+
+const ORDER: DesignGroup[] = ["cabin", "staircase", "materials", "finishes", "flooring", "controls"];
+
+/**
+ * The design options as a specification, group by group. Each group is a
+ * row of the ledger; each option a line in it, with its reference picture
+ * where one exists. Placeholders are dashed and say so. The structure is
+ * the one a configurator would read from later.
+ */
+export function DesignOptions({ title, note, configuratorNote, groupLabels, options }: DesignOptionsProps) {
   return (
-    <Section tone="white" labelledBy="options-title">
-      <Reveal className="container-content">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <h2
-            id="options-title"
-            data-reveal
-            className="text-display-2 lg:col-span-6"
-          >
+    <Reveal as="section" id="options" className="bg-white py-section" aria-labelledby="options-title">
+      <div className="container-content">
+        <div className="sheet items-end gap-y-6">
+          <h2 id="options-title" data-reveal className="col-span-12 text-display-2 font-medium text-charcoal lg:col-span-6">
             {title}
           </h2>
-          <Caption
-            data-reveal
-            className="max-w-[44ch] lg:col-span-5 lg:col-start-8"
-          >
+          <p data-reveal className="col-span-12 max-w-[44ch] text-small text-caption lg:col-span-5 lg:col-start-8">
             {note}
-          </Caption>
+          </p>
         </div>
-        <ul className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {options.map((o) => (
-            <li
-              key={o.id}
-              data-reveal
-              className={cn(
-                "border-t pt-5",
-                o.placeholder
-                  ? "border-dashed border-warm-grey"
-                  : "border-stone",
-              )}
-            >
-              <span className="font-mono text-small text-caption">
-                {GROUP_LABEL[o.group]}
-              </span>
-              {o.media ? (
-                <div className="mt-4" style={{ maxWidth: o.media.width }}>
-                  <Picture
-                    asset={o.media}
-                    sizes="(min-width: 1024px) 30vw, 100vw"
-                  />
-                </div>
-              ) : (
-                <div className="mt-4 flex aspect-[4/3] items-end bg-warm-white p-4">
-                  <span className="font-mono text-small text-caption">
-                    To be published
-                  </span>
-                </div>
-              )}
-              <h3 className="mt-5 text-h3">{o.name}</h3>
-              <p className="mt-2 text-body text-charcoal-soft">
-                {o.description}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
-    </Section>
+
+        <div className="mt-14 border-t border-charcoal lg:mt-20">
+          {ORDER.map((group) => {
+            const items = options.filter((o) => o.group === group);
+            if (items.length === 0) return null;
+            return (
+              <div key={group} className="sheet gap-y-6 border-b border-stone py-8 lg:py-10" data-reveal>
+                <h3 className="col-span-12 text-display-3 font-medium text-charcoal lg:col-span-4">{groupLabels[group]}</h3>
+                <ul className="col-span-12 grid gap-8 sm:grid-cols-2 lg:col-span-8">
+                  {items.map((o) => (
+                    <li key={o.id} className={cn("border-t pt-4", o.placeholder ? "border-dashed border-warm-grey" : "border-stone")}>
+                      {o.media && (
+                        <div className="mb-4 h-[14rem]">
+                          <MediaFrame asset={o.media} sizes="(min-width: 64rem) 30vw, 100vw" tone="warm-white" />
+                        </div>
+                      )}
+                      <p className="text-h3 font-medium text-charcoal">{o.name}</p>
+                      <p className="mt-2 max-w-[40ch] text-body text-charcoal-soft">{o.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+        <p className="mt-8 max-w-[60ch] font-mono text-mono text-caption" data-reveal>
+          {configuratorNote}
+        </p>
+      </div>
+    </Reveal>
   );
 }

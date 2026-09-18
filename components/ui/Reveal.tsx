@@ -1,11 +1,10 @@
 "use client";
 
-import { useRef, type ElementType, type ReactNode } from "react";
+import { useRef, type HTMLAttributes, type ReactNode } from "react";
 import { revealWithin, useMotion } from "@/lib/motion/useMotion";
 
-interface RevealProps {
-  as?: ElementType;
-  className?: string;
+interface RevealProps extends HTMLAttributes<HTMLElement> {
+  as?: "div" | "section" | "article";
   children: ReactNode;
 }
 
@@ -14,12 +13,26 @@ interface RevealProps {
  * `data-reveal-lines` or `data-reveal-clip`; this component animates them
  * once as they enter the viewport. Children stay server-rendered.
  */
-export function Reveal({ as: Tag = "div", className, children }: RevealProps) {
-  const ref = useRef<HTMLElement | null>(null);
+export function Reveal({ as = "div", children, ...rest }: RevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
   useMotion(ref, ({ scope }) => revealWithin(scope));
+  if (as === "section") {
+    return (
+      <section ref={ref} {...rest}>
+        {children}
+      </section>
+    );
+  }
+  if (as === "article") {
+    return (
+      <article ref={ref} {...rest}>
+        {children}
+      </article>
+    );
+  }
   return (
-    <Tag ref={ref} className={className}>
+    <div ref={ref} {...rest}>
       {children}
-    </Tag>
+    </div>
   );
 }

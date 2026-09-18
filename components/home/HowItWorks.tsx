@@ -1,147 +1,109 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { StairSection, STOREY } from "@/components/diagram/StairSection";
-import { Caption } from "@/components/ui/Caption";
-import { Container } from "@/components/ui/Section";
-import { SectionIndex } from "@/components/ui/SectionIndex";
-import type { HomeContent } from "@/content/types";
+import { useRef } from "react";
+import { SectionDrawing } from "@/components/diagram/SectionDrawing";
+import type { HomeContent, MechanismContent } from "@/content/types";
 import { cn } from "@/lib/cn";
-import { revealWithin, useMotion } from "@/lib/motion/useMotion";
+import { useMotion } from "@/lib/motion/useMotion";
+import { DRAWING, STOREY } from "@/lib/scene/geometry";
+
+interface HowItWorksProps {
+  content: HomeContent["howItWorks"];
+  drawingLabels: MechanismContent["drawingLabels"];
+  index: string;
+}
 
 /**
- * Enter, move, arrive. The drawing stays in view and the scroll position
- * runs it continuously: the lower door opens and closes, the cabin climbs,
- * the upper door opens. The stage numerals drift at their own rate behind
- * the text, so type and drawing move independently. Without JavaScript the
- * drawing shows the first stage and every stage is fully legible.
+ * Enter, move, arrive: three stages, one drawing. The stage in hand is set
+ * in full; the others recede. The drawing's door opens, the cabin rises,
+ * the stair opening receives it, all driven by the scroll position.
  */
-export function HowItWorks({
-  content,
-}: {
-  content: HomeContent["howItWorks"];
-}) {
+export function HowItWorks({ content, drawingLabels, index }: HowItWorksProps) {
   const ref = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
 
-  useMotion(ref, ({ gsap, ScrollTrigger, scope }) => {
-    revealWithin(scope);
-    const cabin = scope.querySelector('[data-part="cabin"]');
-    const doorLower = scope.querySelector('[data-part="door-lower"]');
-    const doorUpper = scope.querySelector('[data-part="door-upper"]');
-    const list = scope.querySelector("[data-steps]");
-    const steps = Array.from(
-      scope.querySelectorAll<HTMLElement>("[data-step]"),
-    );
-    if (!cabin || !doorLower || !doorUpper || !list) return;
+  useMotion(ref, ({ gsap, scope }) => {
+    const steps = Array.from(scope.querySelectorAll<HTMLElement>("[data-step]"));
+    const cabin = scope.querySelector("[data-part='cabin']");
+    const upper = scope.querySelector("[data-part='door-upper']");
+    const leafL = scope.querySelector("[data-part='door-lower-l']");
+    const leafR = scope.querySelector("[data-part='door-lower-r']");
+    const slide = 0.4 * DRAWING.scale;
 
-    gsap.set(doorLower, { strokeDashoffset: 0 });
     const tl = gsap.timeline({
       defaults: { ease: "none" },
       scrollTrigger: {
-        trigger: list,
-        start: "top 70%",
-        end: "bottom 50%",
+        trigger: scope,
+        start: "top top",
+        end: "bottom bottom",
         scrub: 0.5,
+        onUpdate: (self) => {
+          const active = self.progress < 0.33 ? 0 : self.progress < 0.7 ? 1 : 2;
+          steps.forEach((s, i) => s.setAttribute("data-active", i === active ? "true" : "false"));
+        },
       },
     });
-    tl.to(doorLower, { strokeDashoffset: 1, duration: 0.08 }, 0.03)
-      .to(doorLower, { strokeDashoffset: 0, duration: 0.08 }, 0.24)
-      .to(cabin, { y: -STOREY, duration: 0.5, ease: "power1.inOut" }, 0.32)
-      .to(doorUpper, { strokeDashoffset: 1, duration: 0.08 }, 0.9);
-
-    steps.forEach((step, i) => {
-      ScrollTrigger.create({
-        trigger: step,
-        start: "top 65%",
-        end: "bottom 65%",
-        onToggle: (self) => {
-          if (self.isActive) setActive(i);
-        },
-      });
-    });
+    // 01 Enter: the door parts.
+    if (leafL && leafR) {
+      tl.fromTo(leafL, { attr: { transform: "translate(0 0)" } }, { attr: { transform: `translate(${-slide} 0)` }, duration: 0.12 }, 0.04);
+      tl.fromTo(leafR, { attr: { transform: "translate(0 0)" } }, { attr: { transform: `translate(${slide} 0)` }, duration: 0.12 }, 0.04);
+      // 02 Move: the door closes, the stair opening opens, the cabin rises.
+      tl.to(leafL, { attr: { transform: "translate(0 0)" }, duration: 0.08 }, 0.3);
+      tl.to(leafR, { attr: { transform: "translate(0 0)" }, duration: 0.08 }, 0.3);
+    }
+    if (upper) tl.fromTo(upper, { attr: { "stroke-dashoffset": 0 } }, { attr: { "stroke-dashoffset": 1 }, duration: 0.1 }, 0.36);
+    if (cabin) tl.fromTo(cabin, { attr: { transform: "translate(0 0)" } }, { attr: { transform: `translate(0 ${-STOREY * DRAWING.scale})` }, duration: 0.45 }, 0.4);
+    // 03 Arrive: nothing else moves; the cabin has become the landing.
+    tl.to({}, { duration: 0.15 }, 0.85);
   });
-
-  const current = content.steps[active];
 
   return (
     <section
       ref={ref}
       id="how-it-works"
-      aria-labelledby="hiw-title"
-      className="overflow-x-clip bg-warm-white py-section"
+      aria-labelledby="how-title"
+      className="scroll-track bg-warm-white"
+      style={{ ["--track" as string]: "220svh", ["--track-mobile" as string]: "200svh" }}
     >
-      <Container>
-        <div className="grid lg:grid-cols-12 lg:gap-x-10">
-          <div className="lg:col-span-5">
-            <SectionIndex
-              index={content.index}
-              label={content.indexLabel}
-              size="small"
-            />
-            <h2 id="hiw-title" data-reveal className="mt-6 text-display-2">
+      <div className="scroll-stage">
+        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-8 lg:pb-10">
+          <div className="flex items-baseline gap-6">
+            <p className="font-mono text-mono text-caption">{index}</p>
+            <h2 id="how-title" className="text-h3 font-medium text-charcoal">
               {content.title}
             </h2>
-            <p
-              data-reveal
-              className="mt-5 max-w-[40ch] text-body-l text-charcoal-soft"
-            >
-              {content.intro}
-            </p>
           </div>
-
-          <div className="sticky top-[4.5rem] z-10 mt-6 bg-warm-white py-3 lg:top-28 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-start lg:py-0">
-            <StairSection
-              state="enter"
-              className="diagram-hide-labels-mobile h-auto w-full"
-            />
-            <div className="mt-3 hidden items-baseline justify-between border-t border-stone pt-3 lg:flex">
-              <span className="text-body font-medium text-charcoal">
-                <span className="mr-3 font-mono text-small text-oxide">
-                  {current.number}
-                </span>
-                {current.title}
-              </span>
-              <Caption>{content.diagramNote}</Caption>
-            </div>
-          </div>
-
-          <ol data-steps className="mt-4 lg:col-span-5 lg:row-start-2 lg:mt-10">
-            {content.steps.map((step, i) => (
-              <li
-                key={step.number}
-                data-step
-                className="relative flex min-h-[32vh] flex-col justify-center border-t border-stone py-8 lg:min-h-[34vh]"
-              >
-                <span
-                  aria-hidden
-                  data-parallax="0.4"
-                  className="pointer-events-none absolute top-1 -left-1 text-[clamp(4.5rem,9vw,8rem)] leading-none font-medium tracking-[-0.06em] text-stone select-none"
+          <div className="sheet flex-1 items-center gap-y-8 pt-8">
+            <ol className="col-span-12 grid gap-6 lg:col-span-5 lg:gap-10">
+              {content.steps.map((step, i) => (
+                <li
+                  key={step.number}
+                  data-step
+                  data-active={i === 0 ? "true" : "false"}
+                  className={cn(
+                    "grid grid-cols-[auto_1fr] items-baseline gap-x-6 border-t border-stone pt-5 transition-opacity duration-500",
+                    "data-[active=false]:opacity-40",
+                  )}
                 >
-                  {step.number}
-                </span>
-                <div className="relative">
-                  <span
-                    className={cn(
-                      "font-mono text-small",
-                      i === active ? "text-oxide" : "text-caption",
-                    )}
-                  >
-                    <span className="sr-only">Stage </span>
+                  <span aria-hidden className="font-mono text-mono text-oxide">
                     {step.number}
                   </span>
-                  <h3 className="mt-2 text-[clamp(1.875rem,3.2vw,3rem)] leading-[1.02] font-medium tracking-[-0.025em] text-charcoal">
-                    {step.title}
-                  </h3>
-                  <p className="mt-4 max-w-[38ch] text-body-l text-charcoal-soft">
-                    {step.body}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
+                  <div>
+                    <h3 className="text-display-3 font-medium text-charcoal">
+                      <span className="sr-only">{step.number} </span>
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 max-w-[40ch] text-body text-charcoal-soft">{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="col-span-12 lg:col-span-7 lg:pl-8">
+              <SectionDrawing progress={0.5} labels={drawingLabels} title={content.title} desc={content.steps.map((s) => s.body).join(" ")} />
+              <p className="mt-3 font-mono text-mono text-caption">{content.note}</p>
+            </div>
+          </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

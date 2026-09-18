@@ -1,6 +1,6 @@
+import { AppLink } from "@/components/ui/AppLink";
+import { Arrow } from "@/components/ui/Arrow";
 import type { Cta, PageIntroContent } from "@/content/types";
-import { Button } from "@/components/ui/Button";
-import { Container, Section } from "@/components/ui/Section";
 
 interface PageIntroProps {
   intro: PageIntroContent;
@@ -8,35 +8,34 @@ interface PageIntroProps {
 }
 
 /**
- * The opening of every secondary page. Until each page is built out it
- * states plainly what will be here and offers the two useful next steps.
+ * The legal pages until their text arrives: a statement of what will be
+ * here, and the two useful next steps.
  */
 export function PageIntro({ intro, dealerCta }: PageIntroProps) {
   return (
-    <Section space="section" labelledBy="page-title">
-      <Container>
-        <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <h1 id="page-title" className="text-display-2">
+    <section aria-labelledby="page-title" className="bg-warm-white pt-[calc(var(--spacing-header)+3rem)] pb-section">
+      <div className="container-content">
+        <div className="sheet gap-y-10">
+          <div className="col-span-12 lg:col-span-7">
+            <h1 id="page-title" className="text-display-1 font-medium text-charcoal">
               {intro.title}
             </h1>
-            <p className="mt-8 max-w-[52ch] text-body-l text-charcoal-soft">
-              {intro.body}
-            </p>
+            <p className="mt-8 max-w-[48ch] text-body-l text-charcoal-soft">{intro.body}</p>
           </div>
-          <aside className="lg:col-span-4 lg:col-start-9">
-            <div className="border-t border-stone pt-5">
-              <p className="text-small text-caption">{intro.note}</p>
-            </div>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col">
-              <Button href={dealerCta.href}>{dealerCta.label}</Button>
-              <Button href="/" variant="secondary">
+          <aside className="col-span-12 lg:col-span-4 lg:col-start-9">
+            <p className="border-t border-dashed border-warm-grey pt-5 font-mono text-mono text-caption">{intro.note}</p>
+            <div className="mt-8 flex flex-col gap-4">
+              <AppLink href={dealerCta.href} className="action">
+                {dealerCta.label}
+                <Arrow />
+              </AppLink>
+              <AppLink href="/" className="text-link inline-block text-body text-charcoal">
                 Back to the homepage
-              </Button>
+              </AppLink>
             </div>
           </aside>
         </div>
-      </Container>
-    </Section>
+      </div>
+    </section>
   );
 }
