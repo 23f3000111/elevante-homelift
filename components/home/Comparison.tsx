@@ -36,30 +36,37 @@ export function Comparison({ content, planLabels, index }: ComparisonProps) {
         </div>
 
         <div data-track-wrap className="mt-10 lg:mt-12 lg:overflow-x-auto">
-          <div data-track className="grid gap-10 px-gutter lg:ml-[max(0px,calc((100vw-90rem)/2))] lg:flex lg:w-max lg:gap-16 lg:pr-[8vw]">
+          <div data-track className="grid gap-12 px-gutter lg:ml-[max(0px,calc((100vw-90rem)/2))] lg:flex lg:w-max lg:items-start lg:gap-16 lg:pr-[8vw]">
             {content.items.map((item, i) => (
+              /* Every card uses the same four rows, so the plans, the
+                 statements and the bodies line up across the three. */
               <article
                 key={item.id}
-                className={cn("grid content-start gap-5 lg:w-[min(42vw,38rem)] lg:shrink-0", i === content.items.length - 1 && "lg:pr-8")}
+                className={cn(
+                  "grid grid-rows-[auto_auto_auto_1fr] gap-0 lg:w-[min(42vw,38rem)] lg:shrink-0",
+                  i === content.items.length - 1 && "lg:pr-8",
+                )}
                 data-item={item.id}
               >
-                <div className={cn("fit-h h-[min(18rem,30svh)] border-t pt-5", item.id === "elevante" ? "border-oxide" : "border-stone")}>
-                  <PlanDrawing
-                    variant={item.id}
-                    labels={planLabels}
-                    title={`${item.name}: plan`}
-                    desc={`${item.statement} ${item.body}`}
-                  />
-                </div>
-                <div className="grid gap-x-8 gap-y-2 lg:grid-cols-[1fr_1fr] lg:items-baseline">
-                  <div>
-                    <p className="font-mono text-mono text-caption">
-                      {String(i + 1).padStart(2, "0")} / {item.name}
-                    </p>
-                    <h3 className={cn("mt-2 text-h3 font-medium", item.id === "elevante" ? "text-oxide" : "text-charcoal")}>{item.statement}</h3>
+                <p className="font-mono text-mono text-caption">
+                  {String(i + 1).padStart(2, "0")} / {item.name}
+                </p>
+                <h3 className={cn("mt-2 min-h-[2.6em] text-h3 font-medium", item.id === "elevante" ? "text-oxide" : "text-charcoal")}>
+                  {item.statement}
+                </h3>
+                {/* The rule and its padding sit outside the fixed height, so
+                    the drawing fills exactly the space it is given. */}
+                <div className={cn("mt-4 border-t pt-5", item.id === "elevante" ? "border-oxide" : "border-stone")}>
+                  <div className="fit-h h-[min(17rem,28svh)]">
+                    <PlanDrawing
+                      variant={item.id}
+                      labels={planLabels}
+                      title={`${item.name}: plan`}
+                      desc={`${item.statement} ${item.body}`}
+                    />
                   </div>
-                  <p className="max-w-[40ch] text-body text-charcoal-soft">{item.body}</p>
                 </div>
+                <p className="mt-5 max-w-[44ch] text-body text-charcoal-soft">{item.body}</p>
               </article>
             ))}
           </div>

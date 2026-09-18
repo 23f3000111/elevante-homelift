@@ -326,6 +326,26 @@
     }
   }
 
+  /* The hero film: masked so it is present on the right and dissolves to
+     nothing under the statement. On a phone the fade runs top to bottom,
+     because the statement takes the whole width there. */
+  [data-hero-bg] video,
+  [data-hero-bg] img {
+    /* A band of film between the statement and the actions, so neither is
+       ever read against it. */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 58%, #000 68%, #000 78%, transparent 88%);
+    mask-image: linear-gradient(to bottom, transparent 0%, transparent 58%, #000 68%, #000 78%, transparent 88%);
+    opacity: 0.8;
+  }
+  @media (min-width: 64rem) {
+    [data-hero-bg] video,
+    [data-hero-bg] img {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 30%, rgba(0, 0, 0, 0.45) 48%, #000 66%);
+      mask-image: linear-gradient(to right, transparent 0%, transparent 30%, rgba(0, 0, 0, 0.45) 48%, #000 66%);
+      opacity: 0.9;
+    }
+  }
+
   /* A phone screen cannot hold a pinned stage without clipping it, so the
      sections that carry a list flow instead, and show every item at once.
      `useStageFlow` makes the same decision for their behaviour. */
@@ -358,14 +378,6 @@
       --text-body-l: 1.0625rem;
       --spacing-header: 3.75rem;
     }
-  }
-
-  /* A drawing that must fit a given height: the box sets the height, the
-     drawing takes its width from its own proportions. */
-  .fit-h > svg {
-    height: 100%;
-    width: auto;
-    max-width: 100%;
   }
 
   /* A 1px rule encodes structure. Never a shadow. */
@@ -496,6 +508,17 @@
   max-width: var(--container-content);
   margin-inline: auto;
   padding-inline: var(--spacing-gutter);
+}
+
+/* A drawing that must fit a given height: the box sets the height and the
+   drawing takes its width from its own proportions. A utility, not a
+   component rule, so it outranks the `h-auto` the drawings carry. */
+@utility fit-h {
+  & > svg {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
 }
 
 /* The 12-column sheet. Children place themselves with col-span / col-start. */

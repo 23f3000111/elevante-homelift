@@ -20,10 +20,17 @@ export function Hero({ hero, mechanism }: { hero: HomeContent["hero"]; mechanism
       opening={
         <HeroIntro>
           <section aria-labelledby="hero-title" className="relative flex min-h-[100svh] flex-col">
-            <div className="container-content flex flex-1 flex-col pt-[calc(var(--spacing-header)+1rem)] pb-[max(2rem,env(safe-area-inset-bottom))] sm:pb-10 lg:pb-12">
+            {/* The film fills the screen and dissolves into the page where
+                the statement sits, so the type never loses its ground. */}
+            <div data-hero-bg aria-hidden className="absolute inset-0 overflow-hidden bg-warm-white">
+              <VideoLoop video={hero.video} eager className="h-full w-full object-cover" />
+            </div>
+
+            <div className="relative container-content flex flex-1 flex-col pt-[calc(var(--spacing-header)+1rem)] pb-[max(2rem,env(safe-area-inset-bottom))] sm:pb-10 lg:pb-12">
               <p data-hero-fade className="font-mono text-mono text-caption">
                 {hero.label}
               </p>
+              <p data-hero-fade className="sr-only">{hero.caption}</p>
 
               <div className="sheet flex-1 items-center gap-y-8 py-8 lg:py-10">
                 <MaskedText
@@ -32,15 +39,8 @@ export function Hero({ hero, mechanism }: { hero: HomeContent["hero"]; mechanism
                   text={hero.title}
                   /* Capped by the viewport height as well as its width, so a
                      short window never pushes the statement off the screen. */
-                  className="col-span-12 max-w-[11.5ch] text-[min(var(--text-hero),13.5svh)] leading-[0.92] font-medium tracking-[-0.04em] text-charcoal lg:col-span-7"
+                  className="col-span-12 max-w-[11.5ch] text-[min(var(--text-hero),13.5svh)] leading-[0.92] font-medium tracking-[-0.04em] text-charcoal lg:col-span-8"
                 />
-                {/* Columns 9-11: column 12 is left clear for the sequence rail. */}
-                <figure data-hero-film className="col-span-12 lg:col-span-3 lg:col-start-9">
-                  <div className="h-[24svh] min-h-[10rem] w-full overflow-hidden bg-stone lg:h-[46svh]">
-                    <VideoLoop video={hero.video} eager className="h-full w-full object-cover" />
-                  </div>
-                  <figcaption className="mt-2.5 font-mono text-mono text-caption">{hero.caption}</figcaption>
-                </figure>
               </div>
 
               <div className="sheet items-end">
@@ -54,9 +54,11 @@ export function Hero({ hero, mechanism }: { hero: HomeContent["hero"]; mechanism
                     <Arrow />
                   </AppLink>
                 </div>
-                <p data-hero-fade className="col-span-12 mt-6 hidden items-center gap-4 font-mono text-mono text-caption lg:col-span-4 lg:mt-0 lg:flex lg:justify-end">
-                  {hero.scrollCue}
-                  <span aria-hidden className="block h-5 w-px bg-charcoal" />
+                <p data-hero-fade className="col-span-12 mt-6 hidden lg:col-span-4 lg:mt-0 lg:flex lg:justify-end">
+                  <span className="inline-flex items-center gap-4 bg-warm-white/85 px-3 py-2 font-mono text-mono text-caption">
+                    {hero.scrollCue}
+                    <span aria-hidden className="block h-5 w-px bg-charcoal" />
+                  </span>
                 </p>
               </div>
             </div>

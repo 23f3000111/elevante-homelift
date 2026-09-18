@@ -242,7 +242,8 @@ export function HouseScene({ progress, quality }: HouseSceneProps) {
     const cam = camera as THREE.PerspectiveCamera;
     const halfV = Math.tan(THREE.MathUtils.degToRad(cam.fov / 2));
     // Frame the house to a notional width, then back off as the scene settles.
-    const fitWidth = narrow ? 8.6 : 10.8;
+    // A tenth of the screen is left around the house rather than filling it.
+    const fitWidth = narrow ? 9.6 : 12;
     const dist = Math.max(11, fitWidth / 2 / (halfV * aspect)) * (1 + (narrow ? 0.12 : 0.3) * pose.settle);
     // The target sits a little below the house's centre (2.3), so the house
     // rides above the captions. At the end it moves to leave room for the

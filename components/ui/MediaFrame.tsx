@@ -8,7 +8,7 @@ interface MediaFrameProps {
   sizes: string;
   priority?: boolean;
   /** Ground behind the picture when it does not fill the frame. */
-  tone?: "white" | "warm-white";
+  tone?: "white" | "warm-white" | "stone";
   className?: string;
   imgClassName?: string;
 }
@@ -34,7 +34,7 @@ export function MediaFrame({
     <div
       className={cn(
         "flex h-full items-center justify-center overflow-hidden",
-        tone === "white" ? "bg-white" : "bg-warm-white",
+        tone === "white" ? "bg-white" : tone === "stone" ? "bg-stone" : "bg-warm-white",
         className,
       )}
     >

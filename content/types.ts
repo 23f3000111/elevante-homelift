@@ -223,8 +223,8 @@ export interface HomeContent {
     lines: string[];
     primary: Cta;
     secondary: Cta;
-    /** The film behind the statement. */
-    video: VideoAsset;
+    /** The interior held in the panel beside the statement. */
+    media: MediaAsset;
     caption: string;
   };
   staircaseStays: {
@@ -462,10 +462,22 @@ export interface PageIntroContent {
   note: string;
 }
 
+/** What fills the sheet beside a page's statement: a drawing or a picture. */
+export interface PageAside {
+  drawing?: "section" | "plan";
+  media?: MediaAsset;
+  caption: string;
+  /** Title and description for a drawing, read by screen readers. */
+  title: string;
+  desc: string;
+}
+
 export interface PageOpeningContent {
   eyebrow: string;
   title: string;
   lead: string;
+  /** Fills the column beside the statement. */
+  aside?: PageAside;
   /** A large picture or film under the statement. */
   media?: MediaAsset;
   video?: VideoAsset;

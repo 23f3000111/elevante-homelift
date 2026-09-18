@@ -66,8 +66,8 @@ export const home: HomeContent = {
     ],
     primary: { label: "How it works", href: "/the-homelift" },
     secondary: { label: "Examples in homes", href: "/in-your-home" },
-    video: video("video-design-cabin"),
-    caption: "Visualisation. It does not show the Elevante mechanism; a product film will replace it.",
+    media: image("stair-curved-led"),
+    caption: "Reference interior. A curved flight with lit treads.",
   },
 
   staircaseStays: {
