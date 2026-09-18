@@ -14,7 +14,11 @@ import { HeroMotion } from "./HeroMotion";
 export function Hero({ content }: { content: HomeContent["hero"] }) {
   return (
     <HeroMotion>
-      <section id="top" aria-labelledby="hero-title" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-stone">
+      <section
+        id="top"
+        aria-labelledby="hero-title"
+        className="relative flex min-h-[calc(100svh-4.5rem)] flex-col overflow-hidden bg-stone lg:min-h-[calc(100svh-5rem)]"
+      >
         <div data-hero-media className="absolute inset-0">
           <div data-hero-zoom className="absolute inset-0">
             <VideoLoop video={content.video} eager className="h-full w-full" />
@@ -22,15 +26,15 @@ export function Hero({ content }: { content: HomeContent["hero"] }) {
         </div>
 
         <div data-hero-inner className="relative z-10 flex flex-1 flex-col justify-end">
-          <div className="container-content pt-[46svh] pb-6 lg:pt-28 lg:pb-8">
-            <div data-hero-plate className="max-w-[56rem] bg-warm-white p-6 sm:p-8 lg:p-10 lg:pr-14">
+          <div className="container-content pt-[30svh] pb-5 lg:pt-16 lg:pb-7">
+            <div data-hero-plate className="max-w-[54rem] bg-warm-white p-6 sm:p-8 lg:p-9 lg:pr-12">
               <MaskedText
                 as="h1"
                 id="hero-title"
                 text={content.title}
-                className="block text-[clamp(2.4rem,min(5.8vw,9.2svh),6rem)] font-medium leading-[0.94] tracking-[-0.035em] text-charcoal"
+                className="block text-[clamp(2.25rem,min(5.2vw,8svh),5.25rem)] font-medium leading-[0.95] tracking-[-0.035em] text-charcoal"
               />
-              <div className="mt-6 grid gap-5 lg:mt-7 lg:grid-cols-12 lg:items-end">
+              <div className="mt-5 grid gap-4 lg:mt-6 lg:grid-cols-12 lg:items-end">
                 <p data-hero-fade className="max-w-[44ch] text-body text-charcoal-soft lg:col-span-7 lg:text-body-l">
                   {content.lead}
                 </p>
@@ -42,11 +46,11 @@ export function Hero({ content }: { content: HomeContent["hero"] }) {
                 </div>
               </div>
             </div>
-            <div data-hero-fade className="mt-3 flex items-center justify-between gap-6">
-              <Caption className="bg-warm-white/95 px-3 py-1.5">{content.caption}</Caption>
-              <span className="hidden items-center gap-3 font-mono text-small text-charcoal lg:flex">
-                <span className="bg-warm-white/95 px-3 py-1.5">{content.scrollCue}</span>
-                <span className="block h-12 w-px bg-charcoal" />
+            <div data-hero-fade className="flex flex-wrap items-stretch justify-between gap-px">
+              <Caption className="bg-warm-white px-4 py-2.5">{content.caption}</Caption>
+              <span className="hidden items-center gap-4 bg-warm-white px-4 py-2.5 font-mono text-small text-charcoal lg:flex">
+                {content.scrollCue}
+                <span className="block h-4 w-px bg-charcoal" />
               </span>
             </div>
           </div>

@@ -171,7 +171,7 @@ export const home: HomeContent = {
     materialsNote: "Material references, shown whole. The Elevante range will be published on the Design page.",
     materials: [
       { name: "Oak", media: video("video-home-integration").poster, caption: "Visualisation" },
-      { name: "Stone", media: video("video-design-cabin").poster, video: video("video-design-cabin"), caption: "Visualisation. Product film to follow." },
+      { name: "Stone", media: video("video-design-cabin").poster, video: video("video-design-cabin"), caption: "Visualisation" },
       { name: "Metal", media: image("lift-bronze-cabin"), caption: "Reference interior" },
     ],
     cta: { label: "See design options", href: "/design" },

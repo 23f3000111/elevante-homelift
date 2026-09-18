@@ -4,52 +4,45 @@ import Link from "next/link";
 import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Caption } from "@/components/ui/Caption";
-import { Picture } from "@/components/ui/Picture";
+import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Container } from "@/components/ui/Section";
 import { SectionIndex } from "@/components/ui/SectionIndex";
 import type { HomeContent } from "@/content/types";
-import { cn } from "@/lib/cn";
 import { revealWithin, useMotion } from "@/lib/motion/useMotion";
 import { useHorizontalTrack } from "@/lib/motion/useHorizontalTrack";
 
-const IMG_HOVER = "transition-opacity duration-500 group-hover:opacity-90 group-focus-visible:opacity-90";
+const IMG_HOVER = "transition-transform duration-[900ms] ease-[var(--ease-out-quart)] group-hover:-translate-y-1";
 
 /**
- * On wide screens every image is sized by height inside a stage that fits
- * the viewport, so its width follows the source's proportions and the
- * whole row is always on screen. Large sources stand tall, small ones sit
- * lower, and nothing is rendered above its pixel width.
+ * Architecture read sideways. Every frame is the same height and every
+ * picture is shown whole inside it, so a 1620px hall and a 400px detail
+ * line up on the same baseline without either being cropped or stretched.
  */
-const SLOTS = [
-  { h: "lg:h-[92%]", sizes: "(min-width: 1024px) 60vw, 100vw" },
-  { h: "lg:h-[52%]", sizes: "(min-width: 1024px) 24vw, 100vw" },
-  { h: "lg:h-[82%]", sizes: "(min-width: 1024px) 60vw, 100vw" },
-  { h: "lg:h-[60%]", sizes: "(min-width: 1024px) 22vw, 100vw" },
-  { h: "lg:h-[78%]", sizes: "(min-width: 1024px) 56vw, 100vw" },
-  { h: "lg:h-[64%]", sizes: "(min-width: 1024px) 22vw, 100vw" },
-];
-
 export function InYourHome({ content }: { content: HomeContent["inYourHome"] }) {
   const ref = useRef<HTMLElement>(null);
   useHorizontalTrack(ref);
   useMotion(ref, ({ scope }) => revealWithin(scope));
 
   return (
-    <section ref={ref} id="in-your-home" aria-labelledby="iyh-title" className="overflow-x-clip bg-warm-white py-section lg:py-0">
-      <div data-stage className="lg:flex lg:h-[calc(100svh-4rem)] lg:flex-col lg:py-6">
+    <section ref={ref} id="in-your-home" aria-labelledby="iyh-title" className="overflow-x-clip bg-warm-white py-section-sm lg:py-0">
+      <div data-stage className="lg:flex lg:h-[calc(100svh-4rem)] lg:flex-col lg:justify-center lg:py-6">
         <Container>
-          <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
+          <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-8">
             <div className="lg:col-span-2">
               <SectionIndex index={content.index} label={content.indexLabel} size="small" />
             </div>
-            <h2 id="iyh-title" data-reveal className="max-w-[12ch] text-[clamp(2.25rem,4vw,3.75rem)] leading-[1] font-medium tracking-[-0.03em] text-charcoal lg:col-span-5">
+            <h2
+              id="iyh-title"
+              data-reveal
+              className="max-w-[12ch] text-[clamp(2.25rem,4vw,3.5rem)] leading-[1] font-medium tracking-[-0.03em] text-charcoal lg:col-span-5"
+            >
               {content.title}
             </h2>
             <div className="lg:col-span-4 lg:col-start-9">
               <p data-reveal className="max-w-[40ch] text-body text-charcoal-soft">
                 {content.body}
               </p>
-              <div data-reveal className="mt-4">
+              <div data-reveal className="mt-3">
                 <Button href={content.cta.href} variant="quiet">
                   {content.cta.label}
                 </Button>
@@ -60,26 +53,23 @@ export function InYourHome({ content }: { content: HomeContent["inYourHome"] }) 
 
         <div
           data-track-wrap
-          className="mt-10 pl-gutter lg:mt-6 lg:min-h-0 lg:flex-1 lg:overflow-x-auto lg:overscroll-x-contain lg:pl-[max(var(--spacing-gutter),calc((100vw-90rem)/2+var(--spacing-gutter)))]"
+          className="mt-8 pl-gutter lg:mt-8 lg:overflow-x-auto lg:overscroll-x-contain lg:pl-[max(var(--spacing-gutter),calc((100vw-90rem)/2+var(--spacing-gutter)))]"
         >
-          <ul data-track className="flex flex-col gap-12 pr-gutter lg:h-full lg:w-max lg:flex-row lg:items-end lg:gap-10 lg:pr-32">
-            {content.gallery.map((item, i) => {
-              const slot = SLOTS[i % SLOTS.length];
-              return (
-                <li key={item.media.id} className={cn("w-full shrink-0 lg:flex lg:w-auto lg:flex-col", slot.h)}>
-                  <Link href={content.cta.href} className="group flex h-full flex-col">
-                    <div data-reveal-clip className="w-full lg:min-h-0 lg:w-auto lg:flex-1">
-                      <Picture asset={item.media} sizes={slot.sizes} className="lg:h-full" imgClassName={cn(IMG_HOVER, "lg:h-full lg:w-auto")} />
-                    </div>
-                    <div className="mt-3 flex h-8 shrink-0 items-baseline gap-4 whitespace-nowrap">
-                      <span className="font-mono text-small text-caption">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="text-body text-charcoal">{item.label}</span>
-                      {item.caption && <Caption className="ml-auto">{item.caption}</Caption>}
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
+          <ul data-track className="flex flex-col gap-10 pr-gutter lg:w-max lg:flex-row lg:items-start lg:gap-8 lg:pr-32">
+            {content.gallery.map((item, i) => (
+              <li key={item.media.id} className="shrink-0">
+                <Link href={content.cta.href} className="group block">
+                  <div data-reveal-clip className="h-[58vw] max-h-[22rem] sm:h-[20rem] lg:h-[clamp(15rem,42svh,23rem)]">
+                    <MediaFrame asset={item.media} sizes="(min-width: 1024px) 60vw, 92vw" imgClassName={IMG_HOVER} />
+                  </div>
+                  <div className="mt-3 flex items-baseline gap-4 whitespace-nowrap">
+                    <span className="font-mono text-small text-caption">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="text-body text-charcoal">{item.label}</span>
+                    {item.caption && <Caption className="ml-6">{item.caption}</Caption>}
+                  </div>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="mt-6 mr-gutter ml-gutter hidden h-px shrink-0 bg-stone lg:block">

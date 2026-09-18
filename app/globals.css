@@ -37,8 +37,8 @@
   --text-index--line-height: 1;
 
   --spacing-gutter: clamp(1.25rem, 4vw, 4rem);
-  --spacing-section: clamp(5rem, 12vw, 11rem);
-  --spacing-section-sm: clamp(3rem, 7vw, 6rem);
+  --spacing-section: clamp(4rem, 8vw, 7.5rem);
+  --spacing-section-sm: clamp(2.75rem, 5vw, 4.5rem);
   --container-content: 90rem;
 
   --radius-button: 2px;

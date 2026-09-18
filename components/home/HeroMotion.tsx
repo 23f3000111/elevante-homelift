@@ -29,7 +29,7 @@ export function HeroMotion({ children }: { children: ReactNode }) {
 
     // Desktop: hold the scene while the next section slides over it.
     if (section && matches(DESKTOP)) {
-      ScrollTrigger.create({ trigger: section, start: "top top", end: "bottom top", pin: true, pinSpacing: false });
+      ScrollTrigger.create({ trigger: section, start: "top top-=1", end: "bottom top", pin: true, pinSpacing: false });
       const scrub = { trigger: section, start: "top top", end: "bottom top", scrub: true };
       if (inner) gsap.to(inner, { autoAlpha: 0, y: -60, ease: "none", scrollTrigger: scrub });
       if (zoom) gsap.to(zoom, { scale: 1.08, ease: "none", scrollTrigger: scrub });

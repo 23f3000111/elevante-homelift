@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { Caption } from "@/components/ui/Caption";
-import { Picture } from "@/components/ui/Picture";
+import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionIndex } from "@/components/ui/SectionIndex";
 import { Section } from "@/components/ui/Section";
@@ -8,24 +8,27 @@ import { VideoLoop } from "@/components/ui/VideoLoop";
 import type { HomeContent, Material } from "@/content/types";
 
 /**
- * A material reference shown whole: the still or the film at its own
- * proportions, never wider than its source, never cropped.
+ * A material reference in a frame of fixed height, shown whole: never
+ * cropped, never drawn larger than its own pixels. Every frame in the row
+ * is the same height, so mixed sources line up.
  */
-function MaterialFigure({ material, sizes, className }: { material: Material; sizes: string; className?: string }) {
+function MaterialFigure({ material, sizes }: { material: Material; sizes: string }) {
   const { media, video } = material;
   return (
-    <figure data-reveal className={className}>
-      <figcaption className="mb-2 flex items-baseline justify-between gap-4 font-mono text-small text-charcoal uppercase tracking-[0.06em]">
+    <figure data-reveal className="flex flex-col">
+      <figcaption className="mb-2 flex h-11 items-baseline justify-between gap-4 border-t border-stone pt-3 font-mono text-small tracking-[0.06em] text-charcoal uppercase">
         <span>{material.name}</span>
-        {material.caption && <span className="normal-case tracking-normal text-caption">{material.caption}</span>}
+        {material.caption && <span className="tracking-normal text-caption normal-case">{material.caption}</span>}
       </figcaption>
-      <div style={{ maxWidth: media.width }}>
+      <div className="h-[58vw] max-h-[22rem] sm:h-[20rem] lg:h-[clamp(14rem,36svh,20rem)]">
         {video ? (
-          <div className="w-full bg-stone" style={{ aspectRatio: `${media.width} / ${media.height}` }}>
-            <VideoLoop video={video} />
+          <div className="flex h-full items-center justify-center overflow-hidden bg-white">
+            <div className="h-full max-h-full w-auto max-w-full" style={{ aspectRatio: `${media.width} / ${media.height}` }}>
+              <VideoLoop video={video} />
+            </div>
           </div>
         ) : (
-          <Picture asset={media} sizes={sizes} />
+          <MediaFrame asset={media} sizes={sizes} />
         )}
       </div>
     </figure>
@@ -33,39 +36,39 @@ function MaterialFigure({ material, sizes, className }: { material: Material; si
 }
 
 /**
- * Three references laid out as an editorial spread: the oak room large
- * beside the statement, the stone scene as the film below it, the bronze
- * cabin upright at the side. Each is complete; nothing is cut.
+ * The design teaser: the statement, then the three references side by side
+ * on one baseline. Each is complete; nothing is cut.
  */
 export function DesignTeaser({ content }: { content: HomeContent["design"] }) {
-  const [oak, stone, metal] = content.materials;
   return (
     <Section id="design" labelledBy="design-title" className="overflow-x-clip">
       <Reveal className="container-content">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-10">
-          <div className="lg:col-span-4">
-            <SectionIndex index={content.index} label={content.indexLabel} />
-            <h2 id="design-title" data-reveal className="mt-8 text-display-2">
+        <div className="grid items-end gap-8 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-6">
+            <SectionIndex index={content.index} label={content.indexLabel} size="small" />
+            <h2 id="design-title" data-reveal className="mt-6 text-display-2">
               {content.title}
             </h2>
-            <p data-reveal className="mt-8 max-w-[40ch] text-body-l text-charcoal-soft">
+          </div>
+          <div className="lg:col-span-5 lg:col-start-8">
+            <p data-reveal className="max-w-[42ch] text-body-l text-charcoal-soft">
               {content.body}
             </p>
-            <div data-reveal className="mt-10">
+            <div data-reveal className="mt-6">
               <Button href={content.cta.href} variant="secondary">
                 {content.cta.label}
               </Button>
             </div>
           </div>
-          {oak && <MaterialFigure material={oak} sizes="(min-width: 1024px) 62vw, 100vw" className="lg:col-span-8" />}
         </div>
 
-        <div className="mt-12 grid grid-cols-12 items-start gap-x-6 gap-y-12 lg:mt-16">
-          {stone && <MaterialFigure material={stone} sizes="(min-width: 1024px) 56vw, 100vw" className="col-span-12 lg:col-span-7 lg:col-start-2" />}
-          {metal && <MaterialFigure material={metal} sizes="(min-width: 1024px) 24vw, 70vw" className="col-span-9 lg:col-span-3 lg:col-start-10 lg:mt-24" />}
+        <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
+          {content.materials.map((m) => (
+            <MaterialFigure key={m.name} material={m} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 92vw" />
+          ))}
         </div>
 
-        <Caption className="mt-8 lg:ml-[calc(100%/12+0.5rem)]">{content.materialsNote}</Caption>
+        <Caption className="mt-6">{content.materialsNote}</Caption>
       </Reveal>
     </Section>
   );
