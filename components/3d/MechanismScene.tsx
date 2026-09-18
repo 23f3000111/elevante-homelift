@@ -233,7 +233,7 @@ export function MechanismScene({
 
         {/* Captions: one per state. As a list without motion; as overlays with it. */}
         <div data-m-captions className="z-10">
-          <div className="container-content pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:pb-8 lg:pb-10">
+          <div className="container-content pb-[max(2rem,env(safe-area-inset-bottom))] sm:pb-10 lg:pb-14">
             <div className="sheet items-end">
               <ol data-m-caption-list className="col-span-12 lg:col-span-6">
                 {states.map((s, i) => (

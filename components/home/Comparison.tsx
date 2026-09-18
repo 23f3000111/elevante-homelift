@@ -24,7 +24,7 @@ export function Comparison({ content, planLabels, index }: ComparisonProps) {
 
   return (
     <section ref={ref} aria-labelledby="comparison-title" className="bg-white">
-      <div data-stage className="min-h-[100svh] pt-[calc(var(--spacing-header)+1rem)] pb-14 lg:flex lg:flex-col lg:justify-center lg:pb-0">
+      <div data-stage className="flex min-h-[100svh] flex-col justify-center pt-[calc(var(--spacing-header)+1rem)] pb-[max(2.5rem,env(safe-area-inset-bottom))] lg:pb-14">
         <div className="container-content">
           <div className="sheet items-end gap-y-6">
             <p className="col-span-12 font-mono text-mono text-caption lg:col-span-1">{index}</p>
@@ -40,10 +40,10 @@ export function Comparison({ content, planLabels, index }: ComparisonProps) {
             {content.items.map((item, i) => (
               <article
                 key={item.id}
-                className={cn("grid gap-6 lg:w-[min(46vw,42rem)] lg:shrink-0", i === content.items.length - 1 && "lg:pr-8")}
+                className={cn("grid content-start gap-5 lg:w-[min(42vw,38rem)] lg:shrink-0", i === content.items.length - 1 && "lg:pr-8")}
                 data-item={item.id}
               >
-                <div className={cn("border-t pt-5", item.id === "elevante" ? "border-oxide" : "border-stone")}>
+                <div className={cn("fit-h h-[min(18rem,30svh)] border-t pt-5", item.id === "elevante" ? "border-oxide" : "border-stone")}>
                   <PlanDrawing
                     variant={item.id}
                     labels={planLabels}

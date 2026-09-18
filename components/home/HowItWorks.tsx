@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { SectionDrawing } from "@/components/diagram/SectionDrawing";
 import type { HomeContent, MechanismContent } from "@/content/types";
 import { cn } from "@/lib/cn";
+import { DESKTOP } from "@/lib/motion/gsap";
 import { useMotion } from "@/lib/motion/useMotion";
 import { DRAWING, STOREY } from "@/lib/scene/geometry";
 
@@ -21,7 +22,8 @@ interface HowItWorksProps {
 export function HowItWorks({ content, drawingLabels, index }: HowItWorksProps) {
   const ref = useRef<HTMLElement>(null);
 
-  useMotion(ref, ({ gsap, scope }) => {
+  useMotion(ref, ({ gsap, scope, matches }) => {
+    if (!matches(DESKTOP)) return;
     const steps = Array.from(scope.querySelectorAll<HTMLElement>("[data-step]"));
     const cabin = scope.querySelector("[data-part='cabin']");
     const upper = scope.querySelector("[data-part='door-upper']");
@@ -61,18 +63,19 @@ export function HowItWorks({ content, drawingLabels, index }: HowItWorksProps) {
       ref={ref}
       id="how-it-works"
       aria-labelledby="how-title"
+      data-stage-flow
       className="scroll-track bg-warm-white"
       style={{ ["--track" as string]: "220svh", ["--track-mobile" as string]: "200svh" }}
     >
       <div className="scroll-stage">
-        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-8 lg:pb-10">
+        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-[max(2rem,env(safe-area-inset-bottom))] lg:pb-14">
           <div className="flex items-baseline gap-6">
             <p className="font-mono text-mono text-caption">{index}</p>
             <h2 id="how-title" className="text-h3 font-medium text-charcoal">
               {content.title}
             </h2>
           </div>
-          <div className="sheet flex-1 items-center gap-y-8 pt-8">
+          <div className="sheet min-h-0 flex-1 items-center gap-y-8 pt-8">
             <ol className="col-span-12 grid gap-6 lg:col-span-5 lg:gap-10">
               {content.steps.map((step, i) => (
                 <li

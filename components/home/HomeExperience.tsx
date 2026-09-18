@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { AppLink } from "@/components/ui/AppLink";
 import { Arrow } from "@/components/ui/Arrow";
+import { MediaFrame } from "@/components/ui/MediaFrame";
 import { Picture } from "@/components/ui/Picture";
 import { Reveal } from "@/components/ui/Reveal";
 import { ScrollImageSequence } from "@/components/ui/ScrollImageSequence";
@@ -29,27 +30,39 @@ export function HomeExperience({ content, index }: { content: HomeContent["inYou
 
   return (
     <section id="in-your-home" aria-labelledby="home-title" className="bg-warm-white">
-      <Reveal className="container-content pt-section">
-        <div className="sheet items-end gap-y-8">
+      {/* This section follows a pinned stage, which already ends in space,
+          so the opening sits closer to it than the standard interval. */}
+      <Reveal className="container-content pt-section-sm">
+        <div className="sheet items-end gap-y-6">
           <p className="col-span-12 font-mono text-mono text-caption lg:col-span-1" data-reveal>
             {index}
           </p>
-          <h2 id="home-title" className="col-span-12 max-w-[14ch] text-display-1 font-medium text-charcoal lg:col-span-9 lg:col-start-3" data-reveal>
+          <h2 id="home-title" className="col-span-12 max-w-[14ch] text-display-2 font-medium text-charcoal lg:col-span-7 lg:col-start-3" data-reveal>
             {content.title}
           </h2>
+          <p className="col-span-12 max-w-[34ch] text-body text-charcoal-soft lg:col-span-3 lg:col-start-10" data-reveal>
+            {content.body}
+          </p>
         </div>
-        <figure className="mt-14 lg:mt-20" data-reveal-clip>
-          <div data-parallax="0.1">
+
+        <figure className="mt-10 lg:mt-14" data-reveal-clip>
+          <div data-parallax="0.08">
             <Picture asset={content.image} sizes="100vw" className="mx-auto" />
           </div>
           <figcaption className="mt-3 font-mono text-mono text-caption">{content.imageLabel}</figcaption>
         </figure>
-        <div className="sheet mt-16 gap-y-6 lg:mt-24">
-          <p className="col-span-12 max-w-[40ch] text-body-l text-charcoal-soft lg:col-span-6 lg:col-start-3" data-reveal>
-            {content.body}
-          </p>
-          <div className="col-span-12 lg:col-span-3 lg:col-start-10 lg:justify-self-end" data-reveal>
-            <AppLink href={content.cta.href} className="action">
+
+        {/* A second interior, offset, so the band reads as a spread. */}
+        <div className="sheet mt-10 gap-y-8 lg:mt-14">
+          <figure className="col-span-12 lg:col-span-5 lg:col-start-2" data-reveal>
+            <div className="h-[38svh] min-h-[15rem]">
+              <MediaFrame asset={content.detail} sizes="(min-width: 64rem) 40vw, 100vw" tone="white" className="w-fit" />
+            </div>
+            <figcaption className="mt-3 font-mono text-mono text-caption">{content.detailLabel}</figcaption>
+          </figure>
+          <div className="col-span-12 lg:col-span-4 lg:col-start-8 lg:self-end lg:pb-10" data-reveal>
+            <p className="max-w-[32ch] text-display-3 font-medium text-charcoal">{content.statement}</p>
+            <AppLink href={content.cta.href} className="action mt-8">
               {content.cta.label}
               <Arrow />
             </AppLink>
@@ -59,15 +72,15 @@ export function HomeExperience({ content, index }: { content: HomeContent["inYou
 
       <div
         ref={track}
-        className="scroll-track mt-section"
+        className="scroll-track mt-section-sm"
         style={{ ["--track" as string]: "200svh", ["--track-mobile" as string]: "170svh" }}
       >
         <div className="scroll-stage bg-stone">
           <ScrollImageSequence sequence={content.sequence} trigger={track} className="absolute inset-0" focus={{ x: 0.5, y: 0.55 }} />
           <div className="absolute inset-0 flex flex-col justify-between">
             <div className="container-content pt-[calc(var(--spacing-header)+1.5rem)]">
-              <p data-stage-line className="inline-block max-w-[14ch] bg-warm-white/88 px-5 py-4 text-display-2 font-medium text-charcoal backdrop-blur-md lg:px-7 lg:py-6">
-                {content.statement}
+              <p data-stage-line className="inline-block max-w-[16ch] bg-warm-white/88 px-5 py-4 text-display-3 font-medium text-charcoal backdrop-blur-md lg:px-7 lg:py-6">
+                {content.filmStatement}
               </p>
             </div>
             <div className="container-content pb-6 lg:pb-8">

@@ -62,9 +62,9 @@ export function StaircaseStays({ content, drawingLabels, index }: StaircaseStays
       style={{ ["--track" as string]: "200svh", ["--track-mobile" as string]: "180svh" }}
     >
       <div className="scroll-stage">
-        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-8 lg:pb-10">
+        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-[max(2rem,env(safe-area-inset-bottom))] lg:pb-14">
           <p className="font-mono text-mono text-caption">{index}</p>
-          <div className="sheet flex-1 items-center gap-y-10">
+          <div className="sheet min-h-0 flex-1 items-center gap-y-10">
             <div className="col-span-12 lg:col-span-7">
               <h2 id="stays-title" className="text-display-1 font-medium text-charcoal">
                 <MaskedText as="span" text={content.titleA} className="block" data-line-a />

@@ -4,7 +4,9 @@ import { useRef, useState } from "react";
 import { SafetyFigure, type SafetyState } from "@/components/diagram/SafetyFigure";
 import type { HomeContent, MechanismContent } from "@/content/types";
 import { cn } from "@/lib/cn";
+import { DESKTOP } from "@/lib/motion/gsap";
 import { useMotion } from "@/lib/motion/useMotion";
+import { useStageFlow } from "@/lib/motion/useStageFlow";
 
 interface SafetyProps {
   content: HomeContent["safety"];
@@ -25,8 +27,10 @@ export function Safety({ content, drawingLabels, index }: SafetyProps) {
   const [active, setActive] = useState(0);
   const stRef = useRef<{ start: number; end: number } | null>(null);
   const count = content.behaviours.length;
+  const flow = useStageFlow();
 
-  useMotion(ref, ({ ScrollTrigger, scope }) => {
+  useMotion(ref, ({ ScrollTrigger, scope, matches }) => {
+    if (!matches(DESKTOP)) return;
     const st = ScrollTrigger.create({
       trigger: scope,
       start: "top top",
@@ -46,7 +50,7 @@ export function Safety({ content, drawingLabels, index }: SafetyProps) {
   const choose = (i: number) => {
     setActive(i);
     const st = stRef.current;
-    if (!st) return;
+    if (!st || flow) return;
     const target = st.start + ((st.end - st.start) * (i + 0.5)) / count;
     if (window.__lenis) window.__lenis.scrollTo(target, { duration: 1 });
     else window.scrollTo({ top: target, behavior: "smooth" });
@@ -57,13 +61,14 @@ export function Safety({ content, drawingLabels, index }: SafetyProps) {
       ref={ref}
       id="safety"
       aria-labelledby="safety-title"
+      data-stage-flow
       className="scroll-track bg-warm-white"
       style={{ ["--track" as string]: "220svh", ["--track-mobile" as string]: "200svh" }}
     >
       <div className="scroll-stage">
-        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-8 lg:pb-10">
+        <div className="container-content flex h-full flex-col pt-[calc(var(--spacing-header)+1rem)] pb-[max(2rem,env(safe-area-inset-bottom))] lg:pb-14">
           <p className="font-mono text-mono text-caption">{index}</p>
-          <div className="sheet flex-1 items-center gap-y-8 pt-4">
+          <div className="sheet min-h-0 flex-1 items-center gap-y-8 pt-4">
             <div className="col-span-12 lg:col-span-5">
               <h2 id="safety-title" className="text-display-2 font-medium text-charcoal">
                 <span className="block">{content.titleA}</span>
@@ -79,7 +84,7 @@ export function Safety({ content, drawingLabels, index }: SafetyProps) {
                       onClick={() => choose(i)}
                       className={cn(
                         "grid w-full grid-cols-[3.5rem_1fr] items-baseline gap-x-2 border-t border-stone py-3.5 text-left transition-opacity duration-400",
-                        i === active ? "opacity-100" : "opacity-60 hover:opacity-85",
+                        flow || i === active ? "opacity-100" : "opacity-60 hover:opacity-85",
                       )}
                     >
                       <span aria-hidden className={cn("font-mono text-mono", i === active ? "text-oxide" : "text-caption")}>

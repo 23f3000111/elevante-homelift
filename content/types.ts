@@ -211,6 +211,9 @@ export interface HomeContent {
     primary: Cta;
     secondary: Cta;
     scrollCue: string;
+    /** The film held in the hero's panel. */
+    video: VideoAsset;
+    caption: string;
   };
   mechanism: MechanismContent;
   /** Annotations shared by the plan drawings. */
@@ -220,6 +223,9 @@ export interface HomeContent {
     lines: string[];
     primary: Cta;
     secondary: Cta;
+    /** The film behind the statement. */
+    video: VideoAsset;
+    caption: string;
   };
   staircaseStays: {
     titleA: string;
@@ -257,9 +263,14 @@ export interface HomeContent {
     body: string;
     image: MediaAsset;
     imageLabel: string;
+    /** A second, smaller interior beside the closing statement. */
+    detail: MediaAsset;
+    detailLabel: string;
+    statement: string;
     sequence: SequenceAsset;
     sequenceCaption: string;
-    statement: string;
+    /** The line held over the film. */
+    filmStatement: string;
     cta: Cta;
   };
   everydayUse: {
@@ -305,6 +316,8 @@ export interface HomeContent {
     title: string;
     body: string;
     steps: Step[];
+    /** A photograph per run of stages, shown from `fromStep` onwards. */
+    media: Array<{ fromStep: number; asset: MediaAsset; caption: string }>;
     sheetTitle: string;
     sheetDesc: string;
     note: string;

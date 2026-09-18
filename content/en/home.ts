@@ -43,6 +43,8 @@ export const home: HomeContent = {
     primary: { label: "See how it works", href: "#mechanism-cabin" },
     secondary: { label: "Examples in homes", href: "/in-your-home" },
     scrollCue: "Scroll",
+    video: video("video-design-cabin"),
+    caption: "Visualisation. Product film to follow.",
   },
 
   mechanism,
@@ -64,6 +66,8 @@ export const home: HomeContent = {
     ],
     primary: { label: "How it works", href: "/the-homelift" },
     secondary: { label: "Examples in homes", href: "/in-your-home" },
+    video: video("video-design-cabin"),
+    caption: "Visualisation. It does not show the Elevante mechanism; a product film will replace it.",
   },
 
   staircaseStays: {
@@ -144,9 +148,12 @@ export const home: HomeContent = {
     body: "Elevante is designed as part of the interior. Cabin, materials and finishes are chosen to suit the house, not the other way round.",
     image: image("stair-gold-hall"),
     imageLabel: "Reference interior. No Elevante installation is shown.",
+    detail: image("stair-oak-screen"),
+    detailLabel: "Reference interior. A stair behind an oak screen.",
+    statement: "Every floor of the house stays in use.",
     sequence: sequence("video-home-integration"),
     sequenceCaption: "Visualisation. It does not show the Elevante mechanism; a product film will replace it.",
-    statement: "Every floor of the house stays in use.",
+    filmStatement: "Designed for the house, not the other way round.",
     cta: { label: "In your home", href: "/in-your-home" },
   },
 
@@ -286,6 +293,12 @@ export const home: HomeContent = {
       { number: "05", title: "Preparation", body: "The house is prepared for the installation." },
       { number: "06", title: "Installation", body: "The integrated staircase and lift are installed." },
       { number: "07", title: "Handover", body: "The system is commissioned, explained and handed over to you." },
+    ],
+    // Two photographs only: the supplied survey image is a commercial
+    // building site, which is not the house this product is installed in.
+    media: [
+      { fromStep: 1, asset: image("consultation"), caption: "Consultation. Visualisation." },
+      { fromStep: 5, asset: image("installation-drawing"), caption: "Working from the drawings, in the house." },
     ],
     sheetTitle: "The installation, as a drawing that fills in stage by stage",
     sheetDesc: "The house outline, then the staircase, dimension lines, material choices, the prepared space beneath the staircase, the cabin, and finally the completed system.",

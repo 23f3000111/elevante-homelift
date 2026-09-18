@@ -24,7 +24,7 @@ export function ProjectsGallery({ content, projects, index }: ProjectsGalleryPro
 
   return (
     <section ref={ref} id="projects" aria-labelledby="projects-title" className="bg-warm-white">
-      <div data-stage className="min-h-[100svh] pt-[calc(var(--spacing-header)+1rem)] pb-14 lg:flex lg:flex-col lg:justify-center lg:pb-0">
+      <div data-stage className="flex min-h-[100svh] flex-col justify-center pt-[calc(var(--spacing-header)+1rem)] pb-[max(2.5rem,env(safe-area-inset-bottom))] lg:pb-14">
         <div className="container-content">
           <div className="sheet items-end gap-y-6">
             <p className="col-span-12 font-mono text-mono text-caption lg:col-span-1">{index}</p>
@@ -40,8 +40,8 @@ export function ProjectsGallery({ content, projects, index }: ProjectsGalleryPro
             {projects.map((p, i) => (
               <li key={p.id} className="lg:shrink-0">
                 <AppLink href={`/inspiration#${p.slug}`} className="group block">
-                  <div className="h-[44svh] min-h-[16rem] lg:h-[48svh]">
-                    <MediaFrame asset={p.media} sizes="(min-width: 64rem) 40vw, 100vw" tone="white" className="transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-1" imgClassName="max-h-[44svh] lg:max-h-[48svh]" />
+                  <div className="h-[min(24rem,34svh)] min-h-[13rem]">
+                    <MediaFrame asset={p.media} sizes="(min-width: 64rem) 40vw, 100vw" tone="white" className="transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:-translate-y-1"  />
                   </div>
                   <div className="mt-4 grid grid-cols-[auto_1fr] items-baseline gap-x-5 border-t border-stone pt-4">
                     <span className="font-mono text-mono text-caption">{String(i + 1).padStart(2, "0")}</span>

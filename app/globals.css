@@ -326,6 +326,48 @@
     }
   }
 
+  /* A phone screen cannot hold a pinned stage without clipping it, so the
+     sections that carry a list flow instead, and show every item at once.
+     `useStageFlow` makes the same decision for their behaviour. */
+  @media (max-width: 63.99rem) {
+    [data-stage-flow] {
+      height: auto;
+    }
+    [data-stage-flow] .scroll-stage {
+      position: relative;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+    }
+    [data-stage-flow] .scroll-stage > * {
+      padding-block: var(--spacing-section-sm);
+    }
+  }
+
+  /* A short window still has to hold a whole pinned scene. Rather than let
+     a stage overflow, the display scale steps down inside one; the tokens
+     are inherited, so every utility inside follows. */
+  @media (max-height: 52rem) {
+    .scroll-stage,
+    [data-stage] {
+      --text-display-1: clamp(2rem, 0.6rem + 4.2vw, 3.25rem);
+      --text-display-2: clamp(1.625rem, 0.9rem + 2.2vw, 2.5rem);
+      --text-display-3: clamp(1.3125rem, 1rem + 1vw, 1.75rem);
+      --text-h3: clamp(1.1875rem, 1.05rem + 0.45vw, 1.375rem);
+      --text-body: 1.0625rem;
+      --text-body-l: 1.0625rem;
+      --spacing-header: 3.75rem;
+    }
+  }
+
+  /* A drawing that must fit a given height: the box sets the height, the
+     drawing takes its width from its own proportions. */
+  .fit-h > svg {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+
   /* A 1px rule encodes structure. Never a shadow. */
   .rule {
     border-top: 1px solid var(--color-stone);
