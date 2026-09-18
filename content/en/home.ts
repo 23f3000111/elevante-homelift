@@ -17,7 +17,7 @@ export const mechanism: MechanismContent = {
     { id: "enter", label: "Enter", caption: "The door opens. You walk in, or wheel in." },
     { id: "openings", label: "The openings", caption: "As the cabin leaves, the door at the lower level closes behind it. At the upper floor, the stair opening opens to receive it." },
     { id: "travel", label: "Travel", caption: "The cabin travels vertically through the space beneath the staircase." },
-    { id: "arrive", label: "Arrive", caption: "The cabin arrives at the upper floor and becomes the landing. When it leaves again, an automatic door closes the stair opening." },
+    { id: "arrive", label: "Arrive", caption: "The cabin arrives at the upper floor. When it leaves again, an automatic door closes the stair opening." },
     { id: "home", label: "At home", caption: "Staircase and lift, one system, in the house you already live in." },
   ],
   statement: "A lift inside the staircase.",
@@ -132,7 +132,7 @@ export const home: HomeContent = {
     before: "The staircase today",
     after: "The staircase with Elevante",
     planTitle: "Plan of a hall with a straight staircase",
-    planDesc: "Seen from above: a straight flight of stairs against a wall. With Elevante, the cabin occupies the footprint at the head of the flight; no other floor space is used.",
+    planDesc: "Seen from above: a straight flight of stairs against a wall. With Elevante, the cabin occupies the footprint at the head of the flight, rather than a separate position elsewhere in the house.",
     sectionTitle: "Section through the same hall",
     sectionDesc: "The staircase in section, with the space beneath it. With Elevante, the cabin sits in that space and travels to the upper floor.",
     note: "Plan and section, schematic. Not to scale.",
@@ -268,7 +268,7 @@ export const home: HomeContent = {
 
   projects: {
     title: "Made for real homes.",
-    body: "Installations will appear here as the first homes are completed. Until then, these are reference interiors: the kind of houses Elevante is designed for.",
+    body: "Installations will appear here as the first homes are completed. Until then, these are reference interiors and visualisations: the kind of houses Elevante is designed for.",
     cta: { label: "More inspiration", href: "/inspiration" },
     kinds: { installation: "Elevante installation", visualisation: "Visualisation", reference: "Reference interior" },
     placeholderLabel: "None of these is an Elevante installation.",

@@ -295,8 +295,9 @@
     height: auto;
     clip-path: inset(0 0 100% 0);
   }
-  /* Without JavaScript every situation shows its line. */
-  html:not(.js) [data-situation-body] {
+  /* Where the scroll cannot reveal them, every situation shows its line. */
+  html:not(.js) [data-situation-body],
+  html.reduce [data-situation-body] {
     display: block !important;
   }
   /* Drawing parts that change state cross-fade rather than jump. */

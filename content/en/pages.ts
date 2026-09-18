@@ -55,15 +55,15 @@ export const pagesContent: PagesContent = {
       },
       {
         title: "Staircase",
-        paragraphs: ["The cabin and the staircase are decided together, so the two read as one piece of joinery rather than a lift beside a stair."],
+        paragraphs: ["The cabin and the staircase are decided together, as one system rather than a lift placed beside a stair."],
       },
       {
         title: "Materials and finishes",
-        paragraphs: ["Walls, side finishes, flooring, colours and metalwork in a choice of materials suited to different interiors, from period houses to new builds."],
+        paragraphs: ["Walls, side finishes, flooring, colours and metalwork in a choice of materials, so that the system suits the interior it is installed in."],
       },
       {
         title: "Controls and details",
-        paragraphs: ["Controls, handrails, lighting and door details follow the same restraint as the rest of the cabin."],
+        paragraphs: ["Controls and details are chosen with the same restraint as the rest of the cabin. The options will be published with the range."],
       },
     ],
     optionsTitle: "Design options",

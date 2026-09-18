@@ -55,7 +55,7 @@ export const site: SiteContent = {
     ],
     regionNote: "Netherlands, in English. Further countries and languages will follow.",
     contactNote: "Contact details for Elevante and its dealers will be published here.",
-    legal: "Elevante Beheer BV. Elevante Homelift is a registered trade name.",
+    legal: "Elevante Beheer BV, which owns the Elevante Homelift brand.",
   },
   skipLink: "Skip to content",
 };
