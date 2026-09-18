@@ -6,6 +6,8 @@ Inspiration, Information and Find a dealer. The brief
 (`Elevante Homelift - Website development brief.txt`) is the source of truth
 for facts and tone; the design spec and plan live in `docs/superpowers/`.
 
+Live preview: https://23f3000111.github.io/elevante-homelift/
+
 ## Run
 
 ```bash
@@ -64,3 +66,28 @@ photography or renders arrive, set their provenance to `product`; the
 - Testimonials, dealers, projects and downloads must carry `placeholder: true` until real ones exist.
 - Every asset has a file, dimensions, alt text and provenance; every sequence has every frame at both sizes (`tests/media.test.ts`).
 - The drawings expose their parts and render every static pose (`tests/diagram.test.tsx`).
+
+## Deploying
+
+`main` publishes to GitHub Pages through `.github/workflows/deploy.yml`,
+which runs typecheck, lint and the tests before building.
+
+The Pages build is a fully static export. It is switched on by environment,
+so a Node host needs none of it:
+
+| Variable | Purpose |
+|---|---|
+| `STATIC_EXPORT=1` | Emits `out/` with trailing-slash routes and no image optimiser. |
+| `NEXT_PUBLIC_STATIC_EXPORT=1` | Turns off router prefetch, whose payloads a static host does not serve under the names Next asks for. |
+| `NEXT_PUBLIC_BASE_PATH` | The sub-path a project site lives under, for example `/elevante-homelift`. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URLs, the sitemap and Open Graph data. |
+| `NEXT_PUBLIC_LEAD_ENDPOINT` | Where the information request is POSTed. Unset, the form says plainly that nothing was sent. |
+
+On a Node host (Vercel, a container) set only `NEXT_PUBLIC_SITE_URL` and run
+`npm run build && npm start`: the image optimiser and prefetch come back on
+and no path is rewritten.
+
+To deploy elsewhere under a sub-path, remember that `next/image` applies the
+base path only when the optimiser runs. Everything here goes through
+`withBase()` in `lib/basePath.ts`, so keep using `Picture`, `MediaFrame`,
+`VideoLoop` and `AppLink` rather than the Next primitives directly.
