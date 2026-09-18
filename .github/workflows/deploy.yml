@@ -15,22 +15,25 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  SITE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+  BASE: /${{ github.event.repository.name }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      STATIC_EXPORT: "1"
-      NEXT_PUBLIC_STATIC_EXPORT: "1"
-      NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-      NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
     steps:
+      # Full history: the V1 site is built from the `v1` tag.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
+      # ---- V2: the current site, served from the root ----
       - run: npm ci
 
       # The same gates that run locally, so a broken build never reaches Pages.
@@ -38,10 +41,38 @@ jobs:
       - run: npm run lint
       - run: npm test
 
-      - run: npm run build
+      - name: Build V2
+        env:
+          STATIC_EXPORT: "1"
+          NEXT_PUBLIC_STATIC_EXPORT: "1"
+          NEXT_PUBLIC_BASE_PATH: ${{ env.BASE }}
+          NEXT_PUBLIC_SITE_URL: ${{ env.SITE }}
+        run: npm run build
 
-      - name: Keep Pages from running the output through Jekyll
-        run: touch out/.nojekyll
+      # ---- V1: the previous site, kept live under /v1/ ----
+      # Built from its own tag in a worktree, with its own dependencies, so
+      # neither version can affect the other.
+      - name: Check out V1
+        run: git worktree add ../v1 v1
+
+      - name: Build V1
+        working-directory: ../v1
+        env:
+          STATIC_EXPORT: "1"
+          NEXT_PUBLIC_STATIC_EXPORT: "1"
+          NEXT_PUBLIC_BASE_PATH: ${{ env.BASE }}/v1
+          NEXT_PUBLIC_SITE_URL: ${{ env.SITE }}/v1
+        run: |
+          npm ci
+          npm run build
+
+      - name: Place V1 under /v1
+        run: |
+          mv ../v1/out out/v1
+          # Pages must not run either build through Jekyll.
+          touch out/.nojekyll out/v1/.nojekyll
+          test -f out/index.html
+          test -f out/v1/index.html
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

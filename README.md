@@ -6,7 +6,16 @@ Installation, Inspiration, Information and Find a dealer. The brief
 (`Elevante Homelift - Website development brief.txt`) is the source of truth
 for facts and tone.
 
-Live preview: https://23f3000111.github.io/elevante-homelift/
+Live previews:
+
+| Version | Link |
+|---|---|
+| V2 (this repository, current) | https://23f3000111.github.io/elevante-homelift/ |
+| V1 (the previous site, kept for comparison) | https://23f3000111.github.io/elevante-homelift/v1/ |
+
+Both are published by the same workflow from the same repository: V2 from
+`main`, V1 from the `v1` tag, built in a worktree with its own dependencies
+so neither can affect the other.
 
 ## Run
 
@@ -114,7 +123,10 @@ photography or renders arrive, set their provenance to `product`; the
 ## Deploying
 
 `main` publishes to GitHub Pages through `.github/workflows/deploy.yml`,
-which runs typecheck, lint and the tests before building.
+which runs typecheck, lint and the tests before building. The same run also
+rebuilds the `v1` tag under `/v1/`, so the previous site stays reachable.
+Moving the `v1` tag changes which commit that is; deleting the tag and its
+two workflow steps removes the older site.
 
 | Variable | Purpose |
 |---|---|
