@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { AppLink } from "@/components/ui/AppLink";
 import { useEffect, useRef } from "react";
 import type { Cta, NavItem } from "@/content/types";
 import { cn } from "@/lib/cn";
@@ -18,7 +18,13 @@ interface MobileMenuProps {
  * Full-screen menu for phones and tablets: one column of large targets, a
  * visible close control, Escape to close, focus kept inside while open.
  */
-export function MobileMenu({ open, onClose, nav, dealerCta, regionNote }: MobileMenuProps) {
+export function MobileMenu({
+  open,
+  onClose,
+  nav,
+  dealerCta,
+  regionNote,
+}: MobileMenuProps) {
   const panel = useRef<HTMLDivElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
 
@@ -26,13 +32,18 @@ export function MobileMenu({ open, onClose, nav, dealerCta, regionNote }: Mobile
     if (!open) return;
     const previouslyFocused = document.activeElement as HTMLElement | null;
     // The panel becomes visible on the next frame; focus once it can take it.
-    const focusTimer = window.setTimeout(() => closeButton.current?.focus(), 60);
+    const focusTimer = window.setTimeout(
+      () => closeButton.current?.focus(),
+      60,
+    );
     document.body.style.overflow = "hidden";
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "Tab" && panel.current) {
-        const focusables = panel.current.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+        const focusables = panel.current.querySelectorAll<HTMLElement>(
+          "a[href], button:not([disabled])",
+        );
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
         if (e.shiftKey && document.activeElement === first) {
@@ -82,27 +93,37 @@ export function MobileMenu({ open, onClose, nav, dealerCta, regionNote }: Mobile
         </button>
       </div>
 
-      <nav aria-label="Primary, mobile" className="container-content mt-4 flex-1">
+      <nav
+        aria-label="Primary, mobile"
+        className="container-content mt-4 flex-1"
+      >
         <ul className="divide-y divide-stone border-y border-stone">
           {nav.map((item, i) => (
             <li
               key={item.href}
-              className={cn("transition-[opacity,transform] duration-500 ease-[var(--ease-out-quart)]", open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0")}
+              className={cn(
+                "transition-[opacity,transform] duration-500 ease-[var(--ease-out-quart)]",
+                open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
+              )}
               style={{ transitionDelay: open ? `${60 + i * 40}ms` : "0ms" }}
             >
-              <Link href={item.href} onClick={onClose} className="flex min-h-16 items-center text-[1.75rem] font-medium tracking-[-0.02em] text-charcoal">
+              <AppLink
+                href={item.href}
+                onClick={onClose}
+                className="flex min-h-16 items-center text-[1.75rem] font-medium tracking-[-0.02em] text-charcoal"
+              >
                 {item.label}
-              </Link>
+              </AppLink>
             </li>
           ))}
         </ul>
-        <Link
+        <AppLink
           href={dealerCta.href}
           onClick={onClose}
           className="mt-8 inline-flex min-h-14 w-full items-center justify-center rounded-[var(--radius-button)] bg-charcoal px-7 text-body font-medium text-warm-white"
         >
           {dealerCta.label}
-        </Link>
+        </AppLink>
         <p className="mt-8 mb-10 text-small text-caption">{regionNote}</p>
       </nav>
     </div>

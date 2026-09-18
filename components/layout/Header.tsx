@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { AppLink } from "@/components/ui/AppLink";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { Cta, NavItem } from "@/content/types";
@@ -35,7 +35,9 @@ export function Header({ nav, dealerCta, regionNote }: HeaderProps) {
     <header
       className={cn(
         "sticky top-0 z-40 bg-warm-white transition-[box-shadow] duration-500",
-        scrolled ? "shadow-[0_1px_0_0_var(--color-stone)]" : "shadow-[0_1px_0_0_transparent]",
+        scrolled
+          ? "shadow-[0_1px_0_0_var(--color-stone)]"
+          : "shadow-[0_1px_0_0_transparent]",
       )}
     >
       <div
@@ -44,9 +46,13 @@ export function Header({ nav, dealerCta, regionNote }: HeaderProps) {
           scrolled ? "h-16" : "h-18 lg:h-20",
         )}
       >
-        <Link href="/" className="-ml-1 flex min-h-12 items-center px-1" aria-label="Elevante Homelift, home">
+        <AppLink
+          href="/"
+          className="-ml-1 flex min-h-12 items-center px-1"
+          aria-label="Elevante Homelift, home"
+        >
           <Wordmark compact />
-        </Link>
+        </AppLink>
 
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-6 xl:gap-9">
@@ -54,7 +60,7 @@ export function Header({ nav, dealerCta, regionNote }: HeaderProps) {
               const active = pathname === item.href;
               return (
                 <li key={item.href}>
-                  <Link
+                  <AppLink
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
@@ -65,7 +71,7 @@ export function Header({ nav, dealerCta, regionNote }: HeaderProps) {
                     )}
                   >
                     {item.label}
-                  </Link>
+                  </AppLink>
                 </li>
               );
             })}
@@ -73,12 +79,12 @@ export function Header({ nav, dealerCta, regionNote }: HeaderProps) {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Link
+          <AppLink
             href={dealerCta.href}
             className="inline-flex min-h-12 items-center rounded-[var(--radius-button)] bg-charcoal px-4 text-small font-medium leading-none whitespace-nowrap text-warm-white transition-colors duration-300 hover:bg-charcoal-soft sm:px-5"
           >
             {dealerCta.label}
-          </Link>
+          </AppLink>
           <button
             type="button"
             className="inline-flex min-h-12 min-w-12 items-center justify-center gap-2 rounded-[var(--radius-button)] px-2 text-small font-medium text-charcoal lg:hidden"
@@ -95,7 +101,13 @@ export function Header({ nav, dealerCta, regionNote }: HeaderProps) {
         </div>
       </div>
 
-      <MobileMenu open={open} onClose={() => setOpen(false)} nav={nav} dealerCta={dealerCta} regionNote={regionNote} />
+      <MobileMenu
+        open={open}
+        onClose={() => setOpen(false)}
+        nav={nav}
+        dealerCta={dealerCta}
+        regionNote={regionNote}
+      />
     </header>
   );
 }

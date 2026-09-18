@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink } from "@/components/ui/AppLink";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
@@ -16,18 +16,25 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary: "bg-charcoal text-warm-white hover:bg-charcoal-soft",
-  secondary: "border border-charcoal/30 bg-transparent text-charcoal hover:border-charcoal hover:bg-white",
-  quiet: "min-h-12 px-0 text-charcoal underline decoration-stone decoration-2 underline-offset-8 hover:decoration-charcoal",
+  secondary:
+    "border border-charcoal/30 bg-transparent text-charcoal hover:border-charcoal hover:bg-white",
+  quiet:
+    "min-h-12 px-0 text-charcoal underline decoration-stone decoration-2 underline-offset-8 hover:decoration-charcoal",
 };
 
 /**
  * Every call to action is a real link. Buttons are 56px tall with 18px text so
  * they stay obvious on a phone and for older visitors.
  */
-export function Button({ href, variant = "primary", className, children }: ButtonProps) {
+export function Button({
+  href,
+  variant = "primary",
+  className,
+  children,
+}: ButtonProps) {
   return (
-    <Link href={href} className={cn(base, variants[variant], className)}>
+    <AppLink href={href} className={cn(base, variants[variant], className)}>
       {children}
-    </Link>
+    </AppLink>
   );
 }

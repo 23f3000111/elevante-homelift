@@ -20,7 +20,9 @@ export function PageIntro({ intro, dealerCta }: PageIntroProps) {
             <h1 id="page-title" className="text-display-2">
               {intro.title}
             </h1>
-            <p className="mt-8 max-w-[52ch] text-body-l text-charcoal-soft">{intro.body}</p>
+            <p className="mt-8 max-w-[52ch] text-body-l text-charcoal-soft">
+              {intro.body}
+            </p>
           </div>
           <aside className="lg:col-span-4 lg:col-start-9">
             <div className="border-t border-stone pt-5">

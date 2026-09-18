@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import type { SequenceAsset } from "@/content/types";
+import { withBase } from "@/lib/basePath";
 import { cn } from "@/lib/cn";
 import { useMotionEffect } from "@/lib/motion/useMotion";
 
@@ -66,8 +67,12 @@ export function ScrollImageSequence({
   const raf = useRef(0);
   const [ready, setReady] = useState(false);
 
-  const variantFor = () => (window.innerWidth < 768 ? sequence.mobile : sequence.desktop);
-  const url = (i: number) => `${variantFor().dir}/${String(i).padStart(sequence.pad, "0")}.${sequence.ext}`;
+  const variantFor = () =>
+    window.innerWidth < 768 ? sequence.mobile : sequence.desktop;
+  const url = (i: number) =>
+    withBase(
+      `${variantFor().dir}/${String(i).padStart(sequence.pad, "0")}.${sequence.ext}`,
+    );
 
   const draw = () => {
     raf.current = 0;
@@ -165,7 +170,12 @@ export function ScrollImageSequence({
         onProgress?.(p);
         requestDraw();
       };
-      const st = ScrollTrigger.create({ trigger: scope, start, end, onUpdate: (self) => apply(self.progress) });
+      const st = ScrollTrigger.create({
+        trigger: scope,
+        start,
+        end,
+        onUpdate: (self) => apply(self.progress),
+      });
       apply(st.progress);
       return () => st.kill();
     },
@@ -183,7 +193,7 @@ export function ScrollImageSequence({
       {/* Poster underneath: identical to frame 0, so the hand-over is invisible. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={sequence.poster.src}
+        src={withBase(sequence.poster.src)}
         alt=""
         aria-hidden
         width={sequence.poster.width}
@@ -195,7 +205,10 @@ export function ScrollImageSequence({
       />
       <canvas
         ref={canvasRef}
-        className={cn("absolute inset-0 h-full w-full transition-opacity duration-300", ready ? "opacity-100" : "opacity-0")}
+        className={cn(
+          "absolute inset-0 h-full w-full transition-opacity duration-300",
+          ready ? "opacity-100" : "opacity-0",
+        )}
         aria-hidden
       />
     </div>

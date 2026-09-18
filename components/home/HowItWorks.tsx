@@ -16,7 +16,11 @@ import { revealWithin, useMotion } from "@/lib/motion/useMotion";
  * the text, so type and drawing move independently. Without JavaScript the
  * drawing shows the first stage and every stage is fully legible.
  */
-export function HowItWorks({ content }: { content: HomeContent["howItWorks"] }) {
+export function HowItWorks({
+  content,
+}: {
+  content: HomeContent["howItWorks"];
+}) {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
 
@@ -26,13 +30,20 @@ export function HowItWorks({ content }: { content: HomeContent["howItWorks"] }) 
     const doorLower = scope.querySelector('[data-part="door-lower"]');
     const doorUpper = scope.querySelector('[data-part="door-upper"]');
     const list = scope.querySelector("[data-steps]");
-    const steps = Array.from(scope.querySelectorAll<HTMLElement>("[data-step]"));
+    const steps = Array.from(
+      scope.querySelectorAll<HTMLElement>("[data-step]"),
+    );
     if (!cabin || !doorLower || !doorUpper || !list) return;
 
     gsap.set(doorLower, { strokeDashoffset: 0 });
     const tl = gsap.timeline({
       defaults: { ease: "none" },
-      scrollTrigger: { trigger: list, start: "top 70%", end: "bottom 50%", scrub: 0.5 },
+      scrollTrigger: {
+        trigger: list,
+        start: "top 70%",
+        end: "bottom 50%",
+        scrub: 0.5,
+      },
     });
     tl.to(doorLower, { strokeDashoffset: 1, duration: 0.08 }, 0.03)
       .to(doorLower, { strokeDashoffset: 0, duration: 0.08 }, 0.24)
@@ -54,24 +65,41 @@ export function HowItWorks({ content }: { content: HomeContent["howItWorks"] }) 
   const current = content.steps[active];
 
   return (
-    <section ref={ref} id="how-it-works" aria-labelledby="hiw-title" className="overflow-x-clip bg-warm-white py-section">
+    <section
+      ref={ref}
+      id="how-it-works"
+      aria-labelledby="hiw-title"
+      className="overflow-x-clip bg-warm-white py-section"
+    >
       <Container>
         <div className="grid lg:grid-cols-12 lg:gap-x-10">
           <div className="lg:col-span-5">
-            <SectionIndex index={content.index} label={content.indexLabel} size="small" />
+            <SectionIndex
+              index={content.index}
+              label={content.indexLabel}
+              size="small"
+            />
             <h2 id="hiw-title" data-reveal className="mt-6 text-display-2">
               {content.title}
             </h2>
-            <p data-reveal className="mt-5 max-w-[40ch] text-body-l text-charcoal-soft">
+            <p
+              data-reveal
+              className="mt-5 max-w-[40ch] text-body-l text-charcoal-soft"
+            >
               {content.intro}
             </p>
           </div>
 
           <div className="sticky top-[4.5rem] z-10 mt-6 bg-warm-white py-3 lg:top-28 lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1 lg:mt-0 lg:self-start lg:py-0">
-            <StairSection state="enter" className="diagram-hide-labels-mobile h-auto w-full" />
+            <StairSection
+              state="enter"
+              className="diagram-hide-labels-mobile h-auto w-full"
+            />
             <div className="mt-3 hidden items-baseline justify-between border-t border-stone pt-3 lg:flex">
               <span className="text-body font-medium text-charcoal">
-                <span className="mr-3 font-mono text-small text-oxide">{current.number}</span>
+                <span className="mr-3 font-mono text-small text-oxide">
+                  {current.number}
+                </span>
                 {current.title}
               </span>
               <Caption>{content.diagramNote}</Caption>
@@ -93,12 +121,21 @@ export function HowItWorks({ content }: { content: HomeContent["howItWorks"] }) 
                   {step.number}
                 </span>
                 <div className="relative">
-                  <span className={cn("font-mono text-small", i === active ? "text-oxide" : "text-caption")}>
+                  <span
+                    className={cn(
+                      "font-mono text-small",
+                      i === active ? "text-oxide" : "text-caption",
+                    )}
+                  >
                     <span className="sr-only">Stage </span>
                     {step.number}
                   </span>
-                  <h3 className="mt-2 text-[clamp(1.875rem,3.2vw,3rem)] leading-[1.02] font-medium tracking-[-0.025em] text-charcoal">{step.title}</h3>
-                  <p className="mt-4 max-w-[38ch] text-body-l text-charcoal-soft">{step.body}</p>
+                  <h3 className="mt-2 text-[clamp(1.875rem,3.2vw,3rem)] leading-[1.02] font-medium tracking-[-0.025em] text-charcoal">
+                    {step.title}
+                  </h3>
+                  <p className="mt-4 max-w-[38ch] text-body-l text-charcoal-soft">
+                    {step.body}
+                  </p>
                 </div>
               </li>
             ))}

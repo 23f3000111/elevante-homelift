@@ -25,14 +25,31 @@ const spaces = {
   flush: "",
 };
 
-export function Section({ id, tone = "warm-white", space = "section", className, labelledBy, children }: SectionProps) {
+export function Section({
+  id,
+  tone = "warm-white",
+  space = "section",
+  className,
+  labelledBy,
+  children,
+}: SectionProps) {
   return (
-    <section id={id} aria-labelledby={labelledBy} className={cn("relative", tones[tone], spaces[space], className)}>
+    <section
+      id={id}
+      aria-labelledby={labelledBy}
+      className={cn("relative", tones[tone], spaces[space], className)}
+    >
       {children}
     </section>
   );
 }
 
-export function Container({ className, children }: { className?: string; children: ReactNode }) {
+export function Container({
+  className,
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
   return <div className={cn("container-content", className)}>{children}</div>;
 }

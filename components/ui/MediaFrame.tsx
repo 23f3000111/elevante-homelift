@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { MediaAsset } from "@/content/types";
+import { withBase } from "@/lib/basePath";
 import { cn } from "@/lib/cn";
 
 interface MediaFrameProps {
@@ -21,7 +22,14 @@ interface MediaFrameProps {
  * The parent sets the height (for example `h-[24rem]`); the frame takes its
  * width from the picture inside it.
  */
-export function MediaFrame({ asset, sizes, priority, tone = "white", className, imgClassName }: MediaFrameProps) {
+export function MediaFrame({
+  asset,
+  sizes,
+  priority,
+  tone = "white",
+  className,
+  imgClassName,
+}: MediaFrameProps) {
   return (
     <div
       className={cn(
@@ -31,7 +39,7 @@ export function MediaFrame({ asset, sizes, priority, tone = "white", className, 
       )}
     >
       <Image
-        src={asset.src}
+        src={withBase(asset.src)}
         alt={asset.alt}
         width={asset.width}
         height={asset.height}
@@ -39,7 +47,10 @@ export function MediaFrame({ asset, sizes, priority, tone = "white", className, 
         priority={priority}
         placeholder={asset.blurDataURL ? "blur" : "empty"}
         blurDataURL={asset.blurDataURL}
-        className={cn("h-auto max-h-full w-auto max-w-full object-contain", imgClassName)}
+        className={cn(
+          "h-auto max-h-full w-auto max-w-full object-contain",
+          imgClassName,
+        )}
       />
     </div>
   );

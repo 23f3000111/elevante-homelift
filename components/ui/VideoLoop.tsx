@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { VideoAsset } from "@/content/types";
+import { withBase } from "@/lib/basePath";
 import { cn } from "@/lib/cn";
 
 interface VideoLoopProps {
@@ -45,7 +46,7 @@ export function VideoLoop({ video, className, eager = false }: VideoLoopProps) {
     <video
       ref={ref}
       className={cn("h-full w-full object-cover", className)}
-      poster={video.poster.src}
+      poster={withBase(video.poster.src)}
       width={video.poster.width}
       height={video.poster.height}
       muted
@@ -58,8 +59,8 @@ export function VideoLoop({ video, className, eager = false }: VideoLoopProps) {
     >
       {(eager || armed) && (
         <>
-          <source src={video.webm} type="video/webm" />
-          <source src={video.mp4} type="video/mp4" />
+          <source src={withBase(video.webm)} type="video/webm" />
+          <source src={withBase(video.mp4)} type="video/mp4" />
         </>
       )}
     </video>

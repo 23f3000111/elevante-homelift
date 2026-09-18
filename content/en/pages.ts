@@ -196,8 +196,13 @@ export const pagesContent: PagesContent = {
       message: "What would you like to know? (optional)",
       submit: "Send request",
       success: "Thank you. Your request has been received.",
-      error: "Please check the highlighted fields.",
-      privacy: "Your details are used only to answer this request. See the privacy statement.",
+      unrouted:
+        "This preview is not connected to Elevante's systems yet, so nothing was sent. Your details stayed in this browser.",
+      invalid: "Please check the highlighted fields.",
+      error: "The request could not be sent. Please try again, or contact a dealer directly.",
+      privacy: "Your details are used only to answer this request.",
+      privacyLink: "See the privacy statement.",
+      notConnected: "Lead routing to Elevante and its dealers is the next integration; this form does not send yet.",
     },
   },
 };

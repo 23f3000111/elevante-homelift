@@ -388,9 +388,18 @@ export interface PagesContent {
       postcode: string;
       message: string;
       submit: string;
+      /** Shown when the request reached Elevante. */
       success: string;
+      /** Shown when no lead endpoint is configured, so nothing was sent. */
+      unrouted: string;
+      /** Shown when a field is missing or malformed. */
+      invalid: string;
+      /** Shown when the endpoint refused the request. */
       error: string;
       privacy: string;
+      privacyLink: string;
+      /** Standing note while the form has nowhere to send to. */
+      notConnected: string;
     };
   };
 }

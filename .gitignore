@@ -43,3 +43,6 @@ next-env.d.ts
 # playwright / local scratch
 /.playwright-mcp
 /test-results
+
+# static export output
+/out

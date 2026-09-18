@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { MediaAsset } from "@/content/types";
+import { withBase } from "@/lib/basePath";
 import { cn } from "@/lib/cn";
 
 interface PictureProps {
@@ -24,9 +25,17 @@ interface PictureProps {
  * never wider than its source; the pipeline never upscales, and neither does
  * this component.
  */
-export function Picture({ asset, sizes, priority, fill, fit = "cover", className, imgClassName }: PictureProps) {
+export function Picture({
+  asset,
+  sizes,
+  priority,
+  fill,
+  fit = "cover",
+  className,
+  imgClassName,
+}: PictureProps) {
   const common = {
-    src: asset.src,
+    src: withBase(asset.src),
     sizes,
     priority,
     placeholder: asset.blurDataURL ? ("blur" as const) : ("empty" as const),
@@ -35,13 +44,27 @@ export function Picture({ asset, sizes, priority, fill, fit = "cover", className
   if (fill) {
     return (
       <div className={cn("relative overflow-hidden", className)}>
-        <Image {...common} alt={asset.alt} fill className={cn(fit === "contain" ? "object-contain" : "object-cover", imgClassName)} />
+        <Image
+          {...common}
+          alt={asset.alt}
+          fill
+          className={cn(
+            fit === "contain" ? "object-contain" : "object-cover",
+            imgClassName,
+          )}
+        />
       </div>
     );
   }
   return (
     <div className={className} style={{ maxWidth: asset.width }}>
-      <Image {...common} alt={asset.alt} width={asset.width} height={asset.height} className={cn("h-auto w-full", imgClassName)} />
+      <Image
+        {...common}
+        alt={asset.alt}
+        width={asset.width}
+        height={asset.height}
+        className={cn("h-auto w-full", imgClassName)}
+      />
     </div>
   );
 }

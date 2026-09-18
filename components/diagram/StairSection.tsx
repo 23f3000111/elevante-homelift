@@ -16,7 +16,10 @@ export type StairHighlight = "cabin" | "door-lower" | "door-upper" | "void";
 
 export const STOREY = 256;
 
-export const POSES: Record<StairState, { cabinY: number; lowerOpen: number; upperOpen: number }> = {
+export const POSES: Record<
+  StairState,
+  { cabinY: number; lowerOpen: number; upperOpen: number }
+> = {
   rest: { cabinY: 0, lowerOpen: 0, upperOpen: 0 },
   enter: { cabinY: 0, lowerOpen: 1, upperOpen: 0 },
   move: { cabinY: -STOREY / 2, lowerOpen: 0, upperOpen: 0 },
@@ -74,8 +77,21 @@ export function StairSection({
       <title id={titleId}>{title}</title>
       <desc id={descId}>{desc}</desc>
       <defs>
-        <pattern id={hatch} width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <line x1="0" y1="0" x2="0" y2="8" stroke="var(--color-warm-grey)" strokeWidth="1" />
+        <pattern
+          id={hatch}
+          width="8"
+          height="8"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <line
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="8"
+            stroke="var(--color-warm-grey)"
+            strokeWidth="1"
+          />
         </pattern>
       </defs>
 
@@ -90,23 +106,70 @@ export function StairSection({
       </g>
 
       {/* House: walls, ceiling, floors */}
-      <g data-part="floors" fill="none" stroke="var(--color-charcoal-soft)" strokeWidth="1.5" strokeLinecap="square">
+      <g
+        data-part="floors"
+        fill="none"
+        stroke="var(--color-charcoal-soft)"
+        strokeWidth="1.5"
+        strokeLinecap="square"
+      >
         <path data-draw d="M40 10 V470" pathLength={1} />
         <path data-draw d="M760 10 V470" pathLength={1} />
-        <path data-draw d="M40 10 H760" pathLength={1} stroke="var(--color-stone)" />
-        <path data-draw d={`M40 ${LOWER} H760`} pathLength={1} strokeWidth="2.5" />
+        <path
+          data-draw
+          d="M40 10 H760"
+          pathLength={1}
+          stroke="var(--color-stone)"
+        />
+        <path
+          data-draw
+          d={`M40 ${LOWER} H760`}
+          pathLength={1}
+          strokeWidth="2.5"
+        />
         {/* upper floor slab, left and right of the stair opening */}
-        <path data-draw d={`M40 ${UPPER} H200 V${UPPER + SLAB} H40`} pathLength={1} fill="var(--color-stone)" />
-        <path data-draw d={`M644 ${UPPER} H760 V${UPPER + SLAB} H644 Z`} pathLength={1} fill="var(--color-stone)" />
+        <path
+          data-draw
+          d={`M40 ${UPPER} H200 V${UPPER + SLAB} H40`}
+          pathLength={1}
+          fill="var(--color-stone)"
+        />
+        <path
+          data-draw
+          d={`M644 ${UPPER} H760 V${UPPER + SLAB} H644 Z`}
+          pathLength={1}
+          fill="var(--color-stone)"
+        />
       </g>
 
       {/* Travel path */}
-      <line data-part="path" x1="592" y1="16" x2="592" y2={LOWER} stroke="var(--color-warm-grey)" strokeWidth="1" strokeDasharray="3 7" />
+      <line
+        data-part="path"
+        x1="592"
+        y1="16"
+        x2="592"
+        y2={LOWER}
+        stroke="var(--color-warm-grey)"
+        strokeWidth="1"
+        strokeDasharray="3 7"
+      />
 
       {/* Staircase: treads and underside */}
-      <g data-part="stair" fill="none" stroke="var(--color-charcoal)" strokeWidth="2" strokeLinejoin="round">
+      <g
+        data-part="stair"
+        fill="none"
+        stroke="var(--color-charcoal)"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      >
         <path data-draw d={treadPath()} pathLength={1} />
-        <path data-draw d={`M190 ${LOWER} L606 ${UPPER}`} pathLength={1} strokeWidth="1.5" stroke="var(--color-charcoal-soft)" />
+        <path
+          data-draw
+          d={`M190 ${LOWER} L606 ${UPPER}`}
+          pathLength={1}
+          strokeWidth="1.5"
+          stroke="var(--color-charcoal-soft)"
+        />
       </g>
 
       {/* Automatic doors: lower opening (vertical) and stair opening at the upper floor (horizontal) */}
@@ -119,7 +182,9 @@ export function StairSection({
         pathLength={1}
         strokeDasharray="1"
         strokeDashoffset={pose.lowerOpen}
-        stroke={hi("door-lower") ? "var(--color-oxide)" : "var(--color-charcoal)"}
+        stroke={
+          hi("door-lower") ? "var(--color-oxide)" : "var(--color-charcoal)"
+        }
         strokeWidth={hi("door-lower") ? 5 : 4}
         strokeLinecap="butt"
       />
@@ -132,7 +197,9 @@ export function StairSection({
         pathLength={1}
         strokeDasharray="1"
         strokeDashoffset={pose.upperOpen}
-        stroke={hi("door-upper") ? "var(--color-oxide)" : "var(--color-charcoal)"}
+        stroke={
+          hi("door-upper") ? "var(--color-oxide)" : "var(--color-charcoal)"
+        }
         strokeWidth={hi("door-upper") ? 5 : 4}
         strokeLinecap="butt"
       />
@@ -149,19 +216,47 @@ export function StairSection({
           stroke="var(--color-oxide)"
           strokeWidth="2.5"
         />
-        <rect x={CABIN.x + 10} y={CABIN.y + 10} width={CABIN.w - 20} height={CABIN.h - 20} fill="none" stroke="var(--color-oxide)" strokeWidth="1" strokeOpacity="0.5" />
+        <rect
+          x={CABIN.x + 10}
+          y={CABIN.y + 10}
+          width={CABIN.w - 20}
+          height={CABIN.h - 20}
+          fill="none"
+          stroke="var(--color-oxide)"
+          strokeWidth="1"
+          strokeOpacity="0.5"
+        />
         {labels && (
-          <text x={CABIN.x + CABIN.w / 2} y={CABIN.y + CABIN.h / 2 + 5} textAnchor="middle" fill="var(--color-oxide)">
+          <text
+            x={CABIN.x + CABIN.w / 2}
+            y={CABIN.y + CABIN.h / 2 + 5}
+            textAnchor="middle"
+            fill="var(--color-oxide)"
+          >
             Cabin
           </text>
         )}
       </g>
 
       {labels && (
-        <g data-part="labels" style={{ paintOrder: "stroke", stroke: "var(--color-warm-white)", strokeWidth: 5, strokeLinejoin: "round" }}>
-          <text x="52" y={UPPER - 9}>Upper floor</text>
-          <text x="52" y={LOWER - 9}>Lower floor</text>
-          <text x="296" y="326">Staircase</text>
+        <g
+          data-part="labels"
+          style={{
+            paintOrder: "stroke",
+            stroke: "var(--color-warm-white)",
+            strokeWidth: 5,
+            strokeLinejoin: "round",
+          }}
+        >
+          <text x="52" y={UPPER - 9}>
+            Upper floor
+          </text>
+          <text x="52" y={LOWER - 9}>
+            Lower floor
+          </text>
+          <text x="296" y="326">
+            Staircase
+          </text>
           <text x="430" y="428" textAnchor="middle">
             Space beneath
           </text>

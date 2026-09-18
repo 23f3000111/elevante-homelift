@@ -32,7 +32,10 @@ export function DealerLocator({ copy, markets, dealers }: DealerLocatorProps) {
       dealers.filter(
         (d) =>
           d.country === country &&
-          (!q || d.city.toLowerCase().includes(q) || (d.postcode ?? "").toLowerCase().startsWith(q) || (d.region ?? "").toLowerCase().includes(q)),
+          (!q ||
+            d.city.toLowerCase().includes(q) ||
+            (d.postcode ?? "").toLowerCase().startsWith(q) ||
+            (d.region ?? "").toLowerCase().includes(q)),
       ),
     );
   };
@@ -47,14 +50,26 @@ export function DealerLocator({ copy, markets, dealers }: DealerLocatorProps) {
             <h2 id="locator-title" className="text-display-2">
               {copy.locatorTitle}
             </h2>
-            <p className="mt-6 max-w-[40ch] text-body-l text-charcoal-soft">{copy.locatorBody}</p>
+            <p className="mt-6 max-w-[40ch] text-body-l text-charcoal-soft">
+              {copy.locatorBody}
+            </p>
           </div>
 
           <div className="lg:col-span-7 lg:col-start-6">
-            <form onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-12" aria-describedby="locator-status">
+            <form
+              onSubmit={onSubmit}
+              className="grid gap-4 sm:grid-cols-12"
+              aria-describedby="locator-status"
+            >
               <label className="sm:col-span-4">
-                <span className="mb-2 block text-small font-medium text-charcoal">{copy.countryLabel}</span>
-                <select className={field} value={country} onChange={(e) => setCountry(e.target.value)}>
+                <span className="mb-2 block text-small font-medium text-charcoal">
+                  {copy.countryLabel}
+                </span>
+                <select
+                  className={field}
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                >
                   {markets.map((m) => (
                     <option key={m.code} value={m.code}>
                       {m.name}
@@ -63,8 +78,16 @@ export function DealerLocator({ copy, markets, dealers }: DealerLocatorProps) {
                 </select>
               </label>
               <label className="sm:col-span-5">
-                <span className="mb-2 block text-small font-medium text-charcoal">{copy.searchLabel}</span>
-                <input className={field} value={query} onChange={(e) => setQuery(e.target.value)} placeholder={copy.searchPlaceholder} autoComplete="postal-code" />
+                <span className="mb-2 block text-small font-medium text-charcoal">
+                  {copy.searchLabel}
+                </span>
+                <input
+                  className={field}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={copy.searchPlaceholder}
+                  autoComplete="postal-code"
+                />
               </label>
               <div className="flex items-end sm:col-span-3">
                 <button
@@ -78,7 +101,9 @@ export function DealerLocator({ copy, markets, dealers }: DealerLocatorProps) {
 
             <div id="locator-status" aria-live="polite" className="mt-8">
               {results && results.length === 0 && (
-                <p className="max-w-[52ch] border-t border-dashed border-warm-grey pt-6 text-body-l text-charcoal-soft">{copy.noDealers.replace("{country}", countryName)}</p>
+                <p className="max-w-[52ch] border-t border-dashed border-warm-grey pt-6 text-body-l text-charcoal-soft">
+                  {copy.noDealers.replace("{country}", countryName)}
+                </p>
               )}
               {results && results.length > 0 && (
                 <ul className="divide-y divide-stone border-t border-stone">
@@ -94,7 +119,11 @@ export function DealerLocator({ copy, markets, dealers }: DealerLocatorProps) {
                       <div className="text-body text-charcoal-soft sm:col-span-5">
                         {d.phone && <p>{d.phone}</p>}
                         {d.email && <p>{d.email}</p>}
-                        {d.showroom && <p className="mt-2 font-mono text-small text-oxide">Showroom demonstration</p>}
+                        {d.showroom && (
+                          <p className="mt-2 font-mono text-small text-oxide">
+                            Showroom demonstration
+                          </p>
+                        )}
                       </div>
                     </li>
                   ))}
@@ -104,7 +133,9 @@ export function DealerLocator({ copy, markets, dealers }: DealerLocatorProps) {
 
             <div id="showrooms" className="mt-14 border-t border-stone pt-6">
               <h3 className="text-h3">{copy.showroomTitle}</h3>
-              <p className="mt-3 max-w-[52ch] text-body text-charcoal-soft">{copy.showroomBody}</p>
+              <p className="mt-3 max-w-[52ch] text-body text-charcoal-soft">
+                {copy.showroomBody}
+              </p>
             </div>
           </div>
         </div>

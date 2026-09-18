@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { LEGAL_SLUGS, PAGE_ROUTES } from "@/lib/routes";
 import { siteUrl } from "@/lib/seo/metadata";
 
+/** Emitted as a file, so the static export can produce it. */
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [

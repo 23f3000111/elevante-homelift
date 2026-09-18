@@ -4,7 +4,15 @@ import { Section } from "@/components/ui/Section";
 import type { Download } from "@/content/types";
 
 /** The download area. An item without a file says so instead of linking nowhere. */
-export function Downloads({ title, note, items }: { title: string; note: string; items: Download[] }) {
+export function Downloads({
+  title,
+  note,
+  items,
+}: {
+  title: string;
+  note: string;
+  items: Download[];
+}) {
   return (
     <Section tone="warm-white" labelledBy="downloads-title">
       <Reveal className="container-content">
@@ -19,14 +27,23 @@ export function Downloads({ title, note, items }: { title: string; note: string;
           </div>
           <ul className="lg:col-span-7 lg:col-start-6">
             {items.map((d) => (
-              <li key={d.id} data-reveal className="flex min-h-16 items-center justify-between gap-6 border-t border-dashed border-warm-grey py-4 last:border-b">
+              <li
+                key={d.id}
+                data-reveal
+                className="flex min-h-16 items-center justify-between gap-6 border-t border-dashed border-warm-grey py-4 last:border-b"
+              >
                 <span className="text-body text-charcoal">{d.title}</span>
                 {d.href && !d.placeholder ? (
-                  <a href={d.href} className="text-body font-medium text-charcoal underline decoration-stone underline-offset-8 hover:decoration-charcoal">
+                  <a
+                    href={d.href}
+                    className="text-body font-medium text-charcoal underline decoration-stone underline-offset-8 hover:decoration-charcoal"
+                  >
                     Download
                   </a>
                 ) : (
-                  <span className="font-mono text-small text-caption">To be published</span>
+                  <span className="font-mono text-small text-caption">
+                    To be published
+                  </span>
                 )}
               </li>
             ))}

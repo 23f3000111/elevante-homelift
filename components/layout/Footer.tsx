@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink } from "@/components/ui/AppLink";
 import type { SiteContent } from "@/content/types";
 import { Wordmark } from "./Wordmark";
 
@@ -14,23 +14,29 @@ export function Footer({ site }: { site: SiteContent }) {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Wordmark />
-            <p className="mt-6 max-w-[38ch] text-body text-charcoal-soft">{site.description}</p>
-            <p className="mt-6 max-w-[38ch] text-small text-caption">{site.footer.contactNote}</p>
+            <p className="mt-6 max-w-[38ch] text-body text-charcoal-soft">
+              {site.description}
+            </p>
+            <p className="mt-6 max-w-[38ch] text-small text-caption">
+              {site.footer.contactNote}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7 lg:gap-8">
             {site.footer.groups.map((group) => (
               <nav key={group.title} aria-label={group.title}>
-                <h2 className="text-small font-medium text-charcoal">{group.title}</h2>
+                <h2 className="text-small font-medium text-charcoal">
+                  {group.title}
+                </h2>
                 <ul className="mt-4 space-y-1">
                   {group.items.map((item) => (
                     <li key={item.href + item.label}>
-                      <Link
+                      <AppLink
                         href={item.href}
                         className="inline-flex min-h-11 items-center text-small text-charcoal-soft underline-offset-4 hover:text-charcoal hover:underline"
                       >
                         {item.label}
-                      </Link>
+                      </AppLink>
                     </li>
                   ))}
                 </ul>
